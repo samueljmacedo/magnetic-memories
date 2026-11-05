@@ -1,0 +1,752 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #1f4c34;
+    --primary-color-hover: #263b2d;
+
+    --background-color: #f9f7eb;
+    --background-color-alt: #d9dfd1;
+
+    --text-primary-color: #263b2d;
+
+    --accent: #c18d69;
+    --muted: #7d8678;
+
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary-color);
+    background: var(--background-color);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    font-smooth: always;
+    font-weight: 400;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    margin: 0;
+    min-width: 320px
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+button, select {
+    font: inherit
+}
+
+.text-primary {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.text-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    line-height: .95;
+}
+
+h2 {
+    line-height: .99;
+    letter-spacing: -3.7px;
+    font-weight: 500;
+}
+
+h1 i, h2 i {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: -2px
+}
+
+.site-shell {
+    overflow: hidden
+}
+
+.section-wrap {
+    width: min(1160px, calc(100% - 80px));
+    margin-inline: auto
+}
+
+.announcement {
+    height: 32px;
+    background: var(--primary-color);
+    color: #f9f7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    font-size: 9px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase
+}
+
+.tiny-star {
+    color: #d5bd91;
+    font-size: 12px
+}
+
+.header {
+    height: 82px;
+    width: min(1320px, calc(100% - 80px));
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e3d7
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -.6px
+}
+
+.brand em {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 500
+}
+
+.brand-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: var(--background-color);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic
+}
+
+.nav {
+    display: flex;
+    gap: 36px
+}
+
+.nav a {
+    font-size: 11px;
+    color: #586456;
+    transition: color .2s
+}
+
+.nav a:hover, .text-link:hover {
+    color: var(--accent)
+}
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary-color)
+}
+
+.language select {
+    border: 0;
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 10px;
+    letter-spacing: 1px;
+    outline: none
+}
+
+.mobile-menu {
+    display: none;
+    background: none;
+    border: 0;
+    color: var(--primary-color)
+}
+
+
+.eyebrow {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #7d8878;
+    font-weight: 600;
+    margin: 0 0 22px
+}
+
+.eyebrow-line {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 8px
+}
+
+.section-heading h2, .map-copy h2 {
+    font-size: clamp(48px, 6vw, 76px);
+    line-height: .99;
+    letter-spacing: -3.7px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--primary-color)
+}
+
+
+
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-bottom: 1px solid #b8bcae;
+    padding-bottom: 9px;
+    color: var(--primary-color);
+    transition: color .2s
+}
+
+
+
+.scribble {
+    font-size: 28px;
+    color: var(--accent)
+}
+
+
+
+.photo-frame {
+    background: #fff;
+    padding: 13px 13px 39px;
+    box-shadow: 0 16px 40px #263b2d1c;
+    transform: rotate(3deg);
+    position: relative
+}
+
+
+
+.photo-caption {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #596454
+}
+
+.floating-note {
+    position: absolute;
+    right: 0;
+    bottom: 33px;
+    background: #e9e4d4;
+    width: 137px;
+    height: 155px;
+    transform: rotate(7deg);
+    padding: 17px;
+    color: #66705f;
+    box-shadow: 0 8px 18px #263b2d14;
+    font-family: 'Cormorant Garamond', serif
+}
+
+.floating-note > span:first-child {
+    font-size: 12px;
+    line-height: 1.1;
+    font-style: italic
+}
+
+.floating-note strong {
+    display: block;
+    font-size: 24px;
+    line-height: .9;
+    font-weight: 500;
+    margin-top: 8px
+}
+
+.floating-note strong i {
+    color: var(--accent)
+}
+
+.note-stamp {
+    position: absolute;
+    right: 14px;
+    bottom: 13px;
+    color: var(--accent);
+    font-size: 25px
+}
+
+.sparkle-one {
+    top: 42px;
+    right: 15%;
+    font-size: 25px
+}
+
+.sparkle-two {
+    bottom: 65px;
+    left: 8%;
+    font-size: 15px
+}
+
+.photo-index {
+    position: absolute;
+    right: 5px;
+    top: 18px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #909587
+}
+
+.scroll-cue {
+    /*position: absolute;
+    bottom: 26px;
+    left: 35px;*/
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 1.7px;
+    color: #8c9385
+}
+
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 44px
+}
+
+.section-heading .eyebrow {
+    margin-bottom: 15px
+}
+
+.section-heading h2, .map-copy h2 {
+    font-size: 52px;
+    letter-spacing: -2.5px
+}
+
+.image-arrow {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--background-color);
+    color: var(--primary-color)
+}
+
+.map-section {
+    background: #e9ecdf;
+    padding: 100px 0
+}
+
+.map-layout {
+    display: grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap: 70px;
+    align-items: center
+}
+
+.map-copy h2 {
+    font-size: 62px
+}
+
+.map-copy > p:not(.eyebrow) {
+    font-size: 12px;
+    line-height: 1.9;
+    color: #778074;
+    max-width: 340px;
+    margin: 25px 0
+}
+
+.map-stats {
+    display: flex;
+    gap: 35px;
+    margin-top: 48px
+}
+
+.map-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px
+}
+
+.map-stats strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 31px;
+    font-weight: 500;
+    color: var(--primary-color)
+}
+
+.map-stats span {
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #81897d
+}
+
+.map-art {
+    position: relative;
+    padding: 25px
+}
+
+.map-paper {
+    height: 390px;
+    background: #f5f1e4;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 35px #263b2d12;
+    transform: rotate(1deg);
+    background-image: radial-gradient(#b5b69f 0.7px, transparent .7px);
+    background-size: 17px 17px
+}
+
+.map-grid-lines {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 49.8%, #c4c6b633 50%, transparent 50.2%), linear-gradient(transparent 49.8%, #c4c6b633 50%, transparent 50.2%);
+    background-size: 90px 90px;
+    opacity: .5
+}
+
+.map-label {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: #b3b7a4;
+    letter-spacing: 2px
+}
+
+.label-europe {
+    left: 43%;
+    top: 25%
+}
+
+.label-asia {
+    right: 10%;
+    top: 53%
+}
+
+.label-africa {
+    left: 39%;
+    bottom: 13%
+}
+
+.map-route {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: #c18d69;
+    stroke-width: 2;
+    stroke-dasharray: 5 7
+}
+
+.map-pin {
+    position: absolute;
+    color: var(--primary-color);
+    filter: drop-shadow(0 2px 2px #0002)
+}
+
+.pin-one {
+    left: 20%;
+    top: 37%
+}
+
+.pin-two {
+    left: 47%;
+    top: 28%
+}
+
+.pin-three {
+    right: 20%;
+    top: 48%
+}
+
+.pin-four {
+    left: 51%;
+    bottom: 19%
+}
+
+.map-coord {
+    position: absolute;
+    bottom: 15px;
+    left: 18px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #a3a48f
+}
+
+.map-compass {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    text-align: center;
+    font-size: 9px;
+    color: #9da48f
+}
+
+.map-compass span {
+    font-size: 22px;
+    color: var(--accent)
+}
+
+.map-handwritten {
+    position: absolute;
+    right: 20px;
+    bottom: 35px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: #a87555;
+    transform: rotate(-8deg)
+}
+
+.map-tape {
+    position: absolute;
+    width: 95px;
+    height: 25px;
+    background: #c18d6955;
+    top: 13px;
+    left: 42%;
+    transform: rotate(-7deg)
+}
+
+.heading-aside {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #8b9182;
+    font-size: 17px;
+    line-height: 1.2;
+    margin: 0 20px 6px 0
+}
+
+
+.quote-band {
+    background: var(--primary-color);
+    color: var(--background-color);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px
+}
+
+.quote-band > svg {
+    color: #d5bd91
+}
+
+.quote-band p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 34px;
+    margin: 15px 0;
+    color: #f7f4e8
+}
+
+.quote-band span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #c4cdbd
+}
+
+.footer {
+    background: #e9ecdf;
+    padding: 30px 0
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.footer-brand {
+    font-size: 14px
+}
+
+.footer-brand .brand-mark {
+    width: 27px;
+    height: 27px;
+    font-size: 18px
+}
+
+.footer-brand em {
+    font-size: 18px
+}
+
+.footer-inner > p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #81897d;
+    font-size: 16px
+}
+
+.footer-right {
+    display: flex;
+    gap: 22px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #7e887a
+}
+
+@media (max-width: 850px) {
+    .section-wrap, .header {
+        width: calc(100% - 48px)
+    }
+
+    .nav {
+        gap: 17px
+    }
+
+    .nav a {
+        font-size: 10px
+    }
+
+    .map-layout {
+        gap: 30px
+    }
+
+    .map-paper {
+        height: 330px
+    }
+}
+
+@media (max-width: 620px) {
+    .section-wrap, .header {
+        width: calc(100% - 40px)
+    }
+
+    .announcement {
+        font-size: 7px;
+        letter-spacing: 1px
+    }
+
+    .header {
+        height: 70px
+    }
+
+    .mobile-menu {
+        display: block;
+        order: 3
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        top: 102px;
+        left: 0;
+        right: 0;
+        background: var(--background-color);
+        z-index: 10;
+        padding: 22px 25px;
+        flex-direction: column;
+        gap: 20px;
+        border-bottom: 1px solid #e4e2d7
+    }
+
+    .nav-open {
+        display: flex
+    }
+
+    .language {
+        margin-left: auto;
+        margin-right: 15px
+    }
+
+
+    .floating-note {
+        right: 1%;
+        bottom: 25px
+    }
+
+    .scroll-cue {
+        left: 0;
+        bottom: 20px
+    }
+
+    .section-heading {
+        align-items: start;
+        gap: 15px;
+        margin-bottom: 28px
+    }
+
+    .section-heading h2, .map-copy h2 {
+        font-size: 44px
+    }
+
+    .section-heading > .text-link {
+        margin-top: 35px;
+        white-space: nowrap;
+        font-size: 9px
+    }
+
+    .map-section {
+        padding: 70px 0
+    }
+
+    .map-layout {
+        grid-template-columns:1fr;
+        gap: 30px
+    }
+
+    .map-stats {
+        margin-top: 30px
+    }
+
+    .map-art {
+        padding: 10px
+    }
+
+    .map-paper {
+        height: 300px
+    }
+
+    .heading-aside {
+        display: none
+    }
+
+    .quote-band {
+        min-height: 190px
+    }
+
+    .quote-band p {
+        font-size: 27px;
+        max-width: 330px
+    }
+
+    .footer-inner {
+        flex-wrap: wrap;
+        gap: 10px
+    }
+
+    .footer-inner > p {
+        order: 3;
+        width: 100%;
+        margin: 0
+    }
+
+    .footer-right {
+        gap: 12px;
+        font-size: 7px
+    }
+
+    .footer-brand {
+        font-size: 13px
+    }
+}

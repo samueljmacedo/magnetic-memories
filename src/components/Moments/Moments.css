@@ -1,0 +1,87 @@
+.moments {
+    padding-top: 105px;
+    padding-bottom: 110px
+}
+
+.favourites-grid {
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    border-top: 1px solid #dedfd3;
+    border-bottom: 1px solid #dedfd3
+}
+
+.favourite-card {
+    padding: 28px 30px 33px;
+    min-height: 225px;
+    position: relative;
+    border-right: 1px solid #dedfd3
+}
+
+.favourite-card:first-child {
+    padding-left: 0
+}
+
+.favourite-card:last-child {
+    border: 0
+}
+
+.favourite-number {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #a0a594
+}
+
+.favourite-icon {
+    font-size: 25px;
+    color: var(--accent);
+    margin: 16px 0 10px
+}
+
+.favourite-location {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #929888;
+    margin: 0 0 5px
+}
+
+.favourite-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 27px;
+    margin: 0;
+    color: var(--primary-color)
+}
+
+.favourite-note {
+    font-size: 11px;
+    color: #858d80;
+    margin: 5px 0 0
+}
+
+@media (max-width: 620px) {
+    .moments {
+        padding-top: 75px;
+        padding-bottom: 75px
+    }
+
+    .favourites-grid {
+        grid-template-columns:1fr
+    }
+
+    .favourite-card, .favourite-card:first-child {
+        padding: 23px 0;
+        min-height: 190px;
+        border-right: 0;
+        border-bottom: 1px solid #dedfd3
+    }
+
+    .favourite-card:last-child {
+        border-bottom: 0
+    }
+
+    .favourite-icon {
+        margin: 10px 0 6px
+    }
+
+}
