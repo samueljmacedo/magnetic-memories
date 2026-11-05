@@ -15,10 +15,10 @@ const About = () => {
             </div>
             <div className="about-copy">
                 {/*<p className="eyebrow">WHO I AM</p>*/}
-                <h2>Hello, <i>dear friends.</i></h2>
-                <p className={"text-primary"}> I'm Samuel and this the travel blog I created to share my trips, memories and magnet collection with my friends.
-                I always loved to travel and it's a pleasure to collect all these memories and show them to world.</p>
-                <p className="text-primary">This journal is a place to keep it all: the big adventures and the tiny details in between.</p>
+                <h2 className="heading-display">Hello, <i>dear friends.</i></h2>
+                <p className="text-body">I'm Samuel and this is the travel blog I created to share my trips, memories and magnet collection with my friends.
+                I've always loved to travel and it's a pleasure to collect all these memories and show them to the world.</p>
+                <p className="text-body">This journal is a place to keep it all: the big adventures and the tiny details in between.</p>
                 {/*<a href="mailto:hello@example.com" className="text-link">
                     Say hello
                     <ArrowRight size={16} />

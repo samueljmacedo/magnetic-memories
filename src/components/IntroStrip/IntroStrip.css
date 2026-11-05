@@ -1,107 +1,65 @@
 .intro-strip {
-    background: var(--background-color-alt);
-    color: var(--background-color);
-    padding: 37px 0
+    padding-block: var(--space-6);
+    background: var(--color-bg-alt);
 }
 
 .intro-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px
+    gap: var(--space-5);
+}
+
+.intro-label {
+    color: var(--color-text-muted);
 }
 
 .intro-location {
     display: flex;
-    flex-direction: row;
-    gap: 8px;
     align-items: center;
+    gap: var(--space-2);
 }
+
 .intro-location-ping {
-    background: var(--primary-color);
-    width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    -webkit-animation: ping 1.5s ease-in-out infinite both;
+    width: 1rem;
+    height: 1rem;
+    border-radius: var(--radius-round);
+    background: var(--color-primary);
     animation: ping 1.5s ease-in-out infinite both;
 }
 
-
-@-webkit-keyframes ping {
-    0% {
-        -webkit-transform: scale(0.2);
-        transform: scale(0.2);
-        opacity: 0.8;
-    }
-    80% {
-        -webkit-transform: scale(1.2);
-        transform: scale(1.2);
-        opacity: 0;
-    }
-    100% {
-        -webkit-transform: scale(2.2);
-        transform: scale(2.2);
-        opacity: 0;
-    }
+.intro-location p {
+    max-width: 48rem;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.25;
+    color: var(--color-primary);
 }
+
+.intro-location p i {
+    color: var(--color-accent-deep);
+}
+
 @keyframes ping {
     0% {
-        -webkit-transform: scale(0.2);
         transform: scale(0.2);
         opacity: 0.8;
     }
+
     80% {
-        -webkit-transform: scale(1.2);
         transform: scale(1.2);
         opacity: 0;
     }
+
     100% {
-        -webkit-transform: scale(2.2);
         transform: scale(2.2);
         opacity: 0;
     }
-}
-
-
-.intro-label {
-    font-size: 9px;
-    letter-spacing: 1.8px;
-    color: #778171
-}
-
-.intro-inner p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 25px;
-    line-height: 1.25;
-    color: var(--primary-color);
-    margin: 0;
-    max-width: 770px
-}
-
-.intro-inner p i {
-    color: #a77555
-}
-
-.intro-doodle {
-    font-size: 30px;
-    color: var(--accent)
 }
 
 @media (max-width: 620px) {
-    .intro-strip {
-        padding: 27px 0
-    }
-
-    .intro-inner {
-        grid-template-columns:1fr 25px;
-        gap: 8px
-    }
-
-    .intro-label {
-        grid-column: 1/-1
-    }
-
-    .intro-inner p {
-        font-size: 22px
+    .intro-location p {
+        font-size: var(--text-xl);
     }
 }

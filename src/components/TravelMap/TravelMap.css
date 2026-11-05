@@ -1,0 +1,160 @@
+.map-section {
+    padding-block: var(--section-padding);
+    background: var(--color-surface);
+}
+
+.map-layout {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-8);
+    align-items: center;
+}
+
+.map-description {
+    max-width: 21.25rem;
+    margin: var(--space-5) 0;
+}
+
+.map-stats {
+    display: flex;
+    gap: var(--space-6);
+    margin-top: var(--space-7);
+}
+
+.map-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.map-stats strong {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.map-art {
+    position: relative;
+    padding: var(--space-5);
+}
+
+.map-paper {
+    --map-dot: #b5b69f;
+    --map-ink: #a3a48f;
+
+    position: relative;
+    height: 24.375rem;
+    overflow: hidden;
+    background-color: #f5f1e4;
+    background-image: radial-gradient(var(--map-dot) 0.7px, transparent 0.7px);
+    background-size: 17px 17px;
+    box-shadow: var(--shadow-soft);
+    transform: rotate(1deg);
+}
+
+.map-grid-lines {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, transparent 49.8%, rgb(196 198 182 / 0.2) 50%, transparent 50.2%),
+        linear-gradient(transparent 49.8%, rgb(196 198 182 / 0.2) 50%, transparent 50.2%);
+    background-size: 90px 90px;
+    opacity: 0.5;
+}
+
+.map-label {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-style: italic;
+    letter-spacing: 0.1em;
+    color: var(--map-ink);
+    opacity: 0.8;
+}
+
+.map-route {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 2;
+    stroke-dasharray: 5 7;
+}
+
+/* The pin's tip sits exactly on its coordinates. */
+.map-pin {
+    position: absolute;
+    display: flex;
+    transform: translate(-50%, -100%);
+    color: var(--color-primary);
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.13));
+}
+
+.map-coord {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-5);
+    color: var(--map-ink);
+}
+
+.map-compass {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-5);
+    text-align: center;
+    color: var(--map-ink);
+}
+
+.map-compass span {
+    font-size: var(--text-xl);
+    color: var(--color-accent);
+}
+
+.map-handwritten {
+    position: absolute;
+    right: var(--space-5);
+    bottom: 2.25rem;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--color-accent-deep);
+    transform: rotate(-8deg);
+}
+
+.map-tape {
+    --tape-rotate: -7deg;
+    top: 0.8rem;
+    width: 5.9375rem;
+}
+
+@media (max-width: 850px) {
+    .map-layout {
+        gap: var(--space-6);
+    }
+
+    .map-paper {
+        height: 20.625rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .map-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .map-stats {
+        margin-top: var(--space-6);
+    }
+
+    .map-art {
+        padding: var(--space-2);
+    }
+
+    .map-paper {
+        height: 18.75rem;
+    }
+}

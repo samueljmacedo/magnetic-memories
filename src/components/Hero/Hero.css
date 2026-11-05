@@ -1,117 +1,123 @@
+/* The Hero is currently parked (see App.tsx) but kept in sync with the design system. */
+
 .hero {
-    min-height: 620px;
+    position: relative;
     display: grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    position: relative;
-    padding-top: 32px;
-    padding-bottom: 65px
-}
-
-.hero h1 {
-    font-size: clamp(48px, 6vw, 76px);
-    line-height: .99;
-    letter-spacing: -3.7px;
-    font-weight: 500;
-    margin: 0;
-    color: var(--primary-color)
-}
-
-.hero-description {
-    max-width: 385px;
-    font-size: 13px;
-    line-height: 1.9;
-    color: #778074;
-    margin: 28px 0
-}
-.hero-footnote {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-top: 65px;
-    color: #8b907f;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 15px;
-    line-height: 1.2
-}
-.hero-art {
-    height: 480px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center
-}
-.hero-copy {
-    padding: 35px 0 20px 35px;
-    position: relative;
-    z-index: 2
-}
-
-.hero {
-    padding-top: 25px;
-    padding-bottom: 70px;
-    min-height: auto
+    padding-top: var(--space-5);
+    padding-bottom: 4.375rem;
 }
 
 .hero-copy {
-    padding: 28px 0 0
+    position: relative;
+    z-index: 2;
+    padding-top: var(--space-5);
 }
 
 .hero h1 {
-    font-size: 57px
+    font-size: var(--heading-xl);
 }
 
 .hero-description {
-    font-size: 12px;
-    max-width: 340px
-}
-
-.hero-footnote {
-    margin-top: 30px
+    max-width: 21.25rem;
+    margin: var(--space-5) 0;
 }
 
 .hero-art {
-    height: 390px;
-    margin-top: 8px
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24.375rem;
+    margin-top: var(--space-2);
 }
 
 .hero-photo {
-    height: 315px;
-    width: 75%
-}
-
-.hero-photo {
+    --tilt: 3deg;
+    display: flex;
+    flex-direction: column;
     width: 73%;
-    height: 390px
+    height: 24.375rem;
 }
 
 .hero-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover
+    flex: 1;
+    min-height: 0;
+}
+
+.floating-note {
+    position: absolute;
+    right: 0;
+    bottom: 2rem;
+    width: 8.5625rem;
+    height: 9.6875rem;
+    padding: var(--space-4);
+    background: var(--color-note);
+    color: var(--color-text-muted);
+    font-family: var(--font-serif);
+    box-shadow: var(--shadow-note);
+    transform: rotate(7deg);
+}
+
+.floating-note > span:first-child {
+    font-size: var(--text-sm);
+    font-style: italic;
+    line-height: 1.1;
+}
+
+.floating-note strong {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 0.9;
+}
+
+.floating-note strong i {
+    color: var(--color-accent);
+}
+
+.note-stamp {
+    position: absolute;
+    right: 0.875rem;
+    bottom: 0.8rem;
+    font-size: var(--text-xl);
+    color: var(--color-accent);
 }
 
 .hero-sparkle {
     position: absolute;
-    color: var(--terra)
+    color: var(--color-accent);
+}
+
+.sparkle-one {
+    top: 2.6rem;
+    right: 15%;
+    font-size: var(--text-xl);
+}
+
+.sparkle-two {
+    bottom: 4rem;
+    left: 8%;
+    font-size: var(--text-md);
 }
 
 @media (max-width: 850px) {
     .hero {
-        min-height: 550px
+        min-height: 34.375rem;
     }
 
     .hero-copy {
-        padding-left: 5px
-    }
-
-    .hero-photo {
-        height: 330px;
-        width: 80%
+        padding-left: 0.3rem;
     }
 
     .hero-art {
-        height: 410px
+        height: 25.625rem;
+    }
+
+    .hero-photo {
+        width: 80%;
+        height: 20.625rem;
     }
 }

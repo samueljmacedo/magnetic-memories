@@ -1,0 +1,38 @@
+.quote-band {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 13.75rem;
+    padding: var(--space-7) var(--space-5);
+    background: var(--color-primary);
+    color: var(--color-bg);
+    text-align: center;
+}
+
+.quote-band > svg {
+    color: var(--color-gold);
+}
+
+.quote-band p {
+    margin: var(--space-4) 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    color: var(--color-bg);
+}
+
+.quote-band .meta-label {
+    color: var(--color-bg-alt);
+}
+
+@media (max-width: 620px) {
+    .quote-band {
+        min-height: 12rem;
+    }
+
+    .quote-band p {
+        max-width: 20.625rem;
+        font-size: 1.6875rem;
+    }
+}
