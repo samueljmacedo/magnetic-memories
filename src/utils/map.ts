@@ -1,13 +1,3 @@
-// Latitude band shown on the illustrated map (crops the poles).
-const LAT_TOP = 80
-const LAT_BOTTOM = -60
-
-/** Equirectangular projection: lat/lng -> x/y as a percentage of the map paper. */
-export const projectToMap = (lat: number, lng: number) => ({
-  x: ((lng + 180) / 360) * 100,
-  y: ((LAT_TOP - lat) / (LAT_TOP - LAT_BOTTOM)) * 100,
-})
-
 const toDegreesMinutes = (value: number) => {
   const abs = Math.abs(value)
   let degrees = Math.floor(abs)
