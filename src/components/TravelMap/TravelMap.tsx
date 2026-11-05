@@ -9,7 +9,7 @@ import {formatCoordinates} from "../../utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
 
-const TILE_URL = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+const TILE_URL = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_52nx_1_b46cb5873b4f9aafc33d597a";
 const TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 // Custom markers: Leaflet's default marker images don't survive bundlers, and these match the site.
@@ -86,11 +86,11 @@ const TravelMap = () => {
                                     alt={`${journey.city}, ${journey.country}`}>
                                     <Popup className="journey-popup" minWidth={208} maxWidth={208}>
                                         <figure className="popup-card">
-                                            <img src={journey.image} alt={`${journey.place}, ${journey.country}`} />
+                                            <img src={journey.image} alt={`${journey.city}, ${journey.country}`} />
                                             <figcaption>
                                                 <span className="meta-label">{journey.tag}</span>
-                                                <strong>{journey.place}</strong>
-                                                <em>{journey.country} · {journey.date}</em>
+                                                <strong>{journey.city}</strong>
+                                                <em>{journey.country} · {journey.startDate}</em>
                                             </figcaption>
                                         </figure>
                                     </Popup>
@@ -105,7 +105,7 @@ const TravelMap = () => {
                                     <p className="popup-here">
                                         <span className="meta-label">Currently here</span>
                                         <strong>{currentLocation.city}</strong>
-                                        <em>{currentLocation.country} · you are here-ish ♡</em>
+                                        <em>{currentLocation.country} · I'm here</em>
                                     </p>
                                 </Popup>
                             </Marker>

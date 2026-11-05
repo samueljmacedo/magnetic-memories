@@ -19,15 +19,14 @@ const JourneyCarrousel = () => {
             </div>
             <div className="journey-carousel">
                 <figure className="polaroid journey-polaroid">
-                    <img src={activeJourney.image} alt={`${activeJourney.place}, ${activeJourney.country}`} />
-                    <figcaption className="polaroid-caption">{activeJourney.place} · {activeJourney.date}</figcaption>
+                    <img src={activeJourney.image} alt={`${activeJourney.city}, ${activeJourney.country}`} />
+                    <figcaption className="polaroid-caption">{activeJourney.city} · {activeJourney.startDate}</figcaption>
                     <span className="tape" />
                 </figure>
                 <div className="journey-story" aria-live="polite">
                     <div className="journey-meta meta-label"><span>{activeJourney.tag}</span><span>{padNumber(journeyIndex + 1)} / {padNumber(journeys.length)}</span></div>
-                    <h3 className="heading-display">{activeJourney.place}<br /><i>{activeJourney.country}</i></h3>
+                    <h3 className="heading-display">{activeJourney.city}<br /><i>{activeJourney.country}</i></h3>
                     <p className="text-body">{activeJourney.description}</p>
-                    <p className="text-small">A collection of little moments, new corners discovered and memories I'd like to keep close. More stories will find their way here as the collection grows.</p>
                     <div className="carousel-controls">
                         <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>
                         <div className="carousel-dots" role="group" aria-label="Choose a journey">
@@ -37,7 +36,7 @@ const JourneyCarrousel = () => {
                                     className={index === journeyIndex ? 'active' : ''}
                                     aria-current={index === journeyIndex}
                                     onClick={() => setJourneyIndex(index)}
-                                    aria-label={`Show ${journey.place}`} />
+                                    aria-label={`Show ${journey.city}`} />
                             ))}
                         </div>
                         <button onClick={() => changeJourney(1)} aria-label="Next journey"><ArrowRight size={17} /></button>
