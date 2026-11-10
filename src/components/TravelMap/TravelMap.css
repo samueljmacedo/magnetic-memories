@@ -15,6 +15,13 @@
     margin: var(--space-5) 0;
 }
 
+.map-reset {
+    border-top: 0;
+    border-inline: 0;
+    background: none;
+    cursor: pointer;
+}
+
 .map-stats {
     display: flex;
     gap: var(--space-6);
@@ -39,90 +46,52 @@
     padding: var(--space-5);
 }
 
+/* Paper-like frame around the interactive map */
 .map-paper {
-    --map-dot: #b5b69f;
-    --map-ink: #a3a48f;
-
     position: relative;
-    height: 24.375rem;
+    height: 26.25rem;
     overflow: hidden;
-    background-color: #f5f1e4;
-    background-image: radial-gradient(var(--map-dot) 0.7px, transparent 0.7px);
-    background-size: 17px 17px;
+    padding: var(--space-2);
+    background: var(--color-paper);
     box-shadow: var(--shadow-soft);
-    transform: rotate(1deg);
 }
 
-.map-grid-lines {
+.map-container {
     position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(90deg, transparent 49.8%, rgb(196 198 182 / 0.2) 50%, transparent 50.2%),
-        linear-gradient(transparent 49.8%, rgb(196 198 182 / 0.2) 50%, transparent 50.2%);
-    background-size: 90px 90px;
-    opacity: 0.5;
+    inset: var(--space-2);
+    z-index: 0;
+    background: var(--color-surface);
+    font-family: var(--font-sans);
 }
 
-.map-label {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-style: italic;
-    letter-spacing: 0.1em;
-    color: var(--map-ink);
-    opacity: 0.8;
+/* Tint the basemap towards the site's cream and green. */
+.map-container .leaflet-tile-pane {
+    filter: sepia(0.3) saturate(0.75) hue-rotate(-8deg);
 }
 
-.map-route {
+/* Decorative overlays sit above the map and never block it. */
+.map-coord,
+.map-compass {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: var(--color-accent);
-    stroke-width: 2;
-    stroke-dasharray: 5 7;
-}
-
-/* The pin's tip sits exactly on its coordinates. */
-.map-pin {
-    position: absolute;
-    display: flex;
-    transform: translate(-50%, -100%);
-    color: var(--color-primary);
-    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.13));
+    z-index: 1;
+    pointer-events: none;
+    text-shadow: 0 0 4px var(--color-paper), 0 0 4px var(--color-paper);
 }
 
 .map-coord {
-    position: absolute;
-    bottom: var(--space-4);
+    bottom: var(--space-5);
     left: var(--space-5);
-    color: var(--map-ink);
 }
 
 .map-compass {
-    position: absolute;
     top: var(--space-4);
     right: var(--space-5);
     text-align: center;
-    color: var(--map-ink);
 }
 
 .map-compass span {
     font-size: var(--text-xl);
     color: var(--color-accent);
-}
-
-.map-handwritten {
-    position: absolute;
-    right: var(--space-5);
-    bottom: 2.25rem;
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-style: italic;
-    color: var(--color-accent-deep);
-    transform: rotate(-8deg);
 }
 
 .map-tape {
@@ -131,13 +100,155 @@
     width: 5.9375rem;
 }
 
+/* Pins */
+.map-marker {
+    color: var(--color-primary);
+    filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.2));
+    transition: transform var(--transition);
+}
+
+.map-marker:hover {
+    transform: translateY(-3px);
+}
+
+.map-marker-dot {
+    fill: var(--color-bg);
+}
+
+.map-here-dot,
+.map-here-ping {
+    position: absolute;
+    inset: 3px;
+    border-radius: var(--radius-round);
+    background: var(--color-accent);
+}
+
+.map-here-dot {
+    border: 2px solid var(--color-paper);
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+}
+
+.map-here-ping {
+    animation: map-ping 1.8s ease-out infinite;
+}
+
+@keyframes map-ping {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(3.2);
+        opacity: 0;
+    }
+}
+
+/* Leaflet controls, restyled */
+.map-container .leaflet-bar {
+    border: 1px solid var(--color-border);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.map-container .leaflet-bar a {
+    width: 1.75rem;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    border-bottom-color: var(--color-border);
+    background: var(--color-paper);
+    color: var(--color-primary);
+    transition: background var(--transition), color var(--transition);
+}
+
+.map-container .leaflet-bar a:hover {
+    background: var(--color-primary);
+    color: var(--color-bg);
+}
+
+.map-container .leaflet-control-attribution {
+    background: rgb(255 255 255 / 0.75);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+}
+
+.map-container .leaflet-control-attribution a {
+    color: var(--color-primary);
+}
+
+/* Popups: a small polaroid */
+.journey-popup .leaflet-popup-content-wrapper {
+    padding: var(--space-2);
+    border-radius: 0;
+    background: var(--color-paper);
+    box-shadow: var(--shadow-lifted);
+    color: var(--color-text);
+}
+
+.journey-popup .leaflet-popup-content {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.3;
+}
+
+.journey-popup .leaflet-popup-tip {
+    background: var(--color-paper);
+    box-shadow: none;
+}
+
+.journey-popup .leaflet-popup-close-button {
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-round);
+    background: var(--color-paper);
+    color: var(--color-primary);
+    font-size: var(--text-lg);
+    line-height: 1.4rem;
+}
+
+.popup-card img {
+    display: block;
+    width: 100%;
+    height: 7.5rem;
+    object-fit: cover;
+    background: var(--color-surface);
+}
+
+.popup-card figcaption,
+.popup-here {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin: 0;
+    padding: var(--space-3) var(--space-1) var(--space-1);
+}
+
+.popup-card strong,
+.popup-here strong {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--color-primary);
+}
+
+.popup-card em,
+.popup-here em {
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    color: var(--color-accent-deep);
+}
+
 @media (max-width: 850px) {
     .map-layout {
         gap: var(--space-6);
     }
 
     .map-paper {
-        height: 20.625rem;
+        height: 22.5rem;
     }
 }
 
@@ -155,6 +266,6 @@
     }
 
     .map-paper {
-        height: 18.75rem;
+        height: 20rem;
     }
 }
