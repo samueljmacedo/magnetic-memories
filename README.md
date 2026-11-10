@@ -2,6 +2,30 @@
 
 A first homepage prototype built with React, TypeScript and Vite.
 
+## To-do
+
+### Planned for after 17 November
+
+- [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
+- [ ] Add Portuguese and French translations
+- [ ] Correct the dates of each trip (for example, in `data.ts` Birmingham ends on `17 Nov 20260` and Strasbourg ends before it starts)
+- [ ] Write a proper introduction on the website
+- [ ] Add multiple pictures of myself in the introduction
+
+### Open items noticed along the way
+
+- [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
+- [ ] Remove `src/components/lightswind/image-reveal.tsx` or add `framer-motion` back: it is unused, and `npm run build` fails on its import
+- [ ] Make the year and country filters in the journeys section actually filter the carousel
+- [ ] Add the production domain to the CORS origins in Sanity (sanity.io/manage → API)
+
+### Done
+
+- [x] Consistent stylesheet with shared design tokens
+- [x] Interactive Leaflet map with a pin for each journey
+- [x] Sanity Studio set up with a `journey` schema
+- [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
+
 ## Run locally
 
 1. Install Node.js (current LTS recommended).
