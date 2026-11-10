@@ -5,6 +5,8 @@ import IntroStrip from "./components/IntroStrip/IntroStrip.tsx";
 import JourneyCarrousel from "./components/JourneyCarrousel/JourneyCarrousel.tsx";
 import QuoteBand from "./components/QuoteBand/QuoteBand.tsx";
 import TravelMap from "./components/TravelMap/TravelMap.tsx";
+import MagnetPanel from "./components/MagnetPanel/MagnetPanel.tsx";
+import {magnets} from "./data/data.ts";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         {/* <Hero /> */}
         <JourneyCarrousel />
         <TravelMap />
+        <MagnetPanel magnets={magnets} />
         <QuoteBand />
         {/*<Moments />*/}
       </main>
