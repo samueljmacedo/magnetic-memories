@@ -26,6 +26,8 @@
 .journey-story {
     max-width: 24.375rem;
     padding-block: var(--space-4);
+    display: grid;
+    grid-template-rows: auto 2fr 2fr auto;
 }
 
 .journey-meta {
