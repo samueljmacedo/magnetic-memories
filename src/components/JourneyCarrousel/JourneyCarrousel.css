@@ -30,6 +30,17 @@
     grid-template-rows: auto 2fr 2fr auto;
 }
 
+/* Rich text can hold several paragraphs: keep them in one grid row of .journey-story. */
+.journey-description .text-body:last-child {
+    margin-bottom: 0;
+}
+
+.journey-status {
+    margin: 0;
+    padding-block: var(--space-8);
+    text-align: center;
+}
+
 .journey-meta {
     display: flex;
     justify-content: space-between;

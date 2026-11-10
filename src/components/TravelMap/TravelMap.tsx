@@ -1,10 +1,11 @@
 import L from "leaflet";
 import type {LatLngTuple, Map as LeafletMap} from "leaflet";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import {ArrowRight} from "lucide-react";
-import {currentLocation, journeys} from "../../data/data.ts";
-import {padNumber} from "../../utils/format.ts";
+import {useJourneys} from "../../context/JourneysContext.tsx";
+import {currentLocation} from "../../data/data.ts";
+import {formatDate, padNumber} from "../../utils/format.ts";
 import {formatCoordinates} from "../../utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
@@ -31,21 +32,25 @@ const hereIcon = L.divIcon({
 
 const countUnique = (values: string[]) => new Set(values).size
 
-// The view that shows every pin (and where I am now).
-const points: LatLngTuple[] = [
-    ...journeys.map((journey): LatLngTuple => [journey.lat, journey.lng]),
-    [currentLocation.lat, currentLocation.lng],
-]
-const bounds = L.latLngBounds(points)
 const boundsOptions = {padding: [48, 48] as [number, number], maxZoom: 5}
 
 const TravelMap = () => {
+    const {journeys, status} = useJourneys()
     const [map, setMap] = useState<LeafletMap | null>(null)
+
+    // The view that shows every pin (and where I am now). Recomputed when the journeys arrive.
+    const bounds = useMemo(() => {
+        const points: LatLngTuple[] = [
+            ...journeys.map((journey): LatLngTuple => [journey.lat, journey.lng]),
+            [currentLocation.lat, currentLocation.lng],
+        ]
+        return L.latLngBounds(points)
+    }, [journeys])
 
     const stats = [
         {label: 'countries', value: countUnique(journeys.map((journey) => journey.country))},
         {label: 'cities', value: countUnique(journeys.map((journey) => journey.city))},
-        {label: 'continents', value: countUnique(journeys.map((journey) => journey.continent))},
+        {label: 'continents', value: countUnique(journeys.flatMap((journey) => journey.continents))},
     ]
 
     return (
@@ -66,6 +71,10 @@ const TravelMap = () => {
                 </div>
                 <div className="map-art">
                     <div className="map-paper">
+                        {/* MapContainer only reads `bounds` when it mounts, so wait for the journeys. */}
+                        {status === 'loading' ? (
+                            <p className="map-status meta-label" role="status">Loading map…</p>
+                        ) : (
                         <MapContainer
                             ref={setMap}
                             className="map-container"
@@ -90,7 +99,7 @@ const TravelMap = () => {
                                             <figcaption>
                                                 <span className="meta-label">{journey.tag}</span>
                                                 <strong>{journey.city}</strong>
-                                                <em>{journey.country} · {journey.startDate}</em>
+                                                <em>{journey.country} · {formatDate(journey.startDate)}</em>
                                             </figcaption>
                                         </figure>
                                     </Popup>
@@ -110,6 +119,7 @@ const TravelMap = () => {
                                 </Popup>
                             </Marker>
                         </MapContainer>
+                        )}
                         <span className="map-coord meta-label">{formatCoordinates(currentLocation.lat, currentLocation.lng)}</span>
                         <span className="map-compass meta-label">N<br /><span>✳</span></span>
                     </div>
