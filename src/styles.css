@@ -72,6 +72,7 @@
     /* Shape, depth, motion */
     --radius-round: 50%;
     --radius-sm: 5px;
+    --radius-pill: 999px;
     --shadow-soft: 0 12px 35px rgb(38 59 45 / 0.07);
     --shadow-lifted: 0 17px 40px rgb(38 59 45 / 0.13);
     --shadow-note: 0 5px 18px rgb(0 0 0 / 0.05);

@@ -2,6 +2,36 @@
     padding-block: var(--section-padding);
 }
 
+/* Heading + filters: the filters drop under the title when there isn't room beside it. */
+.journey-heading {
+    flex-wrap: wrap;
+    gap: var(--space-5);
+}
+
+.journey-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+}
+
+.filter-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: 2.5rem;
+    padding: 0 var(--space-2);
+    border: 0;
+    background: none;
+    color: var(--color-accent-deep);
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.filter-reset:hover {
+    color: var(--color-primary);
+}
+
 .journey-carousel {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -136,6 +166,19 @@
 }
 
 @media (max-width: 620px) {
+    .journey-filters {
+        width: 100%;
+    }
+
+    .journey-filters .filter-select {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .journey-filters .filter-select select {
+        min-width: 0;
+    }
+
     .journey-carousel {
         grid-template-columns: 1fr;
         gap: var(--space-6);
