@@ -1,15 +1,7 @@
-:root {
-  --magnet-forest: #1f4c34;
-  --magnet-ivory: #f9f7eb;
-  --magnet-sage: #d9dfd1;
-  --magnet-terracotta: #c18d69;
-  --magnet-ink: #28372e;
-}
-
 .magnet-section {
   width: min(1120px, calc(100% - 40px));
   margin: clamp(64px, 9vw, 112px) auto;
-  color: var(--magnet-ink);
+  color: var(--color-text);
 }
 
 .magnet-section__header {
@@ -20,7 +12,7 @@
 
 .magnet-section__eyebrow {
   margin: 0 0 12px;
-  color: var(--magnet-forest);
+  color: var(--color-primary);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: .19em;
@@ -28,7 +20,7 @@
 
 .magnet-section__header h2 {
   margin: 0;
-  color: var(--magnet-forest);
+  color: var(--color-primary);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(38px, 5.5vw, 58px);
   font-weight: 500;
@@ -164,7 +156,7 @@
 }
 
 .magnet-item:focus-visible {
-  outline: 2px solid var(--magnet-forest);
+  outline: 2px solid var(--color-primary);
   outline-offset: 5px;
 }
 
@@ -207,7 +199,7 @@
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.55);
   border-radius: 8px;
-  background: var(--magnet-ivory);
+  background: var(--color-bg);
   box-shadow: 0 28px 90px rgba(0,0,0,.25);
   animation: magnet-dialog-in 220ms ease-out both;
 }
@@ -222,7 +214,7 @@
   border: 0;
   border-radius: 50%;
   background: rgba(249,247,235,.88);
-  color: var(--magnet-forest);
+  color: var(--color-primary);
   font-size: 27px;
   line-height: 1;
   cursor: pointer;
@@ -250,7 +242,7 @@
 
 .magnet-dialog__details h3 {
   margin: 0;
-  color: var(--magnet-forest);
+  color: var(--color-primary);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 42px;
   font-weight: 500;
