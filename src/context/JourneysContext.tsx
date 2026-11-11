@@ -20,7 +20,7 @@ export const JourneysProvider = ({children}: {children: ReactNode}) => {
     const [state, setState] = useState<JourneysState>({journeys: [], status: 'loading'})
 
     useEffect(() => {
-        let cancelled = false // ignore the result if the component unmounted (StrictMode runs effects twice in dev)
+        let cancelled = false
 
         fetchJourneys()
             .then((journeys) => {

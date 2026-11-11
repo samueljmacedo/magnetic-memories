@@ -1,24 +1,10 @@
-import {PortableText} from "@portabletext/react";
-import type {PortableTextComponents} from "@portabletext/react";
 import {useJourneys} from "@/context/JourneysContext.tsx";
 import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
 import {useState} from "react";
 import "./JourneyCarrousel.css";
-import {
-    ALL_FILTER,
-    filterCountriesAlphabetically,
-    filterJourneys,
-    listYearsNewestFirst,
-} from "@/utils/journey.ts";
-
-// Sanity descriptions are rich text: render each paragraph with the site's body style.
-const richTextComponents: PortableTextComponents = {
-    block: {
-        normal: ({children}) => <p className="text-body">{children}</p>,
-    },
-}
+import {ALL_FILTER, filterCountriesAlphabetically, filterJourneys, listYearsNewestFirst,} from "@/utils/journey.ts";
 
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
@@ -26,12 +12,13 @@ const JourneyCarrousel = () => {
     const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
 
-    // The carousel only walks through the journeys that match both filters.
     const visibleJourneys = filterJourneys(journeys, {year: yearFilter, country: countryFilter})
-    // Each list only offers values that still match the OTHER filter, so you can never pick a
-    // combination with no journeys (for example Spain + 2022).
-    const years = listYearsNewestFirst(filterJourneys(journeys, {year: ALL_FILTER, country: countryFilter}))
-    const countries = filterCountriesAlphabetically(filterJourneys(journeys, {year: yearFilter, country: ALL_FILTER}))
+    const years = listYearsNewestFirst(
+        filterJourneys(journeys, {year: ALL_FILTER, country: countryFilter})
+    )
+    const countries = filterCountriesAlphabetically(
+        filterJourneys(journeys, {year: yearFilter, country: ALL_FILTER})
+    )
     const filtersActive = yearFilter !== ALL_FILTER || countryFilter !== ALL_FILTER
 
     const currentIndex = Math.min(journeyIndex, Math.max(visibleJourneys.length - 1, 0))
@@ -41,7 +28,6 @@ const JourneyCarrousel = () => {
         setJourneyIndex((current) =>
             (current + direction + visibleJourneys.length) % visibleJourneys.length)
     }
-    // A new filter starts again from the first matching journey.
     const changeYear = (year: string) => {
         setYearFilter(year)
         setJourneyIndex(0)
@@ -59,9 +45,6 @@ const JourneyCarrousel = () => {
         <section className="journeys section-wrap" id="journeys">
             <div className="section-heading journey-heading">
                 <div><p className="eyebrow">THE TRAVEL DIARIES</p><h2 className="heading-display">Journeys & <i>memories</i></h2></div>
-                {/*<p className="heading-aside">
-                    A few favourite chapters<br />from the places I've been.
-                </p>*/}
                 {journeys.length > 0 && (
                     <div className="journey-filters" role="group" aria-label="Filter journeys">
                         <FilterSelect
@@ -96,16 +79,21 @@ const JourneyCarrousel = () => {
                 <div className="journey-carousel">
                     <figure className="polaroid journey-polaroid">
                         <img src={activeJourney.image} alt={`${activeJourney.city}, ${activeJourney.country}`} />
-                        <figcaption className="polaroid-caption">{activeJourney.city} · {formatDate(activeJourney.startDate)}</figcaption>
+                        <figcaption className="polaroid-caption">
+                            {activeJourney.city} · {formatDate(activeJourney.startDate)}
+                        </figcaption>
                         <span className="tape" />
                     </figure>
                     <div className="journey-story" aria-live="polite">
-                        <div className="journey-meta meta-label"><span>{activeJourney.tag}</span><span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span></div>
-                        <h3 className="heading-display">{activeJourney.city}<br /><i>{activeJourney.country}</i></h3>
+                        <div className="journey-meta meta-label">
+                            <span>{activeJourney.tag}</span>
+                            <span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span>
+                        </div>
+                        <h3 className="heading-display">
+                            {activeJourney.city}<br /><i>{activeJourney.country}</i>
+                        </h3>
                         <div className="journey-description">
-                            {typeof activeJourney.description === 'string'
-                                ? <p className="text-body">{activeJourney.description}</p>
-                                : <PortableText value={activeJourney.description} components={richTextComponents} />}
+                            <p className="text-body">{activeJourney.description}</p>
                         </div>
                         <div className="carousel-controls">
                             <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>

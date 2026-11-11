@@ -15,12 +15,11 @@ export const journeyType = defineType({
         }),
         defineField({
             name: 'continent',
-            type: 'array',
-            of:[{type: 'string'}],
+            type: 'string',
             options: {
-                list: ['Africa', 'Asia','Europe','North America', 'Oceania','South America']
+                list: ['Africa', 'Asia','Europe','North America', 'Oceania','South America'],
+                layout: 'radio'
             },
-            validation: (Rule) => Rule.unique(),
         }),
         defineField({
             name: 'startDate',
@@ -36,8 +35,7 @@ export const journeyType = defineType({
         }),
         defineField({
             name: 'description',
-            type: 'array',
-            of:[{type: 'block'}]
+            type: 'string',
         }),
         defineField({
             name: 'tag',

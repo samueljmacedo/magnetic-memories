@@ -27,7 +27,6 @@ function App() {
             <MagnetPanel />
         </TravelMagnetsProvider>
         <QuoteBand />
-        {/*<Moments />*/}
       </main>
 
       <Footer />

@@ -1,10 +1,7 @@
-import type {PortableTextProps} from '@portabletext/react'
 import type {SanityImageSource} from '@sanity/image-url'
 import {journeys as localJourneys} from '@/data/data.ts'
 import {sanity, urlFor} from '@/lib/sanity.ts'
 import {toIsoDate} from "@/utils/format.ts";
-
-export type RichText = PortableTextProps['value']
 
 export type Journey = {
     id: string
@@ -15,7 +12,7 @@ export type Journey = {
     endDate: string
     lat: number
     lng: number
-    description: string | RichText
+    description: string
     tag: string
     image: string
 }
@@ -30,7 +27,7 @@ type SanityJourney = {
     endDate: string | null
     lat: number
     lng: number
-    description: RichText | null
+    description: string
     tag: string | null
     mainImage: SanityImageSource
 }
@@ -74,7 +71,7 @@ export const fetchJourneys = async (): Promise<Journey[]> => {
     return docs.map(fromSanity)
 }
 
-// Fallback: the placeholder trips in data.ts
+
 const fromLocal = (journey: Journey): Journey => ({
     ...journey,
     continent: journey.continent,
