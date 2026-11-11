@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react";
 import "./MagnetPanel.css";
-
-export type TravelMagnet = {
-  id: string;
-  destination: string;
-  country?: string;
-  image: string; // Prefer a transparent PNG or WebP of the magnet itself.
-  year?: string;
-  memory?: string;
-  rotation?: number; // Optional resting angle, in degrees.
-};
+import {useTravelMagnets} from "@/context/TravelMagnetsContext.tsx";
+import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 
 type MagnetPanelProps = {
-  magnets: TravelMagnet[];
   title?: string;
   subtitle?: string;
 };
 
 export default function MagnetPanel({
-  magnets,
   title = "Little pieces of everywhere",
 }: MagnetPanelProps) {
+  const {travelMagnets} = useTravelMagnets();
   const [selected, setSelected] = useState<TravelMagnet | null>(null);
-
   useEffect(() => {
     if (!selected) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -42,26 +32,26 @@ export default function MagnetPanel({
       <div className="magnet-board">
         <div className="magnet-board__topline">
           <span>COLLECTED MEMORIES</span>
-          <span>{String(magnets.length).padStart(2, "0")} OBJECTS</span>
+          <span>{String(travelMagnets.length).padStart(2, "0")} OBJECTS</span>
         </div>
 
         <div className="magnet-board__grid">
-          {magnets.map((magnet, index) => (
+          {travelMagnets.map((magnet, index) => (
             <button
               className="magnet-item"
               key={magnet.id}
               type="button"
               style={{
-                "--magnet-rotation": `${magnet.rotation ?? [-4, 3, -2, 4, 1][index % 5]}deg`,
+                "--magnet-rotation": `${[-4, 3, -2, 4, 1][index % 5]}deg`,
                 "--magnet-delay": `${index * 45}ms`,
               } as React.CSSProperties}
               onClick={() => setSelected(magnet)}
-              aria-label={`View ${magnet.destination}${magnet.country ? `, ${magnet.country}` : ""} magnet`}
+              aria-label={`View ${magnet.city}${magnet.country ? `, ${magnet.country}` : ""} magnet`}
             >
               <span className="magnet-item__object">
                 <img
                     src={magnet.image}
-                    alt={`${magnet.destination} souvenir magnet`}
+                    alt={`${magnet.city} souvenir magnet`}
                     loading="lazy" />
               </span>
               {/*<span className="magnet-item__label">
@@ -70,7 +60,7 @@ export default function MagnetPanel({
               </span>*/}
             </button>
           ))}
-          {magnets.length === 0 && (
+          {travelMagnets.length === 0 && (
             <p className="magnet-board__empty">Your collection will find its place here.</p>
           )}
         </div>
@@ -101,14 +91,14 @@ export default function MagnetPanel({
               ×
             </button>
             <div className="magnet-dialog__image">
-              <img src={selected.image} alt={`${selected.destination} souvenir magnet`} />
+              <img src={selected.image} alt={`${selected.city} souvenir magnet`} />
             </div>
             <div className="magnet-dialog__details">
               <p className="magnet-section__eyebrow">A MEMORY FROM</p>
-              <h3 id="magnet-dialog-title">{selected.destination}</h3>
+              <h3 id="magnet-dialog-title">{selected.city}</h3>
               {selected.country && <p className="magnet-dialog__country">{selected.country}</p>}
               {selected.year && <p className="magnet-dialog__year">{selected.year}</p>}
-              {selected.memory && <p className="magnet-dialog__memory">{selected.memory}</p>}
+              {selected.title && <p className="magnet-dialog__memory">{selected.title}</p>}
             </div>
           </section>
         </div>

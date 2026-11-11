@@ -4,9 +4,9 @@ import {useMemo, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import {ArrowRight} from "lucide-react";
 import {useJourneys} from "../../context/JourneysContext.tsx";
-import {currentLocation} from "../../data/data.ts";
-import {formatDate, padNumber} from "../../utils/format.ts";
-import {formatCoordinates} from "../../utils/map.ts";
+import {currentLocation} from "@/data/data.ts";
+import {formatDate, padNumber} from "@/utils/format.ts";
+import {formatCoordinates} from "@/utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
 

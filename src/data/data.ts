@@ -1,5 +1,8 @@
 // All content below is placeholder data. Replace it with your own trips.
 
+import type {Journey} from "@/lib/journeys.ts";
+import type {TravelMagnet} from "@/lib/travelMagnet.ts";
+
 export type Continent =
   | 'Africa'
   | 'Asia'
@@ -8,21 +11,6 @@ export type Continent =
   | 'Oceania'
   | 'South America'
 
-export type Journey = {
-  id: string
-  /** The city the map pin is dropped on */
-  city: string
-  country: string
-  continent: Continent
-  startDate: string
-  endDate: string
-  /** Coordinates of `city`, in decimal degrees */
-  lat: number
-  lng: number
-  description: string
-  image: string
-  tag: string
-}
 
 export const journeys: Journey[] = [
   {
@@ -146,25 +134,11 @@ export const journeys: Journey[] = [
   },
 ]
 
-export type FavouritePlace = {
-  name: string
-  location: string
-  note: string
-  icon: string
-}
-
-export const favouritePlaces: FavouritePlace[] = [
-  { name: 'A tiny café', location: 'Alfama, Lisbon', note: 'For the best slow morning.', icon: '☕' },
-  { name: 'The long way home', location: 'Val di Funes, Italy', note: 'Take the path with the view.', icon: '⌁' },
-  { name: 'A quiet garden', location: 'Higashiyama, Kyoto', note: 'Leave room for an unplanned hour.', icon: '❀' },
-]
-
 export type NavItem = {
   label: string
   href: string
 }
 
-// Same order as the sections appear on the page.
 export const navItems: NavItem[] = [
   { label: 'About', href: '#about' },
   { label: 'My journeys', href: '#journeys' },
@@ -179,93 +153,47 @@ export const currentLocation = {
   lng: -1.8238,
 }
 
-interface TravelMagnet {
-  id: string,
-  destination: string,
-  country: string,
-  image: string,
-  year: string,
-  memory: string,
-  rotation?: number
-}
-
 export const magnets: TravelMagnet[] = [
   {
     id: "lisbon",
-    destination: "Lisbon",
+    city: "Lisbon",
     country: "Portugal",
     image: "src/data/images/trips/scotland/edinburgh/20261106_103145.webp",
     year: "2025",
-    memory: "A little keepsake from a sunny afternoon wandering through Alfama.",
-    rotation: -3,
   },
   {
     id: "paris",
-    destination: "Paris",
+    city: "Paris",
     country: "France",
     image: "src/data/images/trips/scotland/edinburgh/20261106_103145.webp",
     year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
   },
   {
     id: "paris",
-    destination: "Paris",
-    country: "France",
-    image: "src/data/images/trips/scotland/edinburgh/20261106_103145.webp",
-
-    year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
-  },
-  {
-    id: "paris",
-    destination: "Paris",
+    city: "Paris",
     country: "France",
     image: "src/data/images/trips/scotland/edinburgh/20261106_152259.webp",
-
     year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
   },
   {
     id: "paris",
-    destination: "Paris",
-    country: "France",
-    image: "src/data/images/trips/scotland/edinburgh/20261106_152412.webp",
-
-    year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
-  },
-  {
-    id: "paris",
-    destination: "Paris",
+    city: "Paris",
     country: "France",
     image: "src/data/images/trips/scotland/edinburgh/20261106_152259.webp",
-
     year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
   },
   {
     id: "paris",
-    destination: "Paris",
+    city: "Paris",
     country: "France",
     image: "src/data/images/trips/scotland/edinburgh/20261106_152412.webp",
-
     year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
   },
   {
     id: "paris",
-    destination: "Paris",
+    city: "Paris",
     country: "France",
     image: "src/data/images/trips/scotland/edinburgh/20261106_103145.webp",
     year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
-  },
-  {
-    id: "paris",
-    destination: "Paris",
-    country: "France",
-    image: "src/data/images/trips/scotland/edinburgh/20261106_103145.webp",
-    year: "2024",
-    memory: "A reminder of a long weekend exploring the city.",
   },
 ];

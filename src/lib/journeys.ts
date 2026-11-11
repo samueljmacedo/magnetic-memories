@@ -1,26 +1,22 @@
 import type {PortableTextProps} from '@portabletext/react'
 import type {SanityImageSource} from '@sanity/image-url'
 import {journeys as localJourneys} from '@/data/data.ts'
-import type {Continent, Journey as LocalJourney} from '@/data/data.ts'
 import {sanity, urlFor} from '@/lib/sanity.ts'
+import {toIsoDate} from "@/utils/format.ts";
 
 export type RichText = PortableTextProps['value']
 
-/** What the components use, whether the data comes from Sanity or from data.ts. */
 export type Journey = {
     id: string
     city: string
     country: string
-    continents: Continent[]
-    /** ISO date (yyyy-mm-dd), formatted for display with formatDate() */
+    continent: string
     startDate: string
     endDate: string
     lat: number
     lng: number
-    /** Rich text from Sanity, or a plain string from the data.ts fallback */
     description: string | RichText
     tag: string
-    /** Ready-to-use image URL */
     image: string
 }
 
@@ -29,7 +25,7 @@ type SanityJourney = {
     id: string
     city: string
     country: string
-    continent: string[] | null
+    continent: string
     startDate: string
     endDate: string | null
     lat: number
@@ -63,7 +59,7 @@ const fromSanity = (doc: SanityJourney): Journey => ({
     id: doc.id,
     city: doc.city,
     country: doc.country,
-    continents: (doc.continent ?? []) as Continent[],
+    continent: doc.continent,
     startDate: doc.startDate,
     endDate: doc.endDate ?? doc.startDate,
     lat: doc.lat,
@@ -78,21 +74,10 @@ export const fetchJourneys = async (): Promise<Journey[]> => {
     return docs.map(fromSanity)
 }
 
-// --- Fallback: the placeholder trips in data.ts ---------------------------------
-
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-
-/** '10 Aug 2026' -> '2026-08-10'. Anything it can't read is returned unchanged. */
-const toIsoDate = (value: string) => {
-    const match = /^(\d{1,2}) ([A-Za-z]{3}) (\d{4})$/.exec(value.trim())
-    const month = match ? MONTHS.indexOf(match[2].toLowerCase()) : -1
-    if (!match || month === -1) return value
-    return `${match[3]}-${String(month + 1).padStart(2, '0')}-${match[1].padStart(2, '0')}`
-}
-
-const fromLocal = (journey: LocalJourney): Journey => ({
+// Fallback: the placeholder trips in data.ts
+const fromLocal = (journey: Journey): Journey => ({
     ...journey,
-    continents: [journey.continent],
+    continent: journey.continent,
     startDate: toIsoDate(journey.startDate),
     endDate: toIsoDate(journey.endDate),
 })
