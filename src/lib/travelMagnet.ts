@@ -14,7 +14,6 @@ export type TravelMagnet = {
 
 type SanityJourney = {
     _id: string
-    title: string
     country: string
     city: string
     startDate: string
@@ -29,7 +28,8 @@ type SanityTravelMagnet = {
 
 const TRAVEL_MAGNET_QUERY = `*[_type == "travelMagnet"
     && defined(image.asset)
-] | order(createdAt desc){
+    && defined(journey->city)
+] | order(_createdAt desc){
     _id,
     journey->{
         _id,

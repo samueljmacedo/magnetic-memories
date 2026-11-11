@@ -15,8 +15,6 @@ A first homepage prototype built with React, TypeScript and Vite.
 ### Open items noticed along the way
 
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
-- [ ] Remove `src/components/lightswind/image-reveal.tsx` or add `framer-motion` back: it is unused, and `npm run build` fails on its import
-- [ ] Make the year and country filters in the journeys section actually filter the carousel
 - [ ] Add the production domain to the CORS origins in Sanity (sanity.io/manage → API)
 
 ### Done
@@ -25,6 +23,8 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema
 - [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
+- [x] Year and country filters on the journeys carousel
+- [x] Build errors fixed (unused `image-reveal` and `Moments` components removed)
 
 ## Run locally
 

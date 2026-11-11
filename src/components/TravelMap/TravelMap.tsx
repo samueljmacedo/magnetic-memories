@@ -50,7 +50,7 @@ const TravelMap = () => {
     const stats = [
         {label: 'countries', value: countUnique(journeys.map((journey) => journey.country))},
         {label: 'cities', value: countUnique(journeys.map((journey) => journey.city))},
-        {label: 'continents', value: countUnique(journeys.map((journey) => journey.continent))},
+        {label: 'continents', value: countUnique(journeys.map((journey) => journey.continent).filter(Boolean))},
     ]
 
     return (

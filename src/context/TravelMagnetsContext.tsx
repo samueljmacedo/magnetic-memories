@@ -22,7 +22,7 @@ export const TravelMagnetsProvider = ({children}: {children: ReactNode}) => {
             .then((travelMagnets) => {
                 if (cancelled) return
                 if (travelMagnets.length === 0) {
-                    console.warn('[sanity] No published journeys found (did you press Publish in the Studio?). Showing data.ts instead.')
+                    console.warn('[sanity] No published travel magnets found (did you press Publish in the Studio?). Showing data.ts instead.')
                     setState({travelMagnets: fallbackTravelMagnets, status: 'fallback'})
                 } else {
                     setState({travelMagnets, status: 'ready'})
@@ -30,7 +30,7 @@ export const TravelMagnetsProvider = ({children}: {children: ReactNode}) => {
             })
             .catch((error: unknown) => {
                 if (cancelled) return
-                console.error('[sanity] Could not load (check the CORS origins in sanity.io/manage). Showing data.ts instead.', error)
+                console.error('[sanity] Could not load travel magnets (check the CORS origins in sanity.io/manage). Showing data.ts instead.', error)
                 setState({travelMagnets: fallbackTravelMagnets, status: 'fallback'})
             })
 

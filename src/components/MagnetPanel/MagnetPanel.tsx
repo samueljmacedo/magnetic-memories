@@ -11,7 +11,7 @@ type MagnetPanelProps = {
 export default function MagnetPanel({
   title = "Little pieces of everywhere",
 }: MagnetPanelProps) {
-  const {travelMagnets} = useTravelMagnets();
+  const {travelMagnets, status} = useTravelMagnets();
   const [selected, setSelected] = useState<TravelMagnet | null>(null);
   useEffect(() => {
     if (!selected) return;
@@ -60,7 +60,7 @@ export default function MagnetPanel({
               </span>*/}
             </button>
           ))}
-          {travelMagnets.length === 0 && (
+          {travelMagnets.length === 0 && status !== 'loading' && (
             <p className="magnet-board__empty">Your collection will find its place here.</p>
           )}
         </div>

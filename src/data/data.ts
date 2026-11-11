@@ -90,7 +90,7 @@ export const journeys: Journey[] = [
     lat: 48.8588,
     lng: 2.2646,
     description: 'Stunningly gorgeous city, with beauty hidden in every corner.',
-    image: 'src/data/images/trips/france/paris/DSC05445.jpg',
+    image: 'src/data/images/trips/france/paris/DSC05445.JPG',
     tag: 'The charmest city',
   },
   {

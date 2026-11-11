@@ -22,12 +22,12 @@ type SanityJourney = {
     id: string
     city: string
     country: string
-    continent: string
+    continent: string | null
     startDate: string
     endDate: string | null
     lat: number
     lng: number
-    description: string
+    description: string | null
     tag: string | null
     mainImage: SanityImageSource
 }
@@ -52,16 +52,21 @@ const JOURNEYS_QUERY = `*[_type == "journey"
     mainImage
 }`
 
+/**
+ * Maps a journey document from Sanity to the app's Journey.
+ * Journeys saved before `continent` and `description` became plain strings still hold arrays,
+ * so any value that isn't a string is treated as empty until the journey is saved again in the Studio.
+ */
 const fromSanity = (doc: SanityJourney): Journey => ({
     id: doc.id,
     city: doc.city,
     country: doc.country,
-    continent: doc.continent,
+    continent: typeof doc.continent === 'string' ? doc.continent : '',
     startDate: doc.startDate,
     endDate: doc.endDate ?? doc.startDate,
     lat: doc.lat,
     lng: doc.lng,
-    description: doc.description ?? '',
+    description: typeof doc.description === 'string' ? doc.description : '',
     tag: doc.tag ?? '',
     image: urlFor(doc.mainImage).width(1000).fit('max').auto('format').url(),
 })
@@ -70,7 +75,6 @@ export const fetchJourneys = async (): Promise<Journey[]> => {
     const docs = await sanity.fetch<SanityJourney[]>(JOURNEYS_QUERY)
     return docs.map(fromSanity)
 }
-
 
 const fromLocal = (journey: Journey): Journey => ({
     ...journey,
