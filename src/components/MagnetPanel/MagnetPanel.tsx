@@ -99,7 +99,7 @@ export default function MagnetPanel({
             <div className="magnet-dialog__details">
               <p className="magnet-section__eyebrow">A MEMORY FROM</p>
               <h3 id="magnet-dialog-title">{selected.city}</h3>
-              {selected.country && <p className="magnet-dialog__country">{selected.country}</p>}
+              {selected.country && <p className="magnet-dialog__country"><i>{selected.country}</i></p>}
               {selected.year && <p className="magnet-dialog__year">{selected.year}</p>}
               {selected.title && <p className="magnet-dialog__memory">{selected.title}</p>}
             </div>
