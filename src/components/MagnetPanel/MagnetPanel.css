@@ -233,11 +233,18 @@
   line-height: 1;
 }
 
-.magnet-dialog__country,
+.magnet-dialog__country {
+  margin: 8px 0 0;
+  color: var(--color-accent);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 24px;
+}
+
 .magnet-dialog__year {
   margin: 8px 0 0;
-  color: #7b8479;
+  color: var(--color-accent);
   font-size: 12px;
+  letter-spacing: var(--tracking-wide);
 }
 
 .magnet-dialog__memory {
