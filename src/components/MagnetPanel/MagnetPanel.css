@@ -36,128 +36,123 @@
 
 .magnet-board {
   position: relative;
-  overflow: hidden;
-  padding: clamp(20px, 4vw, 42px);
-  border: 1px solid rgba(31, 76, 52, .12);
-  border-radius: 5px;
-  background:
-    radial-gradient(ellipse at 16% 12%, rgba(255,255,255,.8), transparent 42%),
-    linear-gradient(135deg, #f2f0e5, #e8eadf 55%, #f4f0e5);
-  box-shadow: 0 22px 60px rgba(35, 48, 38, .09), inset 0 1px rgba(255,255,255,.8);
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 4vw, 44px) clamp(40px, 6vw, 64px);
+  border-radius: 6px;
+  background-color: var(--color-bg);
+  background-image: radial-gradient(rgba(193, 141, 105, .35) 1.4px, transparent 1.6px);
+  background-size: 26px 26px;
 }
 
-.magnet-board__topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid rgba(31, 76, 52, .15);
-  color: #788176;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .16em;
+.magnet-board::before {
+  position: absolute;
+  inset: 14px;
+  border: 2px dashed rgba(31, 76, 52, .28);
+  border-radius: 22px;
+  content: "";
+  pointer-events: none;
 }
 
 .magnet-board__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: clamp(18px, 3vw, 36px) clamp(12px, 2vw, 24px);
-  padding: clamp(28px, 5vw, 56px) 0;
+  justify-content: center;
+  gap: clamp(26px, 4vw, 48px) clamp(20px, 4vw, 52px);
+  padding: clamp(24px, 4vw, 40px) 0;
 }
 
 .magnet-item {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 5px 12px;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  position: relative;
+  width: var(--magnet-size);
+  flex: 0 0 auto;
+  padding: 0;
   border: 0;
-  border-radius: 8px;
   background: transparent;
   color: inherit;
   cursor: pointer;
+  perspective: 700px;
+  transform: translateY(var(--magnet-offset));
   -webkit-tap-highlight-color: transparent;
 }
 
-.magnet-item__object {
-  position: relative;
-  display: grid;
-  width: 100%;
-  height: clamp(100px, 13vw, 150px);
-  place-items: center;
-  transform: rotate(var(--magnet-rotation)) translateZ(0);
-  transition: transform 280ms cubic-bezier(.2,.8,.2,1), filter 280ms ease;
-  filter: drop-shadow(0 5px 3px rgba(32, 42, 34, .13))
-          drop-shadow(0 13px 9px rgba(32, 42, 34, .12));
+.magnet-item__zone {
+  position: absolute;
+  z-index: 3;
+  width: 34%;
+  height: 34%;
 }
 
-.magnet-item__object::after {
-  position: absolute;
-  z-index: -1;
-  right: 13%;
-  bottom: 5%;
-  left: 13%;
-  height: 13px;
-  border-radius: 50%;
-  background: rgba(38, 48, 39, .2);
-  content: "";
-  filter: blur(10px);
-  opacity: .65;
-  transition: opacity 280ms ease, transform 280ms ease;
+.magnet-item__zone--tl, .magnet-item__zone--tc, .magnet-item__zone--tr { top: 0; }
+.magnet-item__zone--ml, .magnet-item__zone--mc, .magnet-item__zone--mr { top: 33%; }
+.magnet-item__zone--bl, .magnet-item__zone--bc, .magnet-item__zone--br { top: 66%; }
+.magnet-item__zone--tl, .magnet-item__zone--ml, .magnet-item__zone--bl { left: 0; }
+.magnet-item__zone--tc, .magnet-item__zone--mc, .magnet-item__zone--bc { left: 33%; }
+.magnet-item__zone--tr, .magnet-item__zone--mr, .magnet-item__zone--br { left: 66%; }
+
+.magnet-item__object {
+  position: relative;
+  display: block;
+  height: calc(var(--magnet-size) * 1.2);
+  transform: rotate(var(--magnet-rotation)) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+  transform-style: preserve-3d;
+  transition: transform 350ms cubic-bezier(.2,.8,.2,1), filter 350ms ease;
+  filter: drop-shadow(0 6px 5px rgba(31, 76, 52, .28)) drop-shadow(0 1px 1px rgba(0, 0, 0, .25));
 }
 
 .magnet-item__object img {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   user-select: none;
   pointer-events: none;
+  filter: drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff)
+          drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff);
 }
 
-.magnet-item__label {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  color: #334238;
-  font-family: "DM Sans", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .015em;
-  text-align: center;
-}
-
-.magnet-item__label small {
-  color: #7c857b;
-  font-size: 10px;
-  font-weight: 400;
+/* The light sweep is masked with the magnet's own picture, so it follows its outline. */
+.magnet-item__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.75) 50%, transparent 65%)
+              -150% 0 / 250% 100% no-repeat;
+  -webkit-mask: var(--magnet-image) center / contain no-repeat;
+  mask: var(--magnet-image) center / contain no-repeat;
+  transition: background-position 700ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .magnet-item:hover {
-    z-index: 2;
+    z-index: 5;
   }
 
   .magnet-item:hover .magnet-item__object,
   .magnet-item:focus-visible .magnet-item__object {
-    transform: rotate(0deg) translateY(-9px) scale(2) perspective(600px) rotateX(5deg);
-    z-index: 2;
-    filter: drop-shadow(0 9px 5px rgba(32, 42, 34, .12))
-            drop-shadow(0 22px 15px rgba(32, 42, 34, .2));
+    transform: rotate(0deg) scale(1.5) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
+    filter: drop-shadow(0 22px 16px rgba(31, 76, 52, .35)) drop-shadow(0 2px 2px rgba(0, 0, 0, .2));
   }
 
-  .magnet-item:hover .magnet-item__object::after,
-  .magnet-item:focus-visible .magnet-item__object::after {
-    transform: translateY(8px) scale(.85);
-    opacity: .38;
+  .magnet-item:hover .magnet-item__shine,
+  .magnet-item:focus-visible .magnet-item__shine {
+    background-position: 150% 0;
   }
+
+  .magnet-item__zone--tl:hover ~ .magnet-item__object { --tilt-x: 12deg;  --tilt-y: -8deg; }
+  .magnet-item__zone--tc:hover ~ .magnet-item__object { --tilt-x: 0deg;   --tilt-y: -8deg; }
+  .magnet-item__zone--tr:hover ~ .magnet-item__object { --tilt-x: -12deg; --tilt-y: -8deg; }
+  .magnet-item__zone--ml:hover ~ .magnet-item__object { --tilt-x: 12deg;  --tilt-y: 0deg; }
+  .magnet-item__zone--mr:hover ~ .magnet-item__object { --tilt-x: -12deg; --tilt-y: 0deg; }
+  .magnet-item__zone--bl:hover ~ .magnet-item__object { --tilt-x: 12deg;  --tilt-y: 8deg; }
+  .magnet-item__zone--bc:hover ~ .magnet-item__object { --tilt-x: 0deg;   --tilt-y: 8deg; }
+  .magnet-item__zone--br:hover ~ .magnet-item__object { --tilt-x: -12deg; --tilt-y: 8deg; }
 }
 
 .magnet-item:focus-visible {
   outline: 2px solid var(--color-primary);
-  outline-offset: 5px;
+  outline-offset: 8px;
 }
 
 .magnet-board__empty {
@@ -165,17 +160,6 @@
   color: #6f796f;
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 23px;
-  font-style: italic;
-  text-align: center;
-}
-
-.magnet-board__footnote {
-  margin: 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(31, 76, 52, .15);
-  color: #788176;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 17px;
   font-style: italic;
   text-align: center;
 }
@@ -271,9 +255,9 @@
 
 @media (max-width: 600px) {
   .magnet-section { width: min(100% - 24px, 1120px); }
-  .magnet-board { padding: 18px 14px; }
-  .magnet-board__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 8px; }
-  .magnet-item__object { height: 118px; }
+  .magnet-board { padding: 22px 12px 34px; }
+  .magnet-board__grid { gap: 22px 14px; }
+  .magnet-item { width: calc(var(--magnet-size) * .72); }
   .magnet-dialog { grid-template-columns: 1fr; max-width: 420px; }
   .magnet-dialog__image { min-height: 210px; max-height: 240px; }
   .magnet-dialog__image img { max-height: 190px; }
@@ -283,6 +267,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .magnet-item__object,
-  .magnet-item__object::after,
+  .magnet-item__shine,
   .magnet-dialog { transition: none; animation: none; }
 }

@@ -3,6 +3,14 @@ import "./MagnetPanel.css";
 import {useTravelMagnets} from "@/context/TravelMagnetsContext.tsx";
 import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 
+/** Repeating patterns that keep the magnets looking hand-placed instead of sitting on a grid. */
+const MAGNET_ROTATIONS = [-5, 4, -3, 6, -6, 3]
+const MAGNET_SIZES = [150, 125, 170, 135, 160, 140]
+const MAGNET_OFFSETS = [0, 26, -14, 34, -8, 18]
+
+/** The 3x3 invisible zones over a magnet. Hovering a zone tilts the magnet towards it. */
+const TILT_ZONES = ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br']
+
 type MagnetPanelProps = {
   title?: string;
   subtitle?: string;
@@ -30,11 +38,6 @@ export default function MagnetPanel({
       </header>
 
       <div className="magnet-board">
-        <div className="magnet-board__topline">
-          <span>COLLECTED MEMORIES</span>
-          <span>{String(travelMagnets.length).padStart(2, "0")} OBJECTS</span>
-        </div>
-
         <div className="magnet-board__grid">
           {travelMagnets.map((magnet, index) => (
             <button
@@ -42,30 +45,30 @@ export default function MagnetPanel({
               key={magnet.id}
               type="button"
               style={{
-                "--magnet-rotation": `${[-4, 3, -2, 4, 1][index % 5]}deg`,
-                "--magnet-delay": `${index * 45}ms`,
+                "--magnet-rotation": `${MAGNET_ROTATIONS[index % MAGNET_ROTATIONS.length]}deg`,
+                "--magnet-size": `${MAGNET_SIZES[index % MAGNET_SIZES.length]}px`,
+                "--magnet-offset": `${MAGNET_OFFSETS[index % MAGNET_OFFSETS.length]}px`,
+                "--magnet-image": `url("${magnet.image}")`,
               } as React.CSSProperties}
               onClick={() => setSelected(magnet)}
               aria-label={`View ${magnet.city}${magnet.country ? `, ${magnet.country}` : ""} magnet`}
             >
+              {TILT_ZONES.map(zone => (
+                <span className={`magnet-item__zone magnet-item__zone--${zone}`} key={zone} aria-hidden="true" />
+              ))}
               <span className="magnet-item__object">
                 <img
                     src={magnet.image}
                     alt={`${magnet.city} souvenir magnet`}
                     loading="lazy" />
+                <span className="magnet-item__shine" aria-hidden="true" />
               </span>
-              {/*<span className="magnet-item__label">
-                <span>{magnet.destination}</span>
-                {magnet.country && <small>{magnet.country}</small>}
-              </span>*/}
             </button>
           ))}
           {travelMagnets.length === 0 && status !== 'loading' && (
             <p className="magnet-board__empty">Your collection will find its place here.</p>
           )}
         </div>
-
-        <p className="magnet-board__footnote">A little reminder of the places that stay with us.</p>
       </div>
 
       {selected && (
