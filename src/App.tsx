@@ -6,6 +6,7 @@ import JourneyCarrousel from "./components/JourneyCarrousel/JourneyCarrousel.tsx
 import QuoteBand from "./components/QuoteBand/QuoteBand.tsx";
 import TravelMap from "./components/TravelMap/TravelMap.tsx";
 import MagnetPanel from "./components/MagnetPanel/MagnetPanel.tsx";
+import VisitorMap from "./components/VisitorMap/VisitorMap.tsx";
 import {JourneysProvider} from "./context/JourneysContext.tsx";
 import {TravelMagnetsProvider} from "@/context/TravelMagnetsContext.tsx";
 
@@ -26,6 +27,7 @@ function App() {
         <TravelMagnetsProvider>
             <MagnetPanel />
         </TravelMagnetsProvider>
+        <VisitorMap />
         <QuoteBand />
       </main>
 
