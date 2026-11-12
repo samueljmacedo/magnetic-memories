@@ -16,6 +16,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
 - [ ] Add the production domain to the CORS origins in Sanity (sanity.io/manage → API)
+- [ ] Maybe move the hosting from GitHub Pages to Cloudflare (Pages/Workers): set `base` to `'/'` in `vite.config.ts`, replace the deploy workflow, and update the Sanity CORS origin
 
 ### Done
 
@@ -24,6 +25,8 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [x] Sanity Studio set up with a `journey` schema
 - [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
 - [x] Year and country filters on the journeys carousel
+- [x] New MagnetPanel (sticker sheet with tilt and shine)
+- [x] Published on GitHub Pages
 - [x] Build errors fixed (unused `image-reveal` and `Moments` components removed)
 
 ## Run locally
