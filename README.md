@@ -7,7 +7,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 ### Planned for after 17 November
 
 - [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
-- [ ] Add Portuguese and French translations
+- [ ] Add Portuguese and French translations (plan in `docs/translations-plan.md`)
 - [ ] Correct the dates of each trip (for example, in `data.ts` Birmingham ends on `17 Nov 20260` and Strasbourg ends before it starts)
 - [ ] Write a proper introduction on the website
 - [ ] Add multiple pictures of myself in the introduction
