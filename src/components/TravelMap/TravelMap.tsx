@@ -6,6 +6,7 @@ import {ArrowRight} from "lucide-react";
 import {useJourneys} from "../../context/JourneysContext.tsx";
 import {currentLocation} from "@/data/data.ts";
 import {formatDate, padNumber} from "@/utils/format.ts";
+import {useTranslation} from "react-i18next";
 import {formatCoordinates} from "@/utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
@@ -36,6 +37,7 @@ const boundsOptions = {padding: [48, 48] as [number, number], maxZoom: 5}
 
 const TravelMap = () => {
     const {journeys, status} = useJourneys()
+    const {i18n} = useTranslation()
     const [map, setMap] = useState<LeafletMap | null>(null)
 
     // The view that shows every pin (and where I am now). Recomputed when the journeys arrive.
@@ -99,7 +101,7 @@ const TravelMap = () => {
                                             <figcaption>
                                                 <span className="meta-label">{journey.tag}</span>
                                                 <strong>{journey.city}</strong>
-                                                <em>{journey.country} · {formatDate(journey.startDate)}</em>
+                                                <em>{journey.country} · {formatDate(journey.startDate, i18n.resolvedLanguage)}</em>
                                             </figcaption>
                                         </figure>
                                     </Popup>

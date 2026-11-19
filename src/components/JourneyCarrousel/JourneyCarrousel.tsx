@@ -3,20 +3,25 @@ import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 import "./JourneyCarrousel.css";
 import {
     ALL_FILTER,
     filterCountriesAlphabetically,
-    filterJourneys, INITAL_COUNTRY_FILTER,
-    INITAL_YEAR_FILTER,
+    filterJourneys,
     listYearsNewestFirst,
 } from "@/utils/journey.ts";
 
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
-    const [yearFilter, setYearFilter] = useState(INITAL_YEAR_FILTER);
-    const [countryFilter, setCountryFilter] = useState(INITAL_COUNTRY_FILTER);
+    const {i18n} = useTranslation();
+    // null until the visitor picks a year, so the filter can start on the newest year once the journeys have loaded.
+    const [chosenYear, setChosenYear] = useState<string | null>(null);
+    const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
+
+    const newestYear = listYearsNewestFirst(journeys)[0]?.id
+    const yearFilter = chosenYear ?? newestYear ?? ALL_FILTER
 
     const visibleJourneys = filterJourneys(journeys, {year: yearFilter, country: countryFilter})
     const years = listYearsNewestFirst(
@@ -35,7 +40,7 @@ const JourneyCarrousel = () => {
             (current + direction + visibleJourneys.length) % visibleJourneys.length)
     }
     const changeYear = (year: string) => {
-        setYearFilter(year)
+        setChosenYear(year)
         setJourneyIndex(0)
     }
     const changeCountry = (country: string) => {
@@ -86,7 +91,7 @@ const JourneyCarrousel = () => {
                     <figure className="polaroid journey-polaroid">
                         <img src={activeJourney.image} alt={`${activeJourney.city}, ${activeJourney.country}`} />
                         <figcaption className="polaroid-caption">
-                            {activeJourney.city} · {formatDate(activeJourney.startDate)}
+                            {activeJourney.city} · {formatDate(activeJourney.startDate, i18n.resolvedLanguage)}
                         </figcaption>
                         <span className="tape" />
                     </figure>

@@ -3,12 +3,19 @@ export const padNumber = (value: number) => String(value).padStart(2, '0')
 
 const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/
 
-/** "2026-08-10" -> "10 Aug 2026". Anything that isn't an ISO date is returned as it came. */
-export const formatDate = (value: string) => {
+/** Intl locale for each site language. English stays British, so the day comes before the month. */
+const DATE_LOCALES: Record<string, string> = {en: 'en-GB', pt: 'pt-BR', fr: 'fr-FR'}
+
+/**
+ * "2026-08-10" -> "10 Aug 2026" (or "10 août 2026" in French).
+ * Anything that isn't an ISO date is returned as it came.
+ * @param language the site language code, such as "pt". Falls back to English.
+ */
+export const formatDate = (value: string, language = 'en') => {
     const match = ISO_DATE.exec(value)
     if (!match) return value
     const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])))
-    return new Intl.DateTimeFormat('en-GB', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'}).format(date)
+    return new Intl.DateTimeFormat(DATE_LOCALES[language] ?? DATE_LOCALES.en, {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'}).format(date)
 }
 
 /** "2026-08-10" -> "2026" */
