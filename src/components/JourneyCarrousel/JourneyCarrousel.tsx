@@ -4,12 +4,18 @@ import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
 import {useState} from "react";
 import "./JourneyCarrousel.css";
-import {ALL_FILTER, filterCountriesAlphabetically, filterJourneys, listYearsNewestFirst,} from "@/utils/journey.ts";
+import {
+    ALL_FILTER,
+    filterCountriesAlphabetically,
+    filterJourneys, INITAL_COUNTRY_FILTER,
+    INITAL_YEAR_FILTER,
+    listYearsNewestFirst,
+} from "@/utils/journey.ts";
 
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
-    const [yearFilter, setYearFilter] = useState(ALL_FILTER);
-    const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
+    const [yearFilter, setYearFilter] = useState(INITAL_YEAR_FILTER);
+    const [countryFilter, setCountryFilter] = useState(INITAL_COUNTRY_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
 
     const visibleJourneys = filterJourneys(journeys, {year: yearFilter, country: countryFilter})

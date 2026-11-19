@@ -3,11 +3,11 @@ import {getYear} from "@/utils/format.ts";
 
 /** Value of the "no filter" option in the journey filters. */
 export const ALL_FILTER = 'all';
+export const INITAL_YEAR_FILTER = new Date().getFullYear().toString();
+export const INITAL_COUNTRY_FILTER = 'all';
 
 export type JourneyFilters = {
-    /** A year such as "2026", or ALL_FILTER */
     year: string
-    /** A country name, or ALL_FILTER */
     country: string
 }
 
