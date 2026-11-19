@@ -2,7 +2,6 @@ import L from "leaflet";
 import type {LatLngTuple, Map as LeafletMap} from "leaflet";
 import {useMemo, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
-import {ArrowRight} from "lucide-react";
 import {useJourneys} from "../../context/JourneysContext.tsx";
 import {currentLocation} from "@/data/data.ts";
 import {formatDate, padNumber} from "@/utils/format.ts";
@@ -37,10 +36,10 @@ const boundsOptions = {padding: [48, 48] as [number, number], maxZoom: 5}
 
 const TravelMap = () => {
     const {journeys, status} = useJourneys()
-    const {i18n} = useTranslation()
-    const [map, setMap] = useState<LeafletMap | null>(null)
+    const {i18n, t} = useTranslation()
+    // @ts-ignore
+    const [map,setMap] = useState<LeafletMap | null>(null)
 
-    // The view that shows every pin (and where I am now). Recomputed when the journeys arrive.
     const bounds = useMemo(() => {
         const points: LatLngTuple[] = [
             ...journeys.map((journey): LatLngTuple => [journey.lat, journey.lng]),
@@ -50,30 +49,39 @@ const TravelMap = () => {
     }, [journeys])
 
     const stats = [
-        {label: 'countries', value: countUnique(journeys.map((journey) => journey.country))},
-        {label: 'cities', value: countUnique(journeys.map((journey) => journey.city))},
-        {label: 'continents', value: countUnique(journeys.map((journey) => journey.continent).filter(Boolean))},
+        {label: t('map.label.countries'), value: countUnique(journeys.map((journey) => journey.country))},
+        {label: t('map.label.cities'), value: countUnique(journeys.map((journey) => journey.city))},
+        {label: t('map.label.continents'), value: countUnique(journeys.map((journey) => journey.continent).filter(Boolean))},
     ]
 
     return (
         <section className="map-section" id="map">
             <div className="section-wrap map-layout">
                 <div className="map-copy">
-                    <p className="eyebrow">A WORLD OF MEMORIES</p>
-                    <h2 className="heading-display">Been there,<br /><i>felt that.</i></h2>
-                    <p className="text-body map-description">Every pin holds a story. Explore the places I've wandered, the paths I've taken and the memories I've brought home.</p>
-                    <button type="button" className="text-link map-reset" onClick={() => map?.flyToBounds(bounds, boundsOptions)}>
+                    <p className="eyebrow">
+                        {t('map.eyebrow')}
+                    </p>
+                    <h2 className="heading-display">
+                        {t('map.title.p1')}
+                        <br /><i>{t('map.title.p2')}</i>
+                    </h2>
+                    <p className="text-body map-description">
+                        {t('map.description')}
+                    </p>
+                    {/*<button type="button" className="text-link map-reset" onClick={() => map?.flyToBounds(bounds, boundsOptions)}>
                         Show all pins <ArrowRight size={16} />
-                    </button>
+                    </button>*/}
                     <div className="map-stats">
                         {stats.map((stat) => (
-                            <div key={stat.label}><strong>{padNumber(stat.value)}</strong><span className="meta-label">{stat.label}</span></div>
+                            <div key={stat.label}>
+                                <strong>{padNumber(stat.value)}</strong>
+                                <span className="meta-label">{stat.label}</span>
+                            </div>
                         ))}
                     </div>
                 </div>
                 <div className="map-art">
                     <div className="map-paper">
-                        {/* MapContainer only reads `bounds` when it mounts, so wait for the journeys. */}
                         {status === 'loading' ? (
                             <p className="map-status meta-label" role="status">Loading map…</p>
                         ) : (
@@ -87,7 +95,13 @@ const TravelMap = () => {
                             maxBoundsViscosity={1}
                             scrollWheelZoom={false}
                             dragging={!L.Browser.mobile}>
-                            <TileLayer url={TILE_URL} attribution={TILE_ATTRIBUTION} subdomains="abcd" maxZoom={19} noWrap />
+                            <TileLayer
+                              url={TILE_URL}
+                              attribution={TILE_ATTRIBUTION}
+                              subdomains="abcd"
+                              maxZoom={19}
+                              noWrap
+                            />
                             {journeys.map((journey) => (
                                 <Marker
                                     key={journey.id}

@@ -14,8 +14,7 @@ import {
 
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
-    const {i18n} = useTranslation();
-    // null until the visitor picks a year, so the filter can start on the newest year once the journeys have loaded.
+    const {t, i18n} = useTranslation();
     const [chosenYear, setChosenYear] = useState<string | null>(null);
     const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
@@ -55,32 +54,44 @@ const JourneyCarrousel = () => {
     return (
         <section className="journeys section-wrap" id="journeys">
             <div className="section-heading journey-heading">
-                <div><p className="eyebrow">THE TRAVEL DIARIES</p><h2 className="heading-display">Journeys & <i>memories</i></h2></div>
+                <div>
+                    <p className="eyebrow">
+                        {t('journeys.eyebrow')}
+                    </p>
+                    <h2 className="heading-display">
+                        {t('journeys.title.p1')}<i>{t('journeys.title.p2')}</i>
+
+                    </h2>
+                </div>
                 {journeys.length > 0 && (
-                    <div className="journey-filters" role="group" aria-label="Filter journeys">
+                    <div
+                      className="journey-filters"
+                      role="group"
+                      aria-label="Filter journeys"
+                    >
                         <FilterSelect
-                            label="Year"
+                            label={t('journeys.filter.year')}
                             value={yearFilter}
                             active={yearFilter !== ALL_FILTER}
                             onChange={changeYear}
                             options={[
-                                {value: ALL_FILTER, label: 'All years'},
+                                {value: ALL_FILTER, label: t('journeys.filter.allYears') },
                                 ...years.map((year) => ({value: year.id, label: year.name})),
                             ]}
                         />
                         <FilterSelect
-                            label="Country"
+                            label={t('journeys.filter.country')}
                             value={countryFilter}
                             active={countryFilter !== ALL_FILTER}
                             onChange={changeCountry}
                             options={[
-                                {value: ALL_FILTER, label: 'All countries'},
+                                {value: ALL_FILTER, label: t('journeys.filter.allCountries')},
                                 ...countries.map((country) => ({value: country.id, label: country.name})),
                             ]}
                         />
                         {filtersActive && (
                             <button type="button" className="filter-reset meta-label" onClick={clearFilters}>
-                                <X size={13} aria-hidden="true" /> Clear
+                                <X size={13} aria-hidden="true" />{t('journeys.filter.clear')}
                             </button>
                         )}
                     </div>
@@ -129,7 +140,6 @@ const JourneyCarrousel = () => {
                     {journeys.length > 0 && 'No journeys match these filters.'}
                 </p>
             )}
-            <p className="carousel-footnote meta-label">ONE JOURNEY AT A TIME <span>✳</span> MORE MEMORIES TO COME</p>
         </section>
     );
 }

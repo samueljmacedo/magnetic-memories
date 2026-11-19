@@ -10,7 +10,7 @@
   },
   "about": {
     "noteMessage": {
-      "p1": "The trip is",
+      "p1": "The trip",
       "p2": " is always",
       "p3": " worth it."
     },
@@ -23,10 +23,37 @@
   },
   "footer": {
     "rights": "All rights reserved",
-    "back": "Back to top"
+    "back": "BACK TO TOP"
   },
   "magnets": {
-    "eyebrow": "The souvenir collection",
-    "title": "Little pieces of everywhere"
+    "eyebrow": "THE MAGNET COLLECTION",
+    "title": "Little memories of each place"
+  },
+  "journeys": {
+    "eyebrow": "The travel diaries",
+    "title": {
+      "p1": "Journeys & ",
+      "p2":"memories"
+    },
+    "filter": {
+      "allYears": "All years",
+      "allCountries": "All countries",
+      "year": "Year",
+      "country": "Country",
+      "clear": "Clear"
+    }
+  },
+  "map": {
+    "eyebrow": "A world of memories",
+    "title": {
+      "p1": "Places & ",
+      "p2": "stories"
+    },
+    "description": "Every pin holds a story. Explore the places I've wandered, the paths I've taken and the memories I've brought home.\n",
+    "label": {
+      "countries": "Countries",
+      "cities": "Cities",
+      "continents": "Continents"
+    }
   }
 }

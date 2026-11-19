@@ -22,11 +22,38 @@
     "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
   },
   "footer": {
-    "rights": "All rights reserved",
-    "back": "Back to top"
+    "rights": "Tous droits réservés",
+    "back": "Retour en haut de la page"
   },
   "magnets": {
-    "eyebrow": "The souvenir collection",
-    "title": "Little pieces of everywhere"
+    "eyebrow": "LA COLLECTION D'AIMANTS",
+    "title": "Des petits souvenirs de partout"
+  },
+  "journeys": {
+    "eyebrow": "Journal de voyage",
+    "title": {
+      "p1": "Aventures & ",
+      "p2":"mémoires"
+    },
+    "filter": {
+      "allYears": "Toutes les années",
+      "allCountries": "Tous les pays",
+      "year": "Année",
+      "country": "Pays",
+      "clear": "Nettoyer"
+    }
+  },
+  "map": {
+    "eyebrow": "Un monde de mémoires",
+    "title": {
+      "p1": "Lieux & ",
+      "p2": "histoires"
+    },
+    "description": "Chaque pin a une histoire. Découvrez les lieux que j'ai visités, les chemins que j'ai choisis et les mémoires que j'ai rapportés chez moi.\n",
+    "label": {
+      "countries": "Pays",
+      "cities": "Villes",
+      "continents": "Continents"
+    }
   }
 }

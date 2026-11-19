@@ -18,15 +18,42 @@
   },
   "strip": {
     "currentLocation": "Localização atual",
-    "mainMessage": "We travel not to escape life, but for life not to escape us.",
-    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+    "mainMessage": "Viajamos não para escapar da vida, mas para a vida não nos escapar",
+    "footMessage": "Um pequeno lembrete para continuar se aventurando"
   },
   "footer": {
-    "rights": "All rights reserved",
-    "back": "Back to top"
+    "rights": "Todos os direitos reservados",
+    "back": "Voltar para topo"
   },
   "magnets": {
-    "eyebrow": "The souvenir collection",
-    "title": "Little pieces of everywhere"
+    "eyebrow": "A coleção de ímãs",
+    "title": "Pequenas memórias de cada lugar"
+  },
+  "journeys": {
+    "eyebrow": "Diário de viagem",
+    "title": {
+      "p1": "Aventuras & ",
+      "p2":"memórias"
+    },
+    "filter": {
+      "allYears": "Todos os anos",
+      "allCountries": "Todos os países",
+      "year": "Ano",
+      "country": "País",
+      "clear": "Limpar"
+    }
+  },
+  "map": {
+    "eyebrow": "Um mundo de memórias",
+    "title": {
+      "p1": "Lugares & ",
+      "p2": "histórias"
+    },
+    "description": "Cada marcador contém uma história. Explore os locais que visitei, os caminhos que escolhi e as memórias que eu trouxe para a casa.\n",
+    "label": {
+      "countries": "Países",
+      "cities": "Cidades",
+      "continents": "Continentes"
+    }
   }
 }
