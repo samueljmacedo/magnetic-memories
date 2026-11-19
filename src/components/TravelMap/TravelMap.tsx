@@ -129,9 +129,9 @@ const TravelMap = () => {
                                 alt={`Current location: ${currentLocation.city}, ${countryName(t, currentLocation.country)}`}>
                                 <Popup className="journey-popup" minWidth={160} maxWidth={208}>
                                     <p className="popup-here">
-                                        <span className="meta-label">Currently here</span>
+                                        <span className="meta-label">{t('map.label.current')}</span>
                                         <strong>{currentLocation.city}</strong>
-                                        <em>{countryName(t, currentLocation.country)} · I'm here</em>
+                                        <em>{countryName(t, currentLocation.country)} · {t('map.label.here')}</em>
                                     </p>
                                 </Popup>
                             </Marker>

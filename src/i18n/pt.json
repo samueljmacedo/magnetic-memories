@@ -53,7 +53,19 @@
     "label": {
       "countries": "Países",
       "cities": "Cidades",
-      "continents": "Continentes"
+      "continents": "Continentes",
+      "current": "Atualmente aqui",
+      "here": "Estou aqui"
     }
+  },
+  "countries": {
+    "England": "Inglanterra",
+    "Scotland": "Escócia",
+    "Serbia": "Sérvia",
+    "Spain": "Espanha",
+    "Netherlands": "Holanda",
+    "Belgium": "Bélgica",
+    "France": "França",
+    "Brazil": "Brasil"
   }
 }
