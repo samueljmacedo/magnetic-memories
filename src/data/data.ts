@@ -1,6 +1,6 @@
 // All content below is placeholder data. Replace it with your own trips.
 
-import type {Journey} from "@/lib/journeys.ts";
+import type {LocalJourney} from "@/lib/journeys.ts";
 import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 
 export type Continent =
@@ -12,7 +12,7 @@ export type Continent =
   | 'South America'
 
 
-export const journeys: Journey[] = [
+export const journeys: LocalJourney[] = [
   {
     id: 'gijon',
     city: 'Gijón',

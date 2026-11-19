@@ -4,6 +4,7 @@ import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {countryName, pickLanguage} from "@/utils/localized.ts";
 import "./JourneyCarrousel.css";
 import {
     ALL_FILTER,
@@ -26,9 +27,12 @@ const JourneyCarrousel = () => {
     const years = listYearsNewestFirst(
         filterJourneys(journeys, {year: ALL_FILTER, country: countryFilter})
     )
+    // The value stays the English name stored in Sanity, only the label is translated, so filtering keeps working.
     const countries = filterCountriesAlphabetically(
         filterJourneys(journeys, {year: yearFilter, country: ALL_FILTER})
     )
+        .map((country) => ({value: country.id, label: countryName(t, country.name)}))
+        .sort((a, b) => a.label.localeCompare(b.label, i18n.resolvedLanguage))
     const filtersActive = yearFilter !== ALL_FILTER || countryFilter !== ALL_FILTER
 
     const currentIndex = Math.min(journeyIndex, Math.max(visibleJourneys.length - 1, 0))
@@ -86,7 +90,7 @@ const JourneyCarrousel = () => {
                             onChange={changeCountry}
                             options={[
                                 {value: ALL_FILTER, label: t('journeys.filter.allCountries')},
-                                ...countries.map((country) => ({value: country.id, label: country.name})),
+                                ...countries,
                             ]}
                         />
                         {filtersActive && (
@@ -100,7 +104,7 @@ const JourneyCarrousel = () => {
             {activeJourney ? (
                 <div className="journey-carousel">
                     <figure className="polaroid journey-polaroid">
-                        <img src={activeJourney.image} alt={`${activeJourney.city}, ${activeJourney.country}`} />
+                        <img src={activeJourney.image} alt={`${activeJourney.city}, ${countryName(t, activeJourney.country)}`} />
                         <figcaption className="polaroid-caption">
                             {activeJourney.city} · {formatDate(activeJourney.startDate, i18n.resolvedLanguage)}
                         </figcaption>
@@ -108,14 +112,14 @@ const JourneyCarrousel = () => {
                     </figure>
                     <div className="journey-story" aria-live="polite">
                         <div className="journey-meta meta-label">
-                            <span>{activeJourney.tag}</span>
+                            <span>{pickLanguage(activeJourney.tag, i18n.resolvedLanguage)}</span>
                             <span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span>
                         </div>
                         <h3 className="heading-display">
-                            {activeJourney.city}<br /><i>{activeJourney.country}</i>
+                            {activeJourney.city}<br /><i>{countryName(t, activeJourney.country)}</i>
                         </h3>
                         <div className="journey-description">
-                            <p className="text-body">{activeJourney.description}</p>
+                            <p className="text-body">{pickLanguage(activeJourney.description, i18n.resolvedLanguage)}</p>
                         </div>
                         <div className="carousel-controls">
                             <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>

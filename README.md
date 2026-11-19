@@ -57,6 +57,13 @@ The journeys come from Sanity Studio (`studio-magnetic-memories/`, project `roou
 
 Run the Studio with `cd studio-magnetic-memories && npm install && npm run dev`.
 
+### Translated journeys
+
+- `description` and `tag` hold one text per language (`{en, pt, fr}`). English is required and the site falls back to it when a translation is empty. The Studio shows a warning, not an error, for missing translations.
+- Country names are translated on the website, with `countries.<name>` keys in `src/i18n/*.json` (for example `countries.Scotland`). A country without a key is shown as it is in Sanity.
+- Journeys saved before this change keep working (the old text is read as English). To move them to the new shape run, from `studio-magnetic-memories/`:
+  `npx sanity exec scripts/migrate-localized-fields.ts --with-user-token` (dry run), then add `APPLY=1` in front to apply it.
+
 ## Notes
 
 - This is a visual first iteration with sample content; navigation links are section anchors.

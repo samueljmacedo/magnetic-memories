@@ -6,6 +6,7 @@ import {useJourneys} from "../../context/JourneysContext.tsx";
 import {currentLocation} from "@/data/data.ts";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {useTranslation} from "react-i18next";
+import {countryName, pickLanguage} from "@/utils/localized.ts";
 import {formatCoordinates} from "@/utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
@@ -107,15 +108,15 @@ const TravelMap = () => {
                                     key={journey.id}
                                     position={[journey.lat, journey.lng]}
                                     icon={pinIcon}
-                                    title={`${journey.city}, ${journey.country}`}
-                                    alt={`${journey.city}, ${journey.country}`}>
+                                    title={`${journey.city}, ${countryName(t, journey.country)}`}
+                                    alt={`${journey.city}, ${countryName(t, journey.country)}`}>
                                     <Popup className="journey-popup" minWidth={208} maxWidth={208}>
                                         <figure className="popup-card">
-                                            <img src={journey.image} alt={`${journey.city}, ${journey.country}`} />
+                                            <img src={journey.image} alt={`${journey.city}, ${countryName(t, journey.country)}`} />
                                             <figcaption>
-                                                <span className="meta-label">{journey.tag}</span>
+                                                <span className="meta-label">{pickLanguage(journey.tag, i18n.resolvedLanguage)}</span>
                                                 <strong>{journey.city}</strong>
-                                                <em>{journey.country} · {formatDate(journey.startDate, i18n.resolvedLanguage)}</em>
+                                                <em>{countryName(t, journey.country)} · {formatDate(journey.startDate, i18n.resolvedLanguage)}</em>
                                             </figcaption>
                                         </figure>
                                     </Popup>
@@ -124,13 +125,13 @@ const TravelMap = () => {
                             <Marker
                                 position={[currentLocation.lat, currentLocation.lng]}
                                 icon={hereIcon}
-                                title={`${currentLocation.city}, ${currentLocation.country}`}
-                                alt={`Current location: ${currentLocation.city}, ${currentLocation.country}`}>
+                                title={`${currentLocation.city}, ${countryName(t, currentLocation.country)}`}
+                                alt={`Current location: ${currentLocation.city}, ${countryName(t, currentLocation.country)}`}>
                                 <Popup className="journey-popup" minWidth={160} maxWidth={208}>
                                     <p className="popup-here">
                                         <span className="meta-label">Currently here</span>
                                         <strong>{currentLocation.city}</strong>
-                                        <em>{currentLocation.country} · I'm here</em>
+                                        <em>{countryName(t, currentLocation.country)} · I'm here</em>
                                     </p>
                                 </Popup>
                             </Marker>
