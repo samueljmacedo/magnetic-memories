@@ -1,0 +1,32 @@
+{
+  "header": {
+    "title": "Une petite collection de places, aimants & mémoires",
+    "menu": {
+      "about": "Sur moi",
+      "journeys": "Mes voyages",
+      "map": "Carte de voyage",
+      "magnets": "Collection de aimants"
+    }
+  },
+  "about": {
+    "noteMessage": {
+      "p1": "Le voyage en",
+      "p2": " vaut toujours",
+      "p3": " la peine"
+    },
+    "scrollMessage": "Défilez pour explorer"
+  },
+  "strip": {
+    "currentLocation": "Localisation actuel",
+    "mainMessage": "We travel not to escape life, but for life not to escape us.",
+    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "back": "Back to top"
+  },
+  "magnets": {
+    "eyebrow": "The souvenir collection",
+    "title": "Little pieces of everywhere"
+  }
+}

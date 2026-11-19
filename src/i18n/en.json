@@ -1,0 +1,32 @@
+{
+  "header": {
+    "title": "A little collection of places, magnets & memories",
+    "menu": {
+      "about": "About",
+      "journeys": "My journeys",
+      "map": "Travel map",
+      "magnets": "Magnets collection"
+    }
+  },
+  "about": {
+    "noteMessage": {
+      "p1": "The trip is",
+      "p2": " is always",
+      "p3": " worth it."
+    },
+    "scrollMessage": "Scroll to explore"
+  },
+  "strip": {
+    "currentLocation": "Current location",
+    "mainMessage": "We travel not to escape life, but for life not to escape us.",
+    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "back": "Back to top"
+  },
+  "magnets": {
+    "eyebrow": "The souvenir collection",
+    "title": "Little pieces of everywhere"
+  }
+}

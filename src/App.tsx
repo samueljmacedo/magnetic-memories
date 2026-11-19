@@ -8,6 +8,7 @@ import TravelMap from "./components/TravelMap/TravelMap.tsx";
 import MagnetPanel from "./components/MagnetPanel/MagnetPanel.tsx";
 import {JourneysProvider} from "./context/JourneysContext.tsx";
 import {TravelMagnetsProvider} from "@/context/TravelMagnetsContext.tsx";
+import './i18n';
 
 function App() {
   return (
@@ -18,7 +19,6 @@ function App() {
         <About />
         <IntroStrip />
         {/* <Hero /> */}
-        {/* The journeys are fetched from Sanity once and shared by the carousel and the map. */}
         <JourneysProvider>
             <JourneyCarrousel />
             <TravelMap />
