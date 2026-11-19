@@ -8,7 +8,6 @@ import TravelMap from "./components/TravelMap/TravelMap.tsx";
 import MagnetPanel from "./components/MagnetPanel/MagnetPanel.tsx";
 import {JourneysProvider} from "./context/JourneysContext.tsx";
 import {TravelMagnetsProvider} from "@/context/TravelMagnetsContext.tsx";
-import './i18n';
 
 function App() {
   return (
