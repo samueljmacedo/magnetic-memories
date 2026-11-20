@@ -5,9 +5,7 @@ import {getYear} from "@/utils/format.ts";
 export const ALL_FILTER = 'all';
 
 export type JourneyFilters = {
-    /** A year such as "2026", or ALL_FILTER */
     year: string
-    /** A country name, or ALL_FILTER */
     country: string
 }
 

@@ -2,6 +2,7 @@ import type {SanityImageSource} from '@sanity/image-url'
 import {journeys as localJourneys} from '@/data/data.ts'
 import {sanity, urlFor} from '@/lib/sanity.ts'
 import {toIsoDate} from "@/utils/format.ts";
+import {type Localized, toLocalized} from "@/utils/localized.ts";
 
 export type Journey = {
     id: string
@@ -12,9 +13,15 @@ export type Journey = {
     endDate: string
     lat: number
     lng: number
+    description: Localized
+    tag: Localized
+    image: string
+}
+
+/** A journey as written in data.ts, with plain English texts. */
+export type LocalJourney = Omit<Journey, 'description' | 'tag'> & {
     description: string
     tag: string
-    image: string
 }
 
 /** One document of type "journey", as returned by the query below. */
@@ -27,8 +34,9 @@ type SanityJourney = {
     endDate: string | null
     lat: number
     lng: number
-    description: string | null
-    tag: string | null
+    /** Plain strings on journeys saved before translations, {en, pt, fr} objects afterwards */
+    description: unknown
+    tag: unknown
     mainImage: SanityImageSource
 }
 
@@ -66,8 +74,8 @@ const fromSanity = (doc: SanityJourney): Journey => ({
     endDate: doc.endDate ?? doc.startDate,
     lat: doc.lat,
     lng: doc.lng,
-    description: typeof doc.description === 'string' ? doc.description : '',
-    tag: doc.tag ?? '',
+    description: toLocalized(doc.description),
+    tag: toLocalized(doc.tag),
     image: urlFor(doc.mainImage).width(1000).fit('max').auto('format').url(),
 })
 
@@ -76,9 +84,10 @@ export const fetchJourneys = async (): Promise<Journey[]> => {
     return docs.map(fromSanity)
 }
 
-const fromLocal = (journey: Journey): Journey => ({
+const fromLocal = (journey: LocalJourney): Journey => ({
     ...journey,
-    continent: journey.continent,
+    description: toLocalized(journey.description),
+    tag: toLocalized(journey.tag),
     startDate: toIsoDate(journey.startDate),
     endDate: toIsoDate(journey.endDate),
 })

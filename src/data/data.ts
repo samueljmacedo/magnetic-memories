@@ -1,6 +1,6 @@
 // All content below is placeholder data. Replace it with your own trips.
 
-import type {Journey} from "@/lib/journeys.ts";
+import type {LocalJourney} from "@/lib/journeys.ts";
 import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 
 export type Continent =
@@ -12,7 +12,7 @@ export type Continent =
   | 'South America'
 
 
-export const journeys: Journey[] = [
+export const journeys: LocalJourney[] = [
   {
     id: 'gijon',
     city: 'Gijón',
@@ -136,21 +136,22 @@ export const journeys: Journey[] = [
 
 export type NavItem = {
   label: string
+  translationKey: string
   href: string
 }
 
 export const navItems: NavItem[] = [
-  { label: 'About', href: '#about' },
-  { label: 'My journeys', href: '#journeys' },
-  { label: 'Travel map', href: '#map' },
-  { label: 'Magnets collection', href: '#magnets' },
+  { label: 'About', translationKey: "about", href: '#about' },
+  { label: 'My journeys', translationKey: "journeys", href: '#journeys' },
+  { label: 'Travel map', translationKey: "map", href: '#map' },
+  { label: 'Magnets collection', translationKey: "magnets", href: '#magnets' },
 ]
 
 export const currentLocation = {
-  city: 'Solihull',
-  country: 'England',
-  lat: 52.4250,
-  lng: -1.8238,
+  city: 'Belo Horizonte',
+  country: 'Brazil',
+  lat: -19.9026973,
+  lng: -44.0466224,
 }
 
 export const magnets: TravelMagnet[] = [

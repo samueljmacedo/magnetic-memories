@@ -1,0 +1,79 @@
+{
+  "header": {
+    "title": "Une petite collection de lieux, d'aimants & de mémoires",
+    "menu": {
+      "about": "Sur moi",
+      "journeys": "Mes voyages",
+      "map": "Carte de voyage",
+      "magnets": "Collection de aimants"
+    }
+  },
+  "about": {
+    "header": {
+      "p1": "Salut, ",
+      "p2": "chers amis"
+    },
+    "description": {
+      "p1": "Je m'appelle Samuel et voici le petit coin d'internet que j'ai créé pour partager un peu de mes voyages, de mes mémoires et ma collection d'aimants.\n J'ai toujours voulu créer une espace personnalisé pour y ajouter mon histoire, afin de la montrer au monde d'une manière unique.",
+      "p2": "Ce journal est un lieu pour tout conserver: les grandes aventures et les petits détails qui les ponctuent"
+    },
+    "noteMessage": {
+      "p1": "Le voyage en ",
+      "p2": "vaut toujours ",
+      "p3": "la peine"
+    },
+    "scrollMessage": "Défilez pour explorer"
+  },
+  "strip": {
+    "currentLocation": "Localisation actuel",
+    "mainMessage": "We travel not to escape life, but for life not to escape us.",
+    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "back": "Retour en haut de la page"
+  },
+  "magnets": {
+    "eyebrow": "LA COLLECTION D'AIMANTS",
+    "title": "Des petits souvenirs de partout"
+  },
+  "journeys": {
+    "eyebrow": "Journal de voyage",
+    "title": {
+      "p1": "Aventures & ",
+      "p2":"mémoires"
+    },
+    "filter": {
+      "allYears": "Toutes les années",
+      "allCountries": "Tous les pays",
+      "year": "Année",
+      "country": "Pays",
+      "clear": "Nettoyer"
+    }
+  },
+  "map": {
+    "eyebrow": "Un monde de mémoires",
+    "title": {
+      "p1": "Lieux & ",
+      "p2": "histoires"
+    },
+    "description": "Chaque pin a une histoire. Découvrez les lieux que j'ai visités, les chemins que j'ai choisis et les mémoires que j'ai rapportés chez moi.\n",
+    "label": {
+      "countries": "Pays",
+      "cities": "Villes",
+      "continents": "Continents",
+      "current": "Actuellement ici",
+      "here": "Je suis ici"
+    }
+  },
+  "countries": {
+    "England": "Anglaterre",
+    "Scotland": "Écosse",
+    "Serbia": "Serbie",
+    "Spain": "Espagne",
+    "Netherlands": "Holande",
+    "Belgium": "Belgique",
+    "France": "France",
+    "Brazil": "Brésil"
+  }
+}

@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import "./MagnetPanel.css";
 import {useTravelMagnets} from "@/context/TravelMagnetsContext.tsx";
 import type {TravelMagnet} from "@/lib/travelMagnet.ts";
+import {useTranslation} from "react-i18next";
+import {countryName} from "@/utils/localized.ts";
 
 /** Repeating patterns that keep the magnets looking hand-placed instead of sitting on a grid. */
 const MAGNET_ROTATIONS = [-5, 4, -3, 6, -6, 3]
@@ -11,16 +13,10 @@ const MAGNET_OFFSETS = [0, 26, -14, 34, -8, 18]
 /** The 3x3 invisible zones over a magnet. Hovering a zone tilts the magnet towards it. */
 const TILT_ZONES = ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br']
 
-type MagnetPanelProps = {
-  title?: string;
-  subtitle?: string;
-};
-
-export default function MagnetPanel({
-  title = "Little pieces of everywhere",
-}: MagnetPanelProps) {
+export default function MagnetPanel() {
   const {travelMagnets, status} = useTravelMagnets();
   const [selected, setSelected] = useState<TravelMagnet | null>(null);
+  const {t} = useTranslation();
   useEffect(() => {
     if (!selected) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -33,8 +29,8 @@ export default function MagnetPanel({
   return (
     <section className="magnet-section" aria-labelledby="magnet-heading" id={"magnets"}>
       <header className="magnet-section__header">
-        <p className="magnet-section__eyebrow">THE SOUVENIR COLLECTION</p>
-        <h2 id="magnet-heading">{title}</h2>
+        <p className="eyebrow">{t('magnets.eyebrow')}</p>
+        <h2 id="magnet-heading">{t('magnets.title')}</h2>
       </header>
 
       <div className="magnet-board">
@@ -97,11 +93,20 @@ export default function MagnetPanel({
               <img src={selected.image} alt={`${selected.city} souvenir magnet`} />
             </div>
             <div className="magnet-dialog__details">
-              <p className="magnet-section__eyebrow">A MEMORY FROM</p>
+              <p className="eyebrow">{t('magnets.modal.title')}</p>
               <h3 id="magnet-dialog-title">{selected.city}</h3>
-              {selected.country && <p className="magnet-dialog__country"><i>{selected.country}</i></p>}
-              {selected.year && <p className="magnet-dialog__year">{selected.year}</p>}
-              {selected.title && <p className="magnet-dialog__memory">{selected.title}</p>}
+              {selected.country &&
+                <p className="magnet-dialog__country">
+                  <i>{countryName(t,selected.country)}</i>
+                </p>}
+              {selected.year &&
+                <p className="magnet-dialog__year">
+                  {selected.year}
+                </p>}
+              {selected.title &&
+                <p className="magnet-dialog__memory">
+                  {selected.title}
+                </p>}
             </div>
           </section>
         </div>

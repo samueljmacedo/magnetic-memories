@@ -1,20 +1,20 @@
 import {Globe2, Menu} from "lucide-react";
 import {useState} from "react";
-import {navItems} from "../../data/data.ts";
-import {languages, useLanguage} from "../../hooks/useLanguage.ts";
-import type {Language} from "../../hooks/useLanguage.ts";
+import {navItems} from "@/data/data.ts";
+import {useTranslation} from "react-i18next";
+import {SUPPORTED_LANGUAGES} from "@/i18n.ts";
 import Brand from "../Brand/Brand.tsx";
 import "./Header.css";
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false)
-    const [language, setLanguage] = useLanguage()
+    const {t, i18n} = useTranslation();
 
     return (
         <>
             <div className="announcement meta-label">
                 <span className="tiny-star">✳</span>
-                A little collection of places, magnets & moments
+                {t('header.title')}
                 <span className="tiny-star">✳</span>
             </div>
             <header className="header">
@@ -29,16 +29,22 @@ const Header = () => {
                 </button>
                 <nav id="site-nav" className={menuOpen ? 'nav nav-open' : 'nav'}>
                     {navItems.map((item) => (
-                        <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                            {t('header.menu.'+item.translationKey)}
+                        </a>
                     ))}
                 </nav>
                 <div className="language">
                     <Globe2 size={15} />
                     <select
                         aria-label="Choose language"
-                        value={language}
-                        onChange={(event) => setLanguage(event.target.value as Language)}>
-                        {languages.map((code) => <option key={code} value={code}>{code}</option>)}
+                        value={i18n.resolvedLanguage}
+                        onChange={(event) => i18n.changeLanguage(event.target.value)}>
+                        {SUPPORTED_LANGUAGES.map((code) => <option key={code} value={code}>{code.toUpperCase()}</option>)}
                     </select>
                 </div>
             </header>

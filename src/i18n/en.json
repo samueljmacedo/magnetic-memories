@@ -1,0 +1,82 @@
+{
+  "header": {
+    "title": "A little collection of places, magnets & memories",
+    "menu": {
+      "about": "About",
+      "journeys": "My journeys",
+      "map": "Travel map",
+      "magnets": "Magnets collection"
+    }
+  },
+  "about": {
+    "header": {
+      "p1": "Hello, ",
+      "p2": "dear friends"
+    },
+    "description": {
+      "p1": "I'm Samuel and this is my little corner on the internet that I created to share a bit of my travels, memories and my magnet collection!\n I've always wanted to create a personalized space to add my history, showing it to the world in a unique way.",
+      "p2": "This journal is a place to keep it all: the big adventures and the tiny details in between."
+    },
+    "noteMessage": {
+      "p1": "The trip",
+      "p2": " is always",
+      "p3": " worth it."
+    },
+    "scrollMessage": "Scroll to explore"
+  },
+  "strip": {
+    "currentLocation": "Current location",
+    "mainMessage": "We travel not to escape life, but for life not to escape us.",
+    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "back": "BACK TO TOP"
+  },
+  "magnets": {
+    "eyebrow": "THE MAGNET COLLECTION",
+    "title": "Little memories of each place",
+    "modal": {
+      "title": "A memory from"
+    }
+  },
+  "journeys": {
+    "eyebrow": "The travel diaries",
+    "title": {
+      "p1": "Journeys & ",
+      "p2":"memories"
+    },
+    "filter": {
+      "allYears": "All years",
+      "allCountries": "All countries",
+      "year": "Year",
+      "country": "Country",
+      "clear": "Clear"
+    }
+  },
+  "map": {
+    "eyebrow": "A world of memories",
+    "title": {
+      "p1": "Places & ",
+      "p2": "stories"
+    },
+    "description": "Every pin holds a story. Explore the places I've wandered, the paths I've taken and the memories I've brought home.\n",
+    "label": {
+      "countries": "Countries",
+      "cities": "Cities",
+      "continents": "Continents",
+      "current": "Currently here",
+      "here": "I'm here"
+    }
+  },
+  "countries": {
+    "England": "England",
+    "Scotland": "Scotland",
+    "Serbia": "Serbia",
+    "Spain": "Spain",
+    "Netherlands": "Netherlands",
+    "Belgium": "Belgium",
+    "France": "France",
+    "Brazil": "Brazil"
+  }
+}

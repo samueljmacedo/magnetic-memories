@@ -1,28 +1,48 @@
+import centroids from "@/data/countryCentroids.json";
+
 export type VisitorCountry = {
     /** ISO 3166-1 alpha-2 code, such as "PT" */
     code: string
-    name: string
     /** Roughly the middle of the country */
     lat: number
     lng: number
     visits: number
 }
 
+const COUNTED_KEY = 'mm-visit-counted'
+
+const centroidOf = (code: string) => (centroids as Record<string, number[]>)[code] as [number, number] | undefined
+
+const toVisitor = (code: string, visits: number): VisitorCountry | null => {
+    const centroid = centroidOf(code)
+    return centroid ? {code, lat: centroid[0], lng: centroid[1], visits} : null
+}
+
+/** Visits per country from the Worker. Countries without a known position are left out. */
+export const fetchVisitors = async (): Promise<VisitorCountry[]> => {
+    const response = await fetch('/api/visitors')
+    if (!response.ok) throw new Error(`Visitors request failed: ${response.status}`)
+    const rows = (await response.json()) as {country: string; visits: number}[]
+    return rows.flatMap((row) => toVisitor(row.country, row.visits) ?? [])
+}
+
 /**
- * Sample numbers, until the visit counter exists.
- * Only a country and a count per entry, nothing about individual visitors.
+ * Tells the Worker that someone visited, once per browser.
+ * The only thing kept in the browser is a flag saying "already counted". The country itself is worked out
+ * by Cloudflare on the server, so nothing about the visitor is sent from here.
  */
-export const fallbackVisitors: VisitorCountry[] = [
-    {code: 'GB', name: 'United Kingdom', lat: 54, lng: -2, visits: 41},
-    {code: 'FR', name: 'France', lat: 46.6, lng: 2.3, visits: 23},
-    {code: 'PT', name: 'Portugal', lat: 39.5, lng: -8, visits: 19},
-    {code: 'ES', name: 'Spain', lat: 40, lng: -3.7, visits: 11},
-    {code: 'DE', name: 'Germany', lat: 51, lng: 10, visits: 8},
-    {code: 'US', name: 'United States', lat: 39, lng: -98, visits: 7},
-    {code: 'BR', name: 'Brazil', lat: -10, lng: -52, visits: 5},
-    {code: 'RS', name: 'Serbia', lat: 44, lng: 21, visits: 4},
-    {code: 'IN', name: 'India', lat: 21, lng: 78, visits: 3},
-    {code: 'JP', name: 'Japan', lat: 36, lng: 138, visits: 2},
-    {code: 'AU', name: 'Australia', lat: -25, lng: 134, visits: 2},
-    {code: 'CA', name: 'Canada', lat: 56, lng: -106, visits: 2},
-]
+export const recordVisit = async () => {
+    try {
+        if (localStorage.getItem(COUNTED_KEY)) return
+        const response = await fetch('/api/visit', {method: 'POST'})
+        if (response.ok) localStorage.setItem(COUNTED_KEY, '1')
+    } catch {
+        // Counting is optional: a blocked request or full storage must never break the page.
+    }
+}
+
+/** Sample numbers, only used while developing, when there is no Worker to ask. */
+export const sampleVisitors: VisitorCountry[] = [
+    ['GB', 41], ['FR', 23], ['PT', 19], ['ES', 11], ['DE', 8], ['US', 7],
+    ['BR', 5], ['RS', 4], ['IN', 3], ['JP', 2], ['AU', 2], ['CA', 2],
+].flatMap(([code, visits]) => toVisitor(code as string, visits as number) ?? [])

@@ -35,11 +35,11 @@ export const journeyType = defineType({
         }),
         defineField({
             name: 'description',
-            type: 'string',
+            type: 'localizedText',
         }),
         defineField({
             name: 'tag',
-            type: 'string'
+            type: 'localizedString'
         }),
         defineField({
             name: 'mainImage',

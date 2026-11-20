@@ -7,7 +7,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 ### Planned for after 17 November
 
 - [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
-- [ ] Add Portuguese and French translations
+- [ ] Add Portuguese and French translations (plan in `docs/translations-plan.md`)
 - [ ] Correct the dates of each trip (for example, in `data.ts` Birmingham ends on `17 Nov 20260` and Strasbourg ends before it starts)
 - [ ] Write a proper introduction on the website
 - [ ] Add multiple pictures of myself in the introduction
@@ -16,6 +16,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
 - [ ] Add the production domain to the CORS origins in Sanity (sanity.io/manage → API)
+- [ ] Maybe move the hosting from GitHub Pages to Cloudflare (Pages/Workers): set `base` to `'/'` in `vite.config.ts`, replace the deploy workflow, and update the Sanity CORS origin
 
 ### Done
 
@@ -24,6 +25,8 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [x] Sanity Studio set up with a `journey` schema
 - [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
 - [x] Year and country filters on the journeys carousel
+- [x] New MagnetPanel (sticker sheet with tilt and shine)
+- [x] Published on GitHub Pages
 - [x] Build errors fixed (unused `image-reveal` and `Moments` components removed)
 
 ## Run locally
@@ -54,6 +57,13 @@ The journeys come from Sanity Studio (`studio-magnetic-memories/`, project `roou
 
 Run the Studio with `cd studio-magnetic-memories && npm install && npm run dev`.
 
+### Translated journeys
+
+- `description` and `tag` hold one text per language (`{en, pt, fr}`). English is required and the site falls back to it when a translation is empty. The Studio shows a warning, not an error, for missing translations.
+- Country names are translated on the website, with `countries.<name>` keys in `src/i18n/*.json` (for example `countries.Scotland`). A country without a key is shown as it is in Sanity.
+- Journeys saved before this change keep working (the old text is read as English). To move them to the new shape run, from `studio-magnetic-memories/`:
+  `npx sanity exec scripts/migrate-localized-fields.ts --with-user-token` (dry run), then add `APPLY=1` in front to apply it.
+
 ## Notes
 
 - This is a visual first iteration with sample content; navigation links are section anchors.
@@ -61,3 +71,16 @@ Run the Studio with `cd studio-magnetic-memories && npm install && npm run dev`.
 - The travel map is an interactive Leaflet map (react-leaflet). Pins, popups and the stats come from each journey's `lat`/`lng` in `src/data/data.ts`. Basemap tiles are © OpenStreetMap contributors © CARTO.
 - No backend, CMS, guestbook or database is included yet.
 - The sample image URLs require an internet connection. Download and optimize your own images before publishing.
+
+## Visitor counter
+
+The "Postcards from N countries" map counts visits per country, and nothing else.
+
+- `worker/index.ts`: a small Cloudflare Worker. `POST /api/visit` adds 1 to the visitor's country (Cloudflare provides it, the IP address is never read), and `GET /api/visitors` returns the totals. Everything outside `/api/*` is served straight from the static files.
+- `worker/schema.sql`: the single `visits` table in a D1 database.
+- `src/lib/visitors.ts`: fetches the totals and counts a visit once per browser (the only thing stored in the browser is a flag, `mm-visit-counted`).
+- `src/data/countryCentroids.json`: a point for each country code, from the open `world-countries` data.
+- Country names on the map come from the browser's `Intl.DisplayNames`, so they follow the site language.
+- Local development has no Worker, so `npm run dev` shows sample numbers. To try the real thing: `npm run build`, then `npx wrangler d1 execute DB --local --file=worker/schema.sql`, then `npx wrangler dev`.
+
+One-time setup on Cloudflare: create a D1 database named `magnetic-memories-visitors` (Storage & databases > D1), run the contents of `worker/schema.sql` in its Console tab, and put its id in `wrangler.jsonc` as `database_id`.

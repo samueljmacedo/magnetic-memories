@@ -3,22 +3,36 @@ import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {countryName, pickLanguage} from "@/utils/localized.ts";
 import "./JourneyCarrousel.css";
-import {ALL_FILTER, filterCountriesAlphabetically, filterJourneys, listYearsNewestFirst,} from "@/utils/journey.ts";
+import {
+    ALL_FILTER,
+    filterCountriesAlphabetically,
+    filterJourneys,
+    listYearsNewestFirst,
+} from "@/utils/journey.ts";
 
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
-    const [yearFilter, setYearFilter] = useState(ALL_FILTER);
+    const {t, i18n} = useTranslation();
+    const [chosenYear, setChosenYear] = useState<string | null>(null);
     const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
+
+    const newestYear = listYearsNewestFirst(journeys)[0]?.id
+    const yearFilter = chosenYear ?? newestYear ?? ALL_FILTER
 
     const visibleJourneys = filterJourneys(journeys, {year: yearFilter, country: countryFilter})
     const years = listYearsNewestFirst(
         filterJourneys(journeys, {year: ALL_FILTER, country: countryFilter})
     )
+    // The value stays the English name stored in Sanity, only the label is translated, so filtering keeps working.
     const countries = filterCountriesAlphabetically(
         filterJourneys(journeys, {year: yearFilter, country: ALL_FILTER})
     )
+        .map((country) => ({value: country.id, label: countryName(t, country.name)}))
+        .sort((a, b) => a.label.localeCompare(b.label, i18n.resolvedLanguage))
     const filtersActive = yearFilter !== ALL_FILTER || countryFilter !== ALL_FILTER
 
     const currentIndex = Math.min(journeyIndex, Math.max(visibleJourneys.length - 1, 0))
@@ -29,7 +43,7 @@ const JourneyCarrousel = () => {
             (current + direction + visibleJourneys.length) % visibleJourneys.length)
     }
     const changeYear = (year: string) => {
-        setYearFilter(year)
+        setChosenYear(year)
         setJourneyIndex(0)
     }
     const changeCountry = (country: string) => {
@@ -44,32 +58,44 @@ const JourneyCarrousel = () => {
     return (
         <section className="journeys section-wrap" id="journeys">
             <div className="section-heading journey-heading">
-                <div><p className="eyebrow">THE TRAVEL DIARIES</p><h2 className="heading-display">Journeys & <i>memories</i></h2></div>
+                <div>
+                    <p className="eyebrow">
+                        {t('journeys.eyebrow')}
+                    </p>
+                    <h2 className="heading-display">
+                        {t('journeys.title.p1')}<i>{t('journeys.title.p2')}</i>
+
+                    </h2>
+                </div>
                 {journeys.length > 0 && (
-                    <div className="journey-filters" role="group" aria-label="Filter journeys">
+                    <div
+                      className="journey-filters"
+                      role="group"
+                      aria-label="Filter journeys"
+                    >
                         <FilterSelect
-                            label="Year"
+                            label={t('journeys.filter.year')}
                             value={yearFilter}
                             active={yearFilter !== ALL_FILTER}
                             onChange={changeYear}
                             options={[
-                                {value: ALL_FILTER, label: 'All years'},
+                                {value: ALL_FILTER, label: t('journeys.filter.allYears') },
                                 ...years.map((year) => ({value: year.id, label: year.name})),
                             ]}
                         />
                         <FilterSelect
-                            label="Country"
+                            label={t('journeys.filter.country')}
                             value={countryFilter}
                             active={countryFilter !== ALL_FILTER}
                             onChange={changeCountry}
                             options={[
-                                {value: ALL_FILTER, label: 'All countries'},
-                                ...countries.map((country) => ({value: country.id, label: country.name})),
+                                {value: ALL_FILTER, label: t('journeys.filter.allCountries')},
+                                ...countries,
                             ]}
                         />
                         {filtersActive && (
                             <button type="button" className="filter-reset meta-label" onClick={clearFilters}>
-                                <X size={13} aria-hidden="true" /> Clear
+                                <X size={13} aria-hidden="true" />{t('journeys.filter.clear')}
                             </button>
                         )}
                     </div>
@@ -78,22 +104,22 @@ const JourneyCarrousel = () => {
             {activeJourney ? (
                 <div className="journey-carousel">
                     <figure className="polaroid journey-polaroid">
-                        <img src={activeJourney.image} alt={`${activeJourney.city}, ${activeJourney.country}`} />
+                        <img src={activeJourney.image} alt={`${activeJourney.city}, ${countryName(t, activeJourney.country)}`} />
                         <figcaption className="polaroid-caption">
-                            {activeJourney.city} · {formatDate(activeJourney.startDate)}
+                            {activeJourney.city} · {formatDate(activeJourney.startDate, i18n.resolvedLanguage)}
                         </figcaption>
                         <span className="tape" />
                     </figure>
                     <div className="journey-story" aria-live="polite">
                         <div className="journey-meta meta-label">
-                            <span>{activeJourney.tag}</span>
+                            <span>{pickLanguage(activeJourney.tag, i18n.resolvedLanguage)}</span>
                             <span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span>
                         </div>
                         <h3 className="heading-display">
-                            {activeJourney.city}<br /><i>{activeJourney.country}</i>
+                            {activeJourney.city}<br /><i>{countryName(t, activeJourney.country)}</i>
                         </h3>
                         <div className="journey-description">
-                            <p className="text-body">{activeJourney.description}</p>
+                            <p className="text-body">{pickLanguage(activeJourney.description, i18n.resolvedLanguage)}</p>
                         </div>
                         <div className="carousel-controls">
                             <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>
@@ -118,7 +144,6 @@ const JourneyCarrousel = () => {
                     {journeys.length > 0 && 'No journeys match these filters.'}
                 </p>
             )}
-            <p className="carousel-footnote meta-label">ONE JOURNEY AT A TIME <span>✳</span> MORE MEMORIES TO COME</p>
         </section>
     );
 }

@@ -1,0 +1,79 @@
+{
+  "header": {
+    "title": "Uma pequena coleção de lugares, ímãs & memórias",
+    "menu": {
+      "about": "Sobre mim",
+      "journeys": "Minhas jornadas",
+      "map": "Mapa de viagens",
+      "magnets": "Coleção de ímãs"
+    }
+  },
+  "about": {
+    "header": {
+      "p1": "Olá, ",
+      "p2": "queridos amigos"
+    },
+    "description": {
+      "p1": "Sou o Samuel e esse é o cantinho da internet que criei para compartilhar um pouco das minhas viagens, memórias e minha coleção de ímãs!\n Sempre quis criar um espaço personalizado para adicionar minha história, mostrando para mundo de forma única.",
+      "p2": "Esse diário é um local para manter de tudo: as grandes aventuras e os pequenos detalhes entre elas."
+    },
+    "noteMessage": {
+      "p1": "A viagem",
+      "p2": " sempre",
+      "p3": " vale a pena."
+    },
+    "scrollMessage": "Role para explorar"
+  },
+  "strip": {
+    "currentLocation": "Localização atual",
+    "mainMessage": "Viajamos não para escapar da vida, mas para a vida não nos escapar",
+    "footMessage": "Um pequeno lembrete para continuar se aventurando"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "back": "Voltar para topo"
+  },
+  "magnets": {
+    "eyebrow": "A coleção de ímãs",
+    "title": "Pequenas memórias de cada lugar"
+  },
+  "journeys": {
+    "eyebrow": "Diário de viagem",
+    "title": {
+      "p1": "Aventuras & ",
+      "p2":"memórias"
+    },
+    "filter": {
+      "allYears": "Todos os anos",
+      "allCountries": "Todos os países",
+      "year": "Ano",
+      "country": "País",
+      "clear": "Limpar"
+    }
+  },
+  "map": {
+    "eyebrow": "Um mundo de memórias",
+    "title": {
+      "p1": "Lugares & ",
+      "p2": "histórias"
+    },
+    "description": "Cada marcador contém uma história. Explore os locais que visitei, os caminhos que escolhi e as memórias que eu trouxe para a casa.\n",
+    "label": {
+      "countries": "Países",
+      "cities": "Cidades",
+      "continents": "Continentes",
+      "current": "Atualmente aqui",
+      "here": "Estou aqui"
+    }
+  },
+  "countries": {
+    "England": "Inglaterra",
+    "Scotland": "Escócia",
+    "Serbia": "Sérvia",
+    "Spain": "Espanha",
+    "Netherlands": "Holanda",
+    "Belgium": "Bélgica",
+    "France": "França",
+    "Brazil": "Brasil"
+  }
+}

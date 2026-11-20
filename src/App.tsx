@@ -19,7 +19,6 @@ function App() {
         <About />
         <IntroStrip />
         {/* <Hero /> */}
-        {/* The journeys are fetched from Sanity once and shared by the carousel and the map. */}
         <JourneysProvider>
             <JourneyCarrousel />
             <TravelMap />
