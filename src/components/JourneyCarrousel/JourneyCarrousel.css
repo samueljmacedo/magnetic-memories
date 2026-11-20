@@ -57,7 +57,7 @@
     max-width: 24.375rem;
     padding-block: var(--space-4);
     display: grid;
-    grid-template-rows: auto 2fr 2fr auto;
+    grid-template-rows: auto 1fr 2fr auto;
 }
 
 .journey-description .text-body:last-child {
@@ -99,6 +99,7 @@
     align-items: center;
     gap: var(--space-5);
     margin-top: var(--space-6);
+    justify-self: anchor-center;
 }
 
 .carousel-controls > button {
