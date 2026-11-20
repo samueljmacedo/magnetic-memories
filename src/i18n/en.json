@@ -9,6 +9,14 @@
     }
   },
   "about": {
+    "header": {
+      "p1": "Hello, ",
+      "p2": "dear friends"
+    },
+    "description": {
+      "p1": "I'm Samuel and this is my little corner on the internet that I created to share a bit of my travels, memories and my magnet collection!\n I've always wanted to create a personalized space to add my history, showing it to the world in a unique way.",
+      "p2": "This journal is a place to keep it all: the big adventures and the tiny details in between."
+    },
     "noteMessage": {
       "p1": "The trip",
       "p2": " is always",
@@ -27,7 +35,10 @@
   },
   "magnets": {
     "eyebrow": "THE MAGNET COLLECTION",
-    "title": "Little memories of each place"
+    "title": "Little memories of each place",
+    "modal": {
+      "title": "A memory from"
+    }
   },
   "journeys": {
     "eyebrow": "The travel diaries",

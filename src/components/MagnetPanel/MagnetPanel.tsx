@@ -3,6 +3,7 @@ import "./MagnetPanel.css";
 import {useTravelMagnets} from "@/context/TravelMagnetsContext.tsx";
 import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 import {useTranslation} from "react-i18next";
+import {countryName} from "@/utils/localized.ts";
 
 /** Repeating patterns that keep the magnets looking hand-placed instead of sitting on a grid. */
 const MAGNET_ROTATIONS = [-5, 4, -3, 6, -6, 3]
@@ -92,11 +93,20 @@ export default function MagnetPanel() {
               <img src={selected.image} alt={`${selected.city} souvenir magnet`} />
             </div>
             <div className="magnet-dialog__details">
-              <p className="magnet-section__eyebrow">A MEMORY FROM</p>
+              <p className="eyebrow">{t('magnets.modal.title')}</p>
               <h3 id="magnet-dialog-title">{selected.city}</h3>
-              {selected.country && <p className="magnet-dialog__country"><i>{selected.country}</i></p>}
-              {selected.year && <p className="magnet-dialog__year">{selected.year}</p>}
-              {selected.title && <p className="magnet-dialog__memory">{selected.title}</p>}
+              {selected.country &&
+                <p className="magnet-dialog__country">
+                  <i>{countryName(t,selected.country)}</i>
+                </p>}
+              {selected.year &&
+                <p className="magnet-dialog__year">
+                  {selected.year}
+                </p>}
+              {selected.title &&
+                <p className="magnet-dialog__memory">
+                  {selected.title}
+                </p>}
             </div>
           </section>
         </div>

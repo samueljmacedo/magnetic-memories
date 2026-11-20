@@ -18,10 +18,13 @@ const About = () => {
                 </span>
             </div>
             <div className="about-copy">
-                <h2 className="heading-display">Hello, <i>dear friends.</i></h2>
-                <p className="text-body">I'm Samuel and this is the travel blog I created to share my trips, memories and magnet collection with my friends.
-                I've always loved to travel and it's a pleasure to collect all these memories and show them to the world.</p>
-                <p className="text-body">This journal is a place to keep it all: the big adventures and the tiny details in between.</p>
+                <h2 className="heading-display">
+                  {t('about.header.p1')}<i>{t('about.header.p2')}</i>
+                </h2>
+                <p className="text-body">
+                  {t('about.description.p1')}
+                </p>
+                <p className="text-body">{t('about.description.p2')}</p>
                 <a href="#journeys" className="scroll-cue">
                     <ArrowDown size={15} />
                     {t('about.scrollMessage').toUpperCase()}

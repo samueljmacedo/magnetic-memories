@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "Une petite collection de places, aimants & mémoires",
+    "title": "Une petite collection de lieux, d'aimants & de mémoires",
     "menu": {
       "about": "Sur moi",
       "journeys": "Mes voyages",
@@ -9,6 +9,14 @@
     }
   },
   "about": {
+    "header": {
+      "p1": "Salut, ",
+      "p2": "chers amis"
+    },
+    "description": {
+      "p1": "Je m'appelle Samuel et voici le petit coin d'internet que j'ai créé pour partager un peu de mes voyages, de mes mémoires et ma collection d'aimants.\n J'ai toujours voulu créer une espace personnalisé pour y ajouter mon histoire, afin de la montrer au monde d'une manière unique.",
+      "p2": "Ce journal est un lieu pour tout conserver: les grandes aventures et les petits détails qui les ponctuent"
+    },
     "noteMessage": {
       "p1": "Le voyage en",
       "p2": " vaut toujours",

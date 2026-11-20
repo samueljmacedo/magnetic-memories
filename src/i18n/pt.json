@@ -9,6 +9,14 @@
     }
   },
   "about": {
+    "header": {
+      "p1": "Olá, ",
+      "p2": "queridos amigos"
+    },
+    "description": {
+      "p1": "Sou o Samuel e esse é o cantinho da internet que criei para compartilhar um pouco das minhas viagens, memórias e minha coleção de ímãs!\n Sempre quis criar um espaço personalizado para adicionar minha história, mostrando para mundo de forma única.",
+      "p2": "Esse diário é um local para manter de tudo: as grandes aventuras e os pequenos detalhes entre elas."
+    },
     "noteMessage": {
       "p1": "A viagem",
       "p2": " sempre",
