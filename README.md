@@ -71,3 +71,16 @@ Run the Studio with `cd studio-magnetic-memories && npm install && npm run dev`.
 - The travel map is an interactive Leaflet map (react-leaflet). Pins, popups and the stats come from each journey's `lat`/`lng` in `src/data/data.ts`. Basemap tiles are © OpenStreetMap contributors © CARTO.
 - No backend, CMS, guestbook or database is included yet.
 - The sample image URLs require an internet connection. Download and optimize your own images before publishing.
+
+## Visitor counter
+
+The "Postcards from N countries" map counts visits per country, and nothing else.
+
+- `worker/index.ts`: a small Cloudflare Worker. `POST /api/visit` adds 1 to the visitor's country (Cloudflare provides it, the IP address is never read), and `GET /api/visitors` returns the totals. Everything outside `/api/*` is served straight from the static files.
+- `worker/schema.sql`: the single `visits` table in a D1 database.
+- `src/lib/visitors.ts`: fetches the totals and counts a visit once per browser (the only thing stored in the browser is a flag, `mm-visit-counted`).
+- `src/data/countryCentroids.json`: a point for each country code, from the open `world-countries` data.
+- Country names on the map come from the browser's `Intl.DisplayNames`, so they follow the site language.
+- Local development has no Worker, so `npm run dev` shows sample numbers. To try the real thing: `npm run build`, then `npx wrangler d1 execute DB --local --file=worker/schema.sql`, then `npx wrangler dev`.
+
+One-time setup on Cloudflare: create a D1 database named `magnetic-memories-visitors` (Storage & databases > D1), run the contents of `worker/schema.sql` in its Console tab, and put its id in `wrangler.jsonc` as `database_id`.

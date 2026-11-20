@@ -66,6 +66,16 @@
       "here": "Je suis ici"
     }
   },
+  "visitors": {
+    "eyebrow": "D'où viennent mes visiteurs",
+    "title_one": "Carte postale de {{count}} pays",
+    "title_other": "Cartes postales de {{count}} pays",
+    "visits": "VISITEURS",
+    "countries": "PAYS",
+    "visitsCount_one": "{{count}} visite",
+    "visitsCount_other": "{{count}} visites",
+    "note": "Seulement le pays de chaque visite est compté, pas qui vous êtes"
+  },
   "countries": {
     "England": "Anglaterre",
     "Scotland": "Écosse",
