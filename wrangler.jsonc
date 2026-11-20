@@ -15,7 +15,7 @@
       "binding": "DB",
       "database_name": "magnetic-memories-visitors",
       // Paste the id shown in the Cloudflare dashboard (Storage & databases > D1).
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "23879047-5f8c-4c5e-9441-556009720ca6"
     }
   ]
 }

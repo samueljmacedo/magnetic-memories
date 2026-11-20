@@ -69,6 +69,16 @@
       "here": "I'm here"
     }
   },
+  "visitors": {
+    "eyebrow": "Where my visitors come from",
+    "title_one": "A postcard from {{count}} country",
+    "title_other": "Postcards from {{count}} countries",
+    "visits": "VISITS",
+    "countries": "COUNTRIES",
+    "visitsCount_one": "{{count}} visit",
+    "visitsCount_other": "{{count}} visits",
+    "note": "Only the country of each visit is counted, never who you are."
+  },
   "countries": {
     "England": "England",
     "Scotland": "Scotland",

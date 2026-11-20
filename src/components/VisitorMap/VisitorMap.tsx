@@ -55,7 +55,9 @@ export default function VisitorMap() {
         <section className="visitor-section" aria-labelledby="visitor-heading" id="visitors">
             <header className="visitor-section__header">
                 <div>
-                    <p className="visitor-section__eyebrow">{t('visitors.eyebrow', {defaultValue: 'WHERE MY VISITORS COME FROM'})}</p>
+                    <p className="eyebrow">
+                        {t('visitors.eyebrow')}
+                    </p>
                     <h2 id="visitor-heading">
                         {t('visitors.title', {
                             count: visitors.length,
@@ -91,12 +93,25 @@ export default function VisitorMap() {
                                 top: `${((80 - country.lat) / MAP_HEIGHT) * 100}%`,
                                 "--pin-size": `${pinSize(country.visits)}px`,
                             } as React.CSSProperties}
-                            aria-label={`${countryNames.of(country.code)}: ${t('visitors.visitsCount', {count: country.visits, defaultValue_one: '{{count}} visit', defaultValue_other: '{{count}} visits'})}`}
+                            aria-label={
+                                `${countryNames.of(country.code)}: 
+                                    ${t('visitors.visitsCount', {
+                                        count: country.visits, 
+                                        defaultValue_one: '{{count}} visit', 
+                                        defaultValue_other: '{{count}} visits'
+                                    })
+                                }`
+                            }
                         >
                             <span className="visitor-pin__ring" />
                             <span className="visitor-pin__core" />
                             <span className="visitor-pin__tip">
-                                <b>{countryNames.of(country.code)}</b> · {t('visitors.visitsCount', {count: country.visits, defaultValue_one: '{{count}} visit', defaultValue_other: '{{count}} visits'})}
+                                <b>{countryNames.of(country.code)}</b>{' · '}
+                                {t('visitors.visitsCount', {
+                                    count: country.visits,
+                                    defaultValue_one: '{{count}} visit',
+                                    defaultValue_other: '{{count}} visits'}
+                                )}
                             </span>
                         </button>
                     ))}
