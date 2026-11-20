@@ -1,10 +1,21 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "magnetic-memories",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-11-20",
   "assets": {
     "directory": "./dist",
     // Serves index.html for unknown paths, like GitHub Pages did for this single-page app.
-    "not_found_handling": "single-page-application"
-  }
+    "not_found_handling": "single-page-application",
+    // Only /api/* runs the Worker. Everything else is served from the static files.
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "magnetic-memories-visitors",
+      // Paste the id shown in the Cloudflare dashboard (Storage & databases > D1).
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ]
 }

@@ -1,4 +1,6 @@
-import {fallbackVisitors} from "@/lib/visitors.ts";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {fetchVisitors, recordVisit, sampleVisitors, type VisitorCountry} from "@/lib/visitors.ts";
 import landDots from "@/data/landDots.json";
 import "./VisitorMap.css";
 
@@ -17,24 +19,58 @@ const LAND_PATH = (() => {
 const pinSize = (visits: number) => Math.round(12 + Math.sqrt(visits) * 2.6)
 
 export default function VisitorMap() {
+    const {t, i18n} = useTranslation()
+    const [visitors, setVisitors] = useState<VisitorCountry[] | null>(null)
+    const [isSample, setIsSample] = useState(false)
+
+    useEffect(() => {
+        let cancelled = false
+        // Count this visit first (once per browser), so it shows up on the map straight away.
+        const load = async () => {
+            if (!import.meta.env.DEV) await recordVisit()
+            try {
+                const rows = await fetchVisitors()
+                if (!cancelled) setVisitors(rows)
+            } catch (error) {
+                console.warn('Could not load the visitors, ', error)
+                // Sample numbers only while developing. On the live site a failure hides the panel.
+                if (!cancelled && import.meta.env.DEV) {
+                    setVisitors(sampleVisitors)
+                    setIsSample(true)
+                }
+            }
+        }
+        void load()
+        return () => { cancelled = true }
+    }, [])
+
+    if (visitors === null) return null
+
+    const countryNames = new Intl.DisplayNames(i18n.resolvedLanguage, {type: 'region'})
     // Biggest first, so the small pins are drawn on top and stay reachable in crowded places like Europe.
-    const visitors = [...fallbackVisitors].sort((a, b) => b.visits - a.visits)
+    const sorted = [...visitors].sort((a, b) => b.visits - a.visits)
     const totalVisits = visitors.reduce((sum, country) => sum + country.visits, 0)
 
     return (
         <section className="visitor-section" aria-labelledby="visitor-heading" id="visitors">
             <header className="visitor-section__header">
                 <div>
-                    <p className="visitor-section__eyebrow">WHERE MY VISITORS COME FROM</p>
-                    <h2 id="visitor-heading">Postcards from {visitors.length} countries</h2>
+                    <p className="visitor-section__eyebrow">{t('visitors.eyebrow', {defaultValue: 'WHERE MY VISITORS COME FROM'})}</p>
+                    <h2 id="visitor-heading">
+                        {t('visitors.title', {
+                            count: visitors.length,
+                            defaultValue_one: 'A postcard from {{count}} country',
+                            defaultValue_other: 'Postcards from {{count}} countries',
+                        })}
+                    </h2>
                 </div>
                 <dl className="visitor-stats">
                     <div>
-                        <dt>VISITS</dt>
+                        <dt>{t('visitors.visits', {defaultValue: 'VISITS'})}</dt>
                         <dd>{totalVisits}</dd>
                     </div>
                     <div>
-                        <dt>COUNTRIES</dt>
+                        <dt>{t('visitors.countries', {defaultValue: 'COUNTRIES'})}</dt>
                         <dd>{visitors.length}</dd>
                     </div>
                 </dl>
@@ -45,7 +81,7 @@ export default function VisitorMap() {
                     <svg viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`} aria-hidden="true">
                         <path d={LAND_PATH} />
                     </svg>
-                    {visitors.map(country => (
+                    {sorted.map(country => (
                         <button
                             className="visitor-pin"
                             key={country.code}
@@ -55,17 +91,21 @@ export default function VisitorMap() {
                                 top: `${((80 - country.lat) / MAP_HEIGHT) * 100}%`,
                                 "--pin-size": `${pinSize(country.visits)}px`,
                             } as React.CSSProperties}
-                            aria-label={`${country.name}: ${country.visits} visits`}
+                            aria-label={`${countryNames.of(country.code)}: ${t('visitors.visitsCount', {count: country.visits, defaultValue_one: '{{count}} visit', defaultValue_other: '{{count}} visits'})}`}
                         >
                             <span className="visitor-pin__ring" />
                             <span className="visitor-pin__core" />
                             <span className="visitor-pin__tip">
-                                <b>{country.name}</b> · {country.visits} visits
+                                <b>{countryNames.of(country.code)}</b> · {t('visitors.visitsCount', {count: country.visits, defaultValue_one: '{{count}} visit', defaultValue_other: '{{count}} visits'})}
                             </span>
                         </button>
                     ))}
                 </div>
-                <p className="visitor-map__note">Sample numbers for now</p>
+                <p className="visitor-map__note">
+                    {isSample
+                        ? 'Sample numbers (development only)'
+                        : t('visitors.note', {defaultValue: 'Only the country of each visit is counted, never who you are.'})}
+                </p>
             </div>
         </section>
     );
