@@ -4,9 +4,10 @@ import {useMemo, useState} from "react";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import {useJourneys} from "../../context/JourneysContext.tsx";
 import {currentLocation} from "@/data/data.ts";
-import {formatDate, padNumber} from "@/utils/format.ts";
+import {formatDate} from "@/utils/format.ts";
 import {useTranslation} from "react-i18next";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
+import CountUp from "@/components/CountUp/CountUp.tsx";
 import {formatCoordinates} from "@/utils/map.ts";
 import "leaflet/dist/leaflet.css";
 import "./TravelMap.css";
@@ -75,7 +76,11 @@ const TravelMap = () => {
                     <div className="map-stats">
                         {stats.map((stat) => (
                             <div key={stat.label}>
-                                <strong>{padNumber(stat.value)}</strong>
+                                <strong>
+                                    {/* The leading zero stays put while the digits roll, so 5 reads "05" like before. */}
+                                    <CountUp to={stat.value} mode="roll" duration={1.8} prefix={stat.value < 10 ? '0' : ''}
+                                             startWhen={status !== 'loading'} />
+                                </strong>
                                 <span className="meta-label">{stat.label}</span>
                             </div>
                         ))}
