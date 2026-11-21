@@ -219,6 +219,7 @@ select {
     font-size: var(--text-base);
     line-height: var(--leading-body);
     color: var(--color-text-muted);
+    text-align: justify;
 }
 
 .text-small {
