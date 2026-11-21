@@ -11,7 +11,6 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Resize and compress the pictures (`about-picture.png` is 1 MB)
 
 **Journey section**
-- [ ] Smooth transitions between carousel slides
 - [ ] Write the remaining journey descriptions in the Studio (in all three languages)
 - [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
@@ -29,6 +28,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 ### Done
 
+- [x] Journey carousel: slide transitions in the direction of travel (and swipe on phones)
 - [x] Consistent stylesheet with shared design tokens
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema

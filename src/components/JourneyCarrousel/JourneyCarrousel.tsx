@@ -2,7 +2,9 @@ import {useJourneys} from "@/context/JourneysContext.tsx";
 import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, X} from "lucide-react";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import type {TouchEvent} from "react";
+import type {Journey} from "@/lib/journeys.ts";
 import {useTranslation} from "react-i18next";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
 import "./JourneyCarrousel.css";
@@ -13,12 +15,22 @@ import {
     listYearsNewestFirst,
 } from "@/utils/journey.ts";
 
+/** How long the old picture takes to leave. Keep in step with the animation in JourneyCarrousel.css. */
+const LEAVE_MS = 450
+/** How far a finger has to travel sideways, in px, for a swipe to change the journey. */
+const SWIPE_DISTANCE = 50
+
 const JourneyCarrousel = () => {
     const {journeys, status} = useJourneys();
     const {t, i18n} = useTranslation();
     const [chosenYear, setChosenYear] = useState<string | null>(null);
     const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
+    // 1 = moving forward, -1 = back, 0 = the list changed (filters), null = nothing has been changed yet, so no animation.
+    const [direction, setDirection] = useState<1 | -1 | 0 | null>(null)
+    // The journey that is leaving, kept for a moment so its picture can slide out.
+    const [leaving, setLeaving] = useState<Journey | null>(null)
+    const touchStart = useRef<{x: number, y: number} | null>(null)
 
     const newestYear = listYearsNewestFirst(journeys)[0]?.id
     const yearFilter = chosenYear ?? newestYear ?? ALL_FILTER
@@ -38,17 +50,50 @@ const JourneyCarrousel = () => {
     const currentIndex = Math.min(journeyIndex, Math.max(visibleJourneys.length - 1, 0))
     const activeJourney = visibleJourneys[currentIndex]
 
-    const changeJourney = (direction: number) => {
-        setJourneyIndex((current) =>
-            (current + direction + visibleJourneys.length) % visibleJourneys.length)
+    useEffect(() => {
+        if (!leaving) return
+        const timer = window.setTimeout(() => setLeaving(null), LEAVE_MS)
+        return () => window.clearTimeout(timer)
+    }, [leaving])
+
+    /** Moves to another journey of the visible list, sliding in the direction of travel. */
+    const showJourney = (index: number, travel: 1 | -1) => {
+        if (index === currentIndex) return
+        setLeaving(activeJourney)
+        setDirection(travel)
+        setJourneyIndex(index)
+    }
+    const changeJourney = (travel: 1 | -1) => {
+        showJourney((currentIndex + travel + visibleJourneys.length) % visibleJourneys.length, travel)
+    }
+    /** A new list of journeys has nothing to slide away from, so the content only fades in. */
+    const resetJourneys = () => {
+        setLeaving(null)
+        setDirection(0)
+        setJourneyIndex(0)
     }
     const changeYear = (year: string) => {
         setChosenYear(year)
-        setJourneyIndex(0)
+        resetJourneys()
     }
     const changeCountry = (country: string) => {
         setCountryFilter(country)
-        setJourneyIndex(0)
+        resetJourneys()
+    }
+    const onTouchStart = (event: TouchEvent) => {
+        const touch = event.touches[0]
+        touchStart.current = {x: touch.clientX, y: touch.clientY}
+    }
+    /** A mostly horizontal swipe changes the journey: left goes to the next one, right to the previous one. */
+    const onTouchEnd = (event: TouchEvent) => {
+        const start = touchStart.current
+        touchStart.current = null
+        if (!start || visibleJourneys.length < 2) return
+        const touch = event.changedTouches[0]
+        const dx = touch.clientX - start.x
+        const dy = touch.clientY - start.y
+        if (Math.abs(dx) < SWIPE_DISTANCE || Math.abs(dx) < Math.abs(dy) * 1.5) return
+        changeJourney(dx < 0 ? 1 : -1)
     }
     const clearFilters = () => {
         changeYear(ALL_FILTER)
@@ -102,8 +147,22 @@ const JourneyCarrousel = () => {
                 )}
             </div>
             {activeJourney ? (
-                <div className="journey-carousel">
-                    <figure className="polaroid journey-polaroid">
+                <div
+                    className="journey-carousel"
+                    data-direction={direction ?? undefined}
+                    onTouchStart={onTouchStart}
+                    onTouchEnd={onTouchEnd}
+                >
+                    {leaving && (
+                        <figure className="polaroid journey-polaroid journey-polaroid--leaving" aria-hidden="true" key={`leaving-${leaving.id}`}>
+                            <img src={leaving.image} alt="" />
+                            <figcaption className="polaroid-caption">
+                                {leaving.city} · {formatDate(leaving.startDate, i18n.resolvedLanguage)}
+                            </figcaption>
+                            <span className="tape" />
+                        </figure>
+                    )}
+                    <figure className="polaroid journey-polaroid" key={activeJourney.id}>
                         <img src={activeJourney.image} alt={`${activeJourney.city}, ${countryName(t, activeJourney.country)}`} />
                         <figcaption className="polaroid-caption">
                             {activeJourney.city} · {formatDate(activeJourney.startDate, i18n.resolvedLanguage)}
@@ -111,14 +170,14 @@ const JourneyCarrousel = () => {
                         <span className="tape" />
                     </figure>
                     <div className="journey-story" aria-live="polite">
-                        <div className="journey-meta meta-label">
+                        <div className="journey-meta meta-label" key={`meta-${activeJourney.id}`}>
                             <span>{pickLanguage(activeJourney.tag, i18n.resolvedLanguage)}</span>
                             <span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span>
                         </div>
-                        <h3 className="heading-display">
+                        <h3 className="heading-display" key={`title-${activeJourney.id}`}>
                             {activeJourney.city}<br /><i>{countryName(t, activeJourney.country)}</i>
                         </h3>
-                        <div className="journey-description">
+                        <div className="journey-description" key={`text-${activeJourney.id}`}>
                             <p className="text-body">{pickLanguage(activeJourney.description, i18n.resolvedLanguage)}</p>
                         </div>
                         <div className="carousel-controls">
@@ -129,7 +188,7 @@ const JourneyCarrousel = () => {
                                         key={journey.id}
                                         className={index === currentIndex ? 'active' : ''}
                                         aria-current={index === currentIndex}
-                                        onClick={() => setJourneyIndex(index)}
+                                        onClick={() => showJourney(index, index > currentIndex ? 1 : -1)}
                                         aria-label={`Show ${journey.city}`} />
                                 ))}
                             </div>
