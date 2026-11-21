@@ -43,7 +43,8 @@ export const journeyType = defineType({
         }),
         defineField({
             name: 'mainImage',
-            type: 'image'
+            type: 'image',
+            options: {hotspot: true},
         }),
 
     ],

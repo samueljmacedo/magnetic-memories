@@ -12,6 +12,7 @@ export const travelMagnetType = defineType({
         defineField({
             name: 'image',
             type: 'image',
+            options: {hotspot: true},
         }),
         defineField({
             name: 'journey',
