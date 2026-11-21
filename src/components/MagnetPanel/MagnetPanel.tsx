@@ -16,8 +16,11 @@ const TILT_ZONES = ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br']
 export default function MagnetPanel() {
   const {travelMagnets, status} = useTravelMagnets();
   const [selected, setSelected] = useState<TravelMagnet | null>(null);
+  /** Only used by the full-screen mobile dialog, where tapping the picture zooms it. */
+  const [zoomed, setZoomed] = useState(false);
   const {t} = useTranslation();
   useEffect(() => {
+    setZoomed(false);
     if (!selected) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setSelected(null);
@@ -89,9 +92,15 @@ export default function MagnetPanel() {
             >
               ×
             </button>
-            <div className="magnet-dialog__image">
+            <button
+              className={`magnet-dialog__image${zoomed ? " is-zoomed" : ""}`}
+              type="button"
+              onClick={() => setZoomed(value => !value)}
+              aria-pressed={zoomed}
+              aria-label={t('magnets.modal.zoom', {defaultValue: 'Zoom picture'})}
+            >
               <img src={selected.image} alt={`${selected.city} souvenir magnet`} />
-            </div>
+            </button>
             <div className="magnet-dialog__details">
               <p className="eyebrow">{t('magnets.modal.title')}</p>
               <h3 id="magnet-dialog-title">{selected.city}</h3>

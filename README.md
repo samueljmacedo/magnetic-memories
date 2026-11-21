@@ -21,7 +21,8 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Animate the country / city / continent counters so the numbers count up
 
 **Magnet panel**
-- [ ] Bigger modal on mobile, so the picture is larger and shows more detail
+- _nothing pending_
+
 
 **Branding**
 - [ ] Add the Magnetic Memories logo as the favicon
@@ -35,6 +36,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
 - [x] Year and country filters on the journeys carousel (the year starts on the newest journey)
 - [x] New MagnetPanel (sticker sheet with tilt and shine)
+- [x] Magnet modal is full-screen on mobile, with the picture on top and tap to zoom
 - [x] Build errors fixed (unused `image-reveal` and `Moments` components removed)
 - [x] Write a proper introduction on the website
 - [x] Portuguese and French translations (interface, journeys, country names and dates; plan in `docs/translations-plan.md`)
