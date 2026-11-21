@@ -20,6 +20,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 ### Done
 
+- [x] About slideshow: up to 5 pictures from the Studio with an automatic crossfade (this also covers the earlier "multiple pictures of myself" item)
 - [x] Consistent stylesheet with shared design tokens
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema
@@ -84,3 +85,7 @@ The "Postcards from N countries" map counts visits per country, and nothing else
 - Local development has no Worker, so `npm run dev` shows sample numbers. To try the real thing: `npm run build`, then `npx wrangler d1 execute DB --local --file=worker/schema.sql`, then `npx wrangler dev`.
 
 One-time setup on Cloudflare: create a D1 database named `magnetic-memories-visitors` (Storage & databases > D1), run the contents of `worker/schema.sql` in its Console tab, and put its id in `wrangler.jsonc` as `database_id`.
+
+### About pictures
+
+In the Studio, open **About** and add up to 5 pictures, each with a short description (used as the alt text, in all three languages). The website crops and resizes them, changes between them automatically (paused while the pointer is over them, and off for visitors who ask for less motion) and shows dots to pick one. Until the Studio has pictures it shows `src/data/images/about/about-picture.png`.

@@ -13,11 +13,71 @@
     margin-left: var(--space-8);
 }
 
-.about-photo img {
+.about-photo-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* The offset shadow sits on the viewport, because the slides inside are clipped by it. */
+    box-shadow: 12px 12px 0 var(--color-surface);
+}
+
+.about-photo-track {
+    display: flex;
+    height: 100%;
+}
+
+.about-photo-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+.about-photo-slide img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    box-shadow: 12px 12px 0 var(--color-surface);
+    user-select: none;
+}
+
+.about-photo-dots {
+    position: absolute;
+    left: 0;
+    bottom: -2.25rem;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.about-photo-dots button {
+    width: 0.625rem;
+    height: 0.625rem;
+    padding: 0;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    cursor: pointer;
+    transition: width 250ms ease, background 250ms ease;
+}
+
+.about-photo-dots button {
+    position: relative;
+}
+
+/* A bigger invisible area around each dot, so it is easy to tap on a phone. */
+.about-photo-dots button::after {
+    position: absolute;
+    inset: -0.5rem -0.25rem;
+    content: "";
+}
+
+.about-photo-dots button.active {
+    width: 1.625rem;
+    background: var(--color-accent);
+}
+
+.about-photo-dots button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
 }
 
 .about-photo-note {
@@ -65,5 +125,11 @@
         width: 15.625rem;
         height: 20.625rem;
         margin-left: var(--space-6);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-photo-dots button {
+        transition: none;
     }
 }
