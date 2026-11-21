@@ -7,20 +7,12 @@ A first homepage prototype built with React, TypeScript and Vite.
 ### Next up
 
 **About section**
-- [ ] Slideshow of up to 5 pictures with an automatic transition (replaces the single picture; this also covers the earlier "multiple pictures of myself" item)
 - [ ] Resize and compress the pictures (`about-picture.png` is 1 MB)
 
 **Journey section**
 - [ ] Write the remaining journey descriptions in the Studio (in all three languages)
 - [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
-- [ ] Check the dates of each trip (the `data.ts` placeholders had Birmingham ending on `17 Nov 20260` and Strasbourg ending before it starts; the live data comes from Sanity)
-
-**Map section**
-
-**Magnet panel**
-- _nothing pending_
-
 
 **Branding**
 - [x] Favicon and app icons from the "mM." monogram
@@ -28,7 +20,6 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Offline support (service worker), for another time
 
 ### Done
-
 - [x] About slideshow: up to 5 pictures from the Studio with an automatic crossfade (this also covers the earlier "multiple pictures of myself" item)
 - [x] Map counters roll like an odometer when they scroll into view, using the React Bits CountUp (the visitor map counters too)
 - [x] Journey carousel: slide transitions in the direction of travel (and swipe on phones)

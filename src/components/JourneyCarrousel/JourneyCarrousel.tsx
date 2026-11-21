@@ -15,9 +15,7 @@ import {
     listYearsNewestFirst,
 } from "@/utils/journey.ts";
 
-/** How long the old picture takes to leave. Keep in step with the animation in JourneyCarrousel.css. */
-const LEAVE_MS = 450
-/** How far a finger has to travel sideways, in px, for a swipe to change the journey. */
+const TIME_FOR_PICTURE_LEAVE = 450
 const SWIPE_DISTANCE = 50
 
 const JourneyCarrousel = () => {
@@ -26,9 +24,7 @@ const JourneyCarrousel = () => {
     const [chosenYear, setChosenYear] = useState<string | null>(null);
     const [countryFilter, setCountryFilter] = useState(ALL_FILTER);
     const [journeyIndex, setJourneyIndex] = useState(0)
-    // 1 = moving forward, -1 = back, 0 = the list changed (filters), null = nothing has been changed yet, so no animation.
     const [direction, setDirection] = useState<1 | -1 | 0 | null>(null)
-    // The journey that is leaving, kept for a moment so its picture can slide out.
     const [leaving, setLeaving] = useState<Journey | null>(null)
     const touchStart = useRef<{x: number, y: number} | null>(null)
 
@@ -39,7 +35,6 @@ const JourneyCarrousel = () => {
     const years = listYearsNewestFirst(
         filterJourneys(journeys, {year: ALL_FILTER, country: countryFilter})
     )
-    // The value stays the English name stored in Sanity, only the label is translated, so filtering keeps working.
     const countries = filterCountriesAlphabetically(
         filterJourneys(journeys, {year: yearFilter, country: ALL_FILTER})
     )
@@ -52,11 +47,10 @@ const JourneyCarrousel = () => {
 
     useEffect(() => {
         if (!leaving) return
-        const timer = window.setTimeout(() => setLeaving(null), LEAVE_MS)
+        const timer = window.setTimeout(() => setLeaving(null), TIME_FOR_PICTURE_LEAVE)
         return () => window.clearTimeout(timer)
     }, [leaving])
 
-    /** Moves to another journey of the visible list, sliding in the direction of travel. */
     const showJourney = (index: number, travel: 1 | -1) => {
         if (index === currentIndex) return
         setLeaving(activeJourney)
@@ -66,7 +60,6 @@ const JourneyCarrousel = () => {
     const changeJourney = (travel: 1 | -1) => {
         showJourney((currentIndex + travel + visibleJourneys.length) % visibleJourneys.length, travel)
     }
-    /** A new list of journeys has nothing to slide away from, so the content only fades in. */
     const resetJourneys = () => {
         setLeaving(null)
         setDirection(0)
@@ -84,7 +77,6 @@ const JourneyCarrousel = () => {
         const touch = event.touches[0]
         touchStart.current = {x: touch.clientX, y: touch.clientY}
     }
-    /** A mostly horizontal swipe changes the journey: left goes to the next one, right to the previous one. */
     const onTouchEnd = (event: TouchEvent) => {
         const start = touchStart.current
         touchStart.current = null

@@ -13,7 +13,8 @@ export type JourneyFilters = {
 export const filterJourneys = (journeys: Journey[], {year, country}: JourneyFilters) => {
     return journeys.filter(journey =>
         (year === ALL_FILTER || getYear(journey.startDate) === year) &&
-        (country === ALL_FILTER || journey.country === country));
+        (country === ALL_FILTER || journey.country === country))
+      .reverse();
 }
 
 /** Unique countries, A to Z, for the country filter. */
