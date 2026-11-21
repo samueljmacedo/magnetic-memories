@@ -18,7 +18,6 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Check the dates of each trip (the `data.ts` placeholders had Birmingham ending on `17 Nov 20260` and Strasbourg ending before it starts; the live data comes from Sanity)
 
 **Map section**
-- [ ] Animate the country / city / continent counters so the numbers count up
 
 **Magnet panel**
 - [ ] Bigger modal on mobile, so the picture is larger and shows more detail
@@ -29,6 +28,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 ### Done
 
+- [x] Map counters count up when they scroll into view (the visitor map counters too)
 - [x] Consistent stylesheet with shared design tokens
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema

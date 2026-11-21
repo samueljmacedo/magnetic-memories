@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import CountUp from "@/components/CountUp/CountUp.tsx";
 import {useTranslation} from "react-i18next";
 import {fetchVisitors, recordVisit, sampleVisitors, type VisitorCountry} from "@/lib/visitors.ts";
 import landDots from "@/data/landDots.json";
@@ -69,11 +70,11 @@ export default function VisitorMap() {
                 <dl className="visitor-stats">
                     <div>
                         <dt>{t('visitors.visits', {defaultValue: 'VISITS'})}</dt>
-                        <dd>{totalVisits}</dd>
+                        <dd><CountUp value={totalVisits} /></dd>
                     </div>
                     <div>
                         <dt>{t('visitors.countries', {defaultValue: 'COUNTRIES'})}</dt>
-                        <dd>{visitors.length}</dd>
+                        <dd><CountUp value={visitors.length} /></dd>
                     </div>
                 </dl>
             </header>

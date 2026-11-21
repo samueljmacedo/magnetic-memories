@@ -361,3 +361,15 @@ select {
     background: var(--color-tape);
     transform: rotate(var(--tape-rotate, 5deg));
 }
+
+/* Text that is only for screen readers. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
