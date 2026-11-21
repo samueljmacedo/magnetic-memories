@@ -45,6 +45,7 @@
 
 .visitor-stats dd {
   margin: 0;
+  font-variant-numeric: tabular-nums;
   font-family: var(--font-serif);
   font-size: 38px;
   line-height: 1;

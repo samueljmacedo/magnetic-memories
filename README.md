@@ -11,14 +11,12 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Resize and compress the pictures (`about-picture.png` is 1 MB)
 
 **Journey section**
-- [ ] Smooth transitions between carousel slides
 - [ ] Write the remaining journey descriptions in the Studio (in all three languages)
 - [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
 - [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
 - [ ] Check the dates of each trip (the `data.ts` placeholders had Birmingham ending on `17 Nov 20260` and Strasbourg ending before it starts; the live data comes from Sanity)
 
 **Map section**
-- [ ] Animate the country / city / continent counters so the numbers count up
 
 **Magnet panel**
 - _nothing pending_
@@ -30,6 +28,9 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 ### Done
 
+- [x] About slideshow: up to 5 pictures from the Studio with an automatic crossfade (this also covers the earlier "multiple pictures of myself" item)
+- [x] Map counters roll like an odometer when they scroll into view, using the React Bits CountUp (the visitor map counters too)
+- [x] Journey carousel: slide transitions in the direction of travel (and swipe on phones)
 - [x] Consistent stylesheet with shared design tokens
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema
@@ -98,3 +99,7 @@ The "Postcards from N countries" map counts visits per country, and nothing else
 - Local development has no Worker, so `npm run dev` shows sample numbers. To try the real thing: `npm run build`, then `npx wrangler d1 execute DB --local --file=worker/schema.sql`, then `npx wrangler dev`.
 
 One-time setup on Cloudflare: create a D1 database named `magnetic-memories-visitors` (Storage & databases > D1), run the contents of `worker/schema.sql` in its Console tab, and put its id in `wrangler.jsonc` as `database_id`.
+
+### About pictures
+
+In the Studio, open **About** and add up to 5 pictures, each with a short description (used as the alt text, in all three languages). The website crops and resizes them, changes between them automatically (paused while the pointer is over them, and off for visitors who ask for less motion) and shows dots to pick one. Until the Studio has pictures it shows `src/data/images/about/about-picture.png`.
