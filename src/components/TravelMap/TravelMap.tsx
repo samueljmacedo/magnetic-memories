@@ -76,7 +76,11 @@ const TravelMap = () => {
                     <div className="map-stats">
                         {stats.map((stat) => (
                             <div key={stat.label}>
-                                <strong><CountUp value={stat.value} pad={2} /></strong>
+                                <strong>
+                                    {/* The leading zero stays put while the digits roll, so 5 reads "05" like before. */}
+                                    <CountUp to={stat.value} mode="roll" duration={1.8} prefix={stat.value < 10 ? '0' : ''}
+                                             startWhen={status !== 'loading'} />
+                                </strong>
                                 <span className="meta-label">{stat.label}</span>
                             </div>
                         ))}

@@ -28,7 +28,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 ### Done
 
-- [x] Map counters count up when they scroll into view (the visitor map counters too)
+- [x] Map counters roll like an odometer when they scroll into view, using the React Bits CountUp (the visitor map counters too)
 - [x] Consistent stylesheet with shared design tokens
 - [x] Interactive Leaflet map with a pin for each journey
 - [x] Sanity Studio set up with a `journey` schema

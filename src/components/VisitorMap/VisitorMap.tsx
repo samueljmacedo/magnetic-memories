@@ -70,11 +70,11 @@ export default function VisitorMap() {
                 <dl className="visitor-stats">
                     <div>
                         <dt>{t('visitors.visits', {defaultValue: 'VISITS'})}</dt>
-                        <dd><CountUp value={totalVisits} /></dd>
+                        <dd><CountUp to={totalVisits} mode="roll" duration={1.8} separator="," /></dd>
                     </div>
                     <div>
                         <dt>{t('visitors.countries', {defaultValue: 'COUNTRIES'})}</dt>
-                        <dd><CountUp value={visitors.length} /></dd>
+                        <dd><CountUp to={visitors.length} mode="roll" duration={1.8} /></dd>
                     </div>
                 </dl>
             </header>
