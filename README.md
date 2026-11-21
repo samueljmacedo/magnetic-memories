@@ -24,8 +24,9 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [ ] Bigger modal on mobile, so the picture is larger and shows more detail
 
 **Branding**
-- [ ] Add the Magnetic Memories logo as the favicon
-- [ ] Turn the site into a PWA (web manifest, app icons, maybe offline support)
+- [x] Favicon and app icons from the "mM." monogram
+- [x] Installable PWA (web manifest + icons)
+- [ ] Offline support (service worker), for another time
 
 ### Done
 
