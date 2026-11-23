@@ -63,6 +63,8 @@
     padding-block: var(--space-4);
     display: grid;
     grid-template-rows: auto 1fr 2fr auto;
+    /* Lets the title below size itself from this column's width instead of letting a long name widen the column. */
+    container-type: inline-size;
 }
 
 .journey-description .text-body:last-child {
@@ -83,6 +85,11 @@
 
 .journey-story h3 {
     margin-bottom: var(--space-5);
+    /* Long names such as "Stratford-Upon-Avon" shrink to stay on one line, so every journey keeps the same height.
+       --title-length is the length of the longest line (set in JourneyCarrousel.tsx); .5em is roughly one letter's width. */
+    font-size: clamp(1.75rem, calc(100cqi / (var(--title-length, 10) * .5)), var(--heading-lg));
+    /* The block keeps the height of a two-line title at full size, so the text below doesn't move when a name shrinks. */
+    min-height: calc(var(--heading-lg) * 2.17);
 }
 
 .journey-story h3 i {

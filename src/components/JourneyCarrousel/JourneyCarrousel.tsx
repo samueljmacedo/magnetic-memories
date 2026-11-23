@@ -3,7 +3,7 @@ import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
 import {ArrowLeft, ArrowRight, Images, X} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
-import type {TouchEvent} from "react";
+import type {CSSProperties, TouchEvent} from "react";
 import type {Journey} from "@/lib/journeys.ts";
 import {useTranslation} from "react-i18next";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
@@ -168,7 +168,12 @@ const JourneyCarrousel = () => {
                             <span>{pickLanguage(activeJourney.tag, i18n.resolvedLanguage)}</span>
                             <span>{padNumber(currentIndex + 1)} / {padNumber(visibleJourneys.length)}</span>
                         </div>
-                        <h3 className="heading-display" key={`title-${activeJourney.id}`}>
+                        <h3
+                            className="heading-display"
+                            key={`title-${activeJourney.id}`}
+                            // The CSS shrinks the title until its longest line fits (see ".journey-story h3").
+                            style={{'--title-length': Math.max(activeJourney.city.length, Math.round(countryName(t, activeJourney.country).length * 1.15))} as CSSProperties}
+                        >
                             {activeJourney.city}<br /><i>{countryName(t, activeJourney.country)}</i>
                         </h3>
                         <div className="journey-description" key={`text-${activeJourney.id}`}>
