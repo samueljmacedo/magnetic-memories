@@ -51,7 +51,6 @@ type Column = {
     delta: number
 }
 
-/** One cell of a rolling number: a digit column (slot, index, ...) or a plain character such as "." or ",". */
 type Slot = Partial<Column> & {
     char?: string
     follow?: number
@@ -174,30 +173,21 @@ const buildRoll = (a: number, b: number, spin: boolean, {compact, decimals, plac
 };
 
 type CountUpProps = {
-    /** The target number to count up to. */
     to: number
-    /** The number the count starts from. */
     from?: number
     direction?: 'up' | 'down'
-    /** Delay in seconds before the counting starts. */
     delay?: number
-    /** How long the count takes, in seconds. */
     duration?: number
     className?: string
     style?: CSSProperties
-    /** Works like an if: the count only starts while this is true. */
     startWhen?: boolean
-    /** Thousands separator, such as "," */
     separator?: string
     prefix?: string
     suffix?: string
-    /** "roll" turns every digit into an odometer column, "count" swaps the digits. */
     mode?: Mode
     easing?: Easing
     decimals?: number
-    /** "compact" shortens large numbers to 1.2K, 3.4M or 5.6B. */
     format?: 'standard' | 'compact'
-    /** "view" starts when the number scrolls into view, "load" starts straight away. */
     trigger?: 'view' | 'load'
     replayOnHover?: boolean
     onStart?: () => void

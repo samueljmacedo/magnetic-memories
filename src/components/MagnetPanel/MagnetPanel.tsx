@@ -5,18 +5,15 @@ import type {TravelMagnet} from "@/lib/travelMagnet.ts";
 import {useTranslation} from "react-i18next";
 import {countryName} from "@/utils/localized.ts";
 
-/** Repeating patterns that keep the magnets looking hand-placed instead of sitting on a grid. */
 const MAGNET_ROTATIONS = [-5, 4, -3, 6, -6, 3]
 const MAGNET_SIZES = [150, 125, 170, 135, 160, 140]
 const MAGNET_OFFSETS = [0, 26, -14, 34, -8, 18]
 
-/** The 3x3 invisible zones over a magnet. Hovering a zone tilts the magnet towards it. */
 const TILT_ZONES = ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br']
 
 export default function MagnetPanel() {
   const {travelMagnets, status} = useTravelMagnets();
   const [selected, setSelected] = useState<TravelMagnet | null>(null);
-  /** Only used by the full-screen mobile dialog, where tapping the picture zooms it. */
   const [zoomed, setZoomed] = useState(false);
   const {t} = useTranslation();
   useEffect(() => {

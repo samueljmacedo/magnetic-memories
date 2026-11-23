@@ -1,6 +1,5 @@
 import {defineField, defineType} from "sanity";
 
-/** Languages of the website. Keep in sync with SUPPORTED_LANGUAGES in the website's src/i18n.ts. */
 const LANGUAGES = [
     {id: 'en', title: 'English'},
     {id: 'pt', title: 'Português'},

@@ -1,12 +1,3 @@
-/**
- * The website's tiny API. Everything that is not /api/* is served straight from the static files
- * (see "run_worker_first" in wrangler.jsonc), so this code only runs for the visit counter.
- *
- *   POST /api/visit     counts one visit for the visitor's country
- *   GET  /api/visitors  returns [{country, visits}] for the map
- *
- * Only a country code and a number are stored. The visitor's IP address is never read or saved.
- */
 
 interface Env {
     DB: D1Database
@@ -38,7 +29,6 @@ export default {
             const country = request.cf?.country
             if (!isRealCountry(country)) return new Response(null, {status: 204})
 
-            // One statement, so two visitors arriving together can't overwrite each other's count.
             await env.DB
                 .prepare('INSERT INTO visits (country, visits) VALUES (?, 1) ON CONFLICT(country) DO UPDATE SET visits = visits + 1')
                 .bind(country)

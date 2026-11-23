@@ -1,18 +1,5 @@
-/**
- * One-off migration: journeys saved before translations hold plain strings in `description` and `tag`.
- * This moves each string into the English field of the new localized objects ({en, pt, fr}).
- *
- * Dry run (changes nothing, prints what it would do):
- *   npx sanity exec scripts/migrate-localized-fields.ts --with-user-token
- * Apply the changes:
- *   APPLY=1 npx sanity exec scripts/migrate-localized-fields.ts --with-user-token
- *
- * Run it from the studio-magnetic-memories folder. Journeys that are already migrated are skipped,
- * so it is safe to run twice. Only the published documents are changed.
- */
 import {getCliClient} from 'sanity/cli'
 
-// The studio doesn't ship Node's types, so declare the little that this script uses.
 declare const process: {env: Record<string, string | undefined>; exit(code: number): never}
 
 const client = getCliClient({apiVersion: '2025-02-19'})

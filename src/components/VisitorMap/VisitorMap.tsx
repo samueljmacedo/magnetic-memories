@@ -5,7 +5,6 @@ import {fetchVisitors, recordVisit, sampleVisitors, type VisitorCountry} from "@
 import landDots from "@/data/landDots.json";
 import "./VisitorMap.css";
 
-/** The map is drawn in degrees: x is longitude + 170 and y is 80 - latitude. */
 const MAP_WIDTH = 350
 const MAP_HEIGHT = 138
 
@@ -26,7 +25,6 @@ export default function VisitorMap() {
 
     useEffect(() => {
         let cancelled = false
-        // Count this visit first (once per browser), so it shows up on the map straight away.
         const load = async () => {
             if (!import.meta.env.DEV) await recordVisit()
             try {
@@ -34,7 +32,6 @@ export default function VisitorMap() {
                 if (!cancelled) setVisitors(rows)
             } catch (error) {
                 console.warn('Could not load the visitors, ', error)
-                // Sample numbers only while developing. On the live site a failure hides the panel.
                 if (!cancelled && import.meta.env.DEV) {
                     setVisitors(sampleVisitors)
                     setIsSample(true)
@@ -48,7 +45,6 @@ export default function VisitorMap() {
     if (visitors === null) return null
 
     const countryNames = new Intl.DisplayNames(i18n.resolvedLanguage, {type: 'region'})
-    // Biggest first, so the small pins are drawn on top and stay reachable in crowded places like Europe.
     const sorted = [...visitors].sort((a, b) => b.visits - a.visits)
     const totalVisits = visitors.reduce((sum, country) => sum + country.visits, 0)
 

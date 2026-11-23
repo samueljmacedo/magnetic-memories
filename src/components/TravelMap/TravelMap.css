@@ -47,7 +47,6 @@
     padding: var(--space-5);
 }
 
-/* Paper-like frame around the interactive map */
 .map-paper {
     position: relative;
     height: 26.25rem;
@@ -74,12 +73,10 @@
     background: var(--color-surface);
 }
 
-/* Tint the basemap towards the site's cream and green. */
 .map-container .leaflet-tile-pane {
     filter: sepia(0.3) saturate(0.75) hue-rotate(-8deg);
 }
 
-/* Decorative overlays sit above the map and never block it. */
 .map-coord,
 .map-compass {
     position: absolute;
@@ -110,7 +107,6 @@
     width: 5.9375rem;
 }
 
-/* Pins */
 .map-marker {
     color: var(--color-primary);
     filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.2));
@@ -154,7 +150,6 @@
     }
 }
 
-/* Leaflet controls, restyled */
 .map-container .leaflet-bar {
     border: 1px solid var(--color-border);
     border-radius: 0;
@@ -186,7 +181,6 @@
     color: var(--color-primary);
 }
 
-/* Popups: a small polaroid */
 .journey-popup .leaflet-popup-content-wrapper {
     padding: var(--space-2);
     border-radius: 0;

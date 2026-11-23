@@ -17,7 +17,6 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /* The offset shadow sits on the viewport, because the slides inside are clipped by it. */
     box-shadow: 12px 12px 0 var(--color-surface);
 }
 
@@ -63,7 +62,6 @@
     position: relative;
 }
 
-/* A bigger invisible area around each dot, so it is easy to tap on a phone. */
 .about-photo-dots button::after {
     position: absolute;
     inset: -0.5rem -0.25rem;

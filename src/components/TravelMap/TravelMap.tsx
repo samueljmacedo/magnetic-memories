@@ -15,7 +15,6 @@ import "./TravelMap.css";
 const TILE_URL = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_52nx_1_b46cb5873b4f9aafc33d597a";
 const TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-// Custom markers: Leaflet's default marker images don't survive bundlers, and these match the site.
 const pinIcon = L.divIcon({
     className: "map-marker",
     html: '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" fill="currentColor"/><circle class="map-marker-dot" cx="12" cy="10" r="3"/></svg>',
@@ -77,7 +76,6 @@ const TravelMap = () => {
                         {stats.map((stat) => (
                             <div key={stat.label}>
                                 <strong>
-                                    {/* The leading zero stays put while the digits roll, so 5 reads "05" like before. */}
                                     <CountUp to={stat.value} mode="roll" duration={1.8} prefix={stat.value < 10 ? '0' : ''}
                                              startWhen={status !== 'loading'} />
                                 </strong>

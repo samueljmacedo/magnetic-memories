@@ -33,7 +33,6 @@
     transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
 
-/* The open list is drawn by the browser; these are the parts it lets us theme. */
 .filter-select select option {
     background: var(--color-bg);
     color: var(--color-text);
@@ -57,7 +56,6 @@
     transition: color var(--transition);
 }
 
-/* A filter is on: fill the pill so it is obvious something is being filtered. */
 .filter-select-active select {
     border-color: var(--color-primary);
     background: var(--color-primary);

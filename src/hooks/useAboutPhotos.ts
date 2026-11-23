@@ -6,7 +6,7 @@ export const useAboutPhotos = () => {
     const [photos, setPhotos] = useState<AboutPhoto[]>(fallbackAboutPhotos)
 
     useEffect(() => {
-        let cancelled = false // ignore the result if the component unmounted
+        let cancelled = false
 
         fetchAboutPhotos()
             .then((fetched) => {

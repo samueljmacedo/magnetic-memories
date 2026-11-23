@@ -6,7 +6,6 @@ import type {Journey} from "@/lib/journeys.ts";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
 import "./JourneyGallery.css";
 
-/** Up to this many pictures the gallery keeps its tilted, taped look. Bigger galleries get flat frames so they stay calm. */
 const MAX_PICTURES_FOR_TILT = 10
 const SWIPE_DISTANCE = 50
 
@@ -96,8 +95,6 @@ export default function JourneyGallery({journey, onClose}: Props) {
         captionOf(index) || t('gallery.photoAlt', {city: journey.city, number: index + 1})
     const viewed = viewing === null ? null : photos[viewing]
 
-    // The viewer is a sibling of the backdrop, not a child: the backdrop's blur would otherwise trap its
-    // "fixed" positioning inside the backdrop instead of the screen.
     return (
         <>
         <div

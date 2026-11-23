@@ -3,7 +3,6 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 
-/** Document types that exist only once, so they open directly instead of showing a list. */
 const SINGLETONS = ['about']
 
 export default defineConfig({
@@ -32,7 +31,6 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
-    // Stops the "create new" menu from offering a second About document.
     templates: (templates) => templates.filter(({schemaType}) => !SINGLETONS.includes(schemaType)),
   },
 })

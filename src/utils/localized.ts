@@ -1,6 +1,5 @@
 import type {TFunction} from "i18next";
 
-/** A text written once per language. English is always there and is what the site falls back to. */
 export type Localized = {
     en: string
     pt?: string

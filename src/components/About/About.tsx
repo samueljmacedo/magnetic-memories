@@ -19,8 +19,6 @@ const About = () => {
     const photos = useAboutPhotos();
     const hasSeveral = photos.length > 1
 
-    // Autoplay pauses while the pointer is over the pictures and starts again when it leaves.
-    // It is left out for visitors who asked their device for less motion, and when there is one picture.
     const plugins = useMemo(() => [
         Fade(),
         ...(hasSeveral && !prefersReducedMotion()
@@ -41,7 +39,6 @@ const About = () => {
         }
     }, [embla])
 
-    // The list of pictures changes once Sanity answers, so the carousel has to measure again.
     useEffect(() => {
         embla?.reInit()
     }, [embla, photos])

@@ -2,7 +2,6 @@
     padding-block: var(--section-padding);
 }
 
-/* Heading + filters: the filters drop under the title when there isn't room beside it. */
 .journey-heading {
     flex-wrap: wrap;
     gap: var(--space-5);
@@ -42,7 +41,6 @@
     padding: var(--space-2) var(--space-7) var(--space-4);
 }
 
-/* The pointer can still scroll the page up and down, while sideways swipes change the journey. */
 .journey-carousel {
     touch-action: pan-y;
 }
@@ -63,12 +61,10 @@
     padding-block: var(--space-4);
     display: flex;
     flex-direction: column;
-    /* Lets the title below size itself from this column's width instead of letting a long name widen the column. */
     container-type: inline-size;
 }
 
 .journey-description {
-    /* Every description sits in the same cell, so the cell is as tall as the longest one. */
     display: grid;
     flex: 1 0 auto;
 }
@@ -78,7 +74,6 @@
     align-self: start;
 }
 
-/* No margin on any of the stacked texts, or the one that happens to be last would make the cell shorter. */
 .journey-story .journey-description > .text-body {
     margin: 0;
 }
@@ -102,10 +97,7 @@
 
 .journey-story h3 {
     margin-bottom: var(--space-5);
-    /* Long names such as "Stratford-Upon-Avon" shrink to stay on one line, so every journey keeps the same height.
-       --title-length is the length of the longest line (set in JourneyCarrousel.tsx); .5em is roughly one letter's width. */
     font-size: clamp(1.75rem, calc(100cqi / (var(--title-length, 10) * .5)), var(--heading-lg));
-    /* The block keeps the height of a two-line title at full size, so the text below doesn't move when a name shrinks. */
     min-height: calc(var(--heading-lg) * 2.17);
 }
 
@@ -183,10 +175,6 @@
     color: var(--color-accent);
 }
 
-/*
- * Slide transitions. The "translate" property is used instead of "transform", so the polaroid
- * keeps its tilt. data-direction is 1 (next), -1 (previous) or 0 (a new list, fade only).
- */
 .journey-carousel[data-direction] .journey-polaroid:not(.journey-polaroid--leaving) {
     animation: journey-polaroid-in 550ms cubic-bezier(.2, .8, .2, 1) both;
 }
@@ -199,7 +187,6 @@
 .journey-carousel[data-direction] .journey-story h3 { animation-delay: 140ms; }
 .journey-carousel[data-direction] .journey-description { animation-delay: 190ms; }
 
-/* The old picture sits in the same grid cell, on top, and slides away. */
 .journey-polaroid--leaving {
     grid-area: 1 / 1;
     z-index: 1;
@@ -285,7 +272,6 @@
     }
 }
 
-/* Holds the gallery button at the bottom of the text, above the arrows. It keeps its height when empty. */
 .journey-gallery-slot {
     display: flex;
     align-items: center;
@@ -293,7 +279,6 @@
     margin-top: var(--space-4);
 }
 
-/* Opens the gallery of extra pictures. Only shown for journeys that have some. */
 .journey-gallery-button {
     display: inline-flex;
     align-items: center;

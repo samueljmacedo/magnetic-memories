@@ -3,7 +3,6 @@ export const padNumber = (value: number) => String(value).padStart(2, '0')
 
 const ISO_DATE = /^(\d{4})-(\d{2})-(\d{2})$/
 
-/** Intl locale for each site language. English stays British, so the day comes before the month. */
 const DATE_LOCALES: Record<string, string> = {
     en: 'en-GB',
     pt: 'pt-BR',

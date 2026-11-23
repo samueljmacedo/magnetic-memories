@@ -19,25 +19,20 @@ export type Journey = {
     gallery: GalleryPhoto[]
 }
 
-/** One extra picture of a journey, shown in the gallery. */
 export type GalleryPhoto = {
     id: string
-    /** Smaller version for the grid */
     src: string
-    /** Larger version for the viewer */
     full: string
     width: number
     height: number
     caption: Localized
 }
 
-/** A journey as written in data.ts, with plain English texts. */
 export type LocalJourney = Omit<Journey, 'description' | 'tag' | 'gallery'> & {
     description: string
     tag: string
 }
 
-/** One document of type "journey", as returned by the query below. */
 type SanityJourney = {
     id: string
     city: string
@@ -47,14 +42,12 @@ type SanityJourney = {
     endDate: string | null
     lat: number
     lng: number
-    /** Plain strings on journeys saved before translations, {en, pt, fr} objects afterwards */
     description: unknown
     tag: unknown
     mainImage: SanityImageSource
     gallery: SanityGalleryPhoto[] | null
 }
 
-/** One entry of a journey's gallery. Entries without a picture (an empty slot in the Studio) are skipped. */
 type SanityGalleryPhoto = {
     _key: string
     asset?: {_ref?: string}
@@ -64,8 +57,6 @@ type SanityGalleryPhoto = {
     dimensions?: {width: number, height: number} | null
 }
 
-// Only complete journeys are returned, so a half-filled document can't break the page.
-// Newest trip first.
 const JOURNEYS_QUERY = `*[_type == "journey"
     && defined(city) && defined(country) && defined(startDate)
     && defined(location.lat) && defined(location.lng)
@@ -99,7 +90,6 @@ const fromSanityPhoto = (photo: SanityGalleryPhoto): GalleryPhoto => {
         id: photo._key,
         src: urlFor(source).width(900).fit('max').auto('format').url(),
         full: urlFor(source).width(2000).fit('max').auto('format').url(),
-        // Used to reserve the right amount of space before the picture arrives. 4:3 if Sanity didn't say.
         width: photo.dimensions?.width ?? 4,
         height: photo.dimensions?.height ?? 3,
         caption: toLocalized(photo.caption),

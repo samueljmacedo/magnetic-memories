@@ -1,7 +1,6 @@
 import {defineArrayMember, defineField, defineType} from "sanity";
 import {imageOptions} from "./imageOptions";
 
-/** The About section's pictures. There is only one of these, see the structure in sanity.config.ts. */
 export const aboutType = defineType({
     name: 'about',
     title: 'About',

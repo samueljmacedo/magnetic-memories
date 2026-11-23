@@ -20,7 +20,6 @@ i18n
         supportedLngs: SUPPORTED_LANGUAGES,
         fallbackLng: 'en',
         detection: {
-            // The saved choice wins, then the browser language (so "pt-BR" becomes "pt").
             order: ['localStorage', 'navigator'],
             lookupLocalStorage: 'mm-language',
             caches: ['localStorage'],
@@ -30,7 +29,6 @@ i18n
         },
     });
 
-// Keeps <html lang> in step with the page language, for screen readers and search engines.
 i18n.on('languageChanged', (language) => {
     document.documentElement.lang = language;
 });

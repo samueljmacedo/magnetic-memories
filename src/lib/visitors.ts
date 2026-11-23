@@ -1,9 +1,7 @@
 import centroids from "@/data/countryCentroids.json";
 
 export type VisitorCountry = {
-    /** ISO 3166-1 alpha-2 code, such as "PT" */
     code: string
-    /** Roughly the middle of the country */
     lat: number
     lng: number
     visits: number
@@ -37,11 +35,9 @@ export const recordVisit = async () => {
         const response = await fetch('/api/visit', {method: 'POST'})
         if (response.ok) localStorage.setItem(COUNTED_KEY, '1')
     } catch {
-        // Counting is optional: a blocked request or full storage must never break the page.
     }
 }
 
-/** Sample numbers, only used while developing, when there is no Worker to ask. */
 export const sampleVisitors: VisitorCountry[] = [
     ['GB', 41], ['FR', 23], ['PT', 19], ['ES', 11], ['DE', 8], ['US', 7],
     ['BR', 5], ['RS', 4], ['IN', 3], ['JP', 2], ['AU', 2], ['CA', 2],

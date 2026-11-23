@@ -1,7 +1,6 @@
 import type {Journey} from "@/lib/journeys.ts";
 import {getYear} from "@/utils/format.ts";
 
-/** Value of the "no filter" option in the journey filters. */
 export const ALL_FILTER = 'all';
 
 export type JourneyFilters = {

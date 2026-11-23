@@ -171,7 +171,6 @@ const JourneyCarrousel = () => {
                         <h3
                             className="heading-display"
                             key={`title-${activeJourney.id}`}
-                            // The CSS shrinks the title until its longest line fits (see ".journey-story h3").
                             style={{'--title-length': Math.max(activeJourney.city.length, Math.round(countryName(t, activeJourney.country).length * 1.15))} as CSSProperties}
                         >
                             {activeJourney.city}<br /><i>{countryName(t, activeJourney.country)}</i>
@@ -186,7 +185,6 @@ const JourneyCarrousel = () => {
                                 </p>
                             ))}
                         </div>
-                        {/* Always takes up room, even without a gallery, for the same reason. */}
                         <div className="journey-gallery-slot">
                             {activeJourney.gallery.length > 0 && (
                                 <button type="button" className="journey-gallery-button" onClick={() => setGalleryOpen(true)}>

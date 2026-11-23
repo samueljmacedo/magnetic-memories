@@ -7,12 +7,10 @@ export type FilterOption = {
 }
 
 type FilterSelectProps = {
-    /** Small caption above the select; also its accessible name */
     label: string
     value: string
     options: FilterOption[]
     onChange: (value: string) => void
-    /** True when a real filter is chosen (not the "all" option): the pill is filled */
     active?: boolean
 }
 

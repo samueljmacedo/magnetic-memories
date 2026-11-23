@@ -5,11 +5,6 @@ import type {Journey} from '@/lib/journeys.ts'
 
 type JourneysState = {
     journeys: Journey[]
-    /**
-     * loading  - waiting for Sanity
-     * ready    - journeys come from Sanity
-     * fallback - Sanity failed or has no published journeys, so data.ts is shown
-     */
     status: 'loading' | 'ready' | 'fallback'
 }
 
