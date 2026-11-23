@@ -88,5 +88,19 @@
     "Belgium": "Belgium",
     "France": "France",
     "Brazil": "Brazil"
+  },
+  "gallery": {
+    "eyebrow":  "Gallery",
+    "seeMore": "See more pictures",
+    "count_one": "{{count}} picture",
+    "count_other": "{{count}} pictures",
+    "close": "Close gallery",
+    "closeViewer": "Back to the gallery",
+    "open": "View picture {{number}} larger",
+    "hint": "Tap a picture to see it larger",
+    "viewer": "Picture viewer",
+    "previous": "Previous picture",
+    "next": "Next picture",
+    "photoAlt": "{{city}}, picture {{number}}"
   }
 }

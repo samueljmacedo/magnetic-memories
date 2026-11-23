@@ -33,7 +33,6 @@ export default function JourneyGallery({journey, onClose}: Props) {
     const language = i18n.resolvedLanguage
     const country = countryName(t, journey.country)
 
-    // Move to a neighbour of the picture being viewed, wrapping around at both ends.
     const step = (travel: 1 | -1) =>
         setViewing((index) => (index === null ? null : (index + travel + photos.length) % photos.length))
 
@@ -57,7 +56,6 @@ export default function JourneyGallery({journey, onClose}: Props) {
             else if (viewing !== null && event.key === 'ArrowLeft') step(-1)
             else if (event.key === 'Tab') keepFocusInside(event)
         }
-        // Tab only cycles between the buttons of the topmost dialog.
         const keepFocusInside = (event: KeyboardEvent) => {
             const dialogs = document.querySelectorAll<HTMLElement>('.gallery-dialog, .gallery-viewer')
             const top = dialogs[dialogs.length - 1]
@@ -95,7 +93,7 @@ export default function JourneyGallery({journey, onClose}: Props) {
 
     const captionOf = (index: number) => pickLanguage(photos[index].caption, language)
     const altOf = (index: number) =>
-        captionOf(index) || t('gallery.photoAlt', {defaultValue: '{{city}}, picture {{number}}', city: journey.city, number: index + 1})
+        captionOf(index) || t('gallery.photoAlt', {city: journey.city, number: index + 1})
     const viewed = viewing === null ? null : photos[viewing]
 
     // The viewer is a sibling of the backdrop, not a child: the backdrop's blur would otherwise trap its
@@ -123,17 +121,17 @@ export default function JourneyGallery({journey, onClose}: Props) {
                     className="gallery-close"
                     type="button"
                     onClick={onClose}
-                    aria-label={t('gallery.close', {defaultValue: 'Close gallery'})}
+                    aria-label={t('gallery.close')}
                 >
                     <X size={20} aria-hidden="true" />
                 </button>
                 <header className="gallery-header">
-                    <p className="eyebrow">{t('gallery.eyebrow', {defaultValue: 'Gallery'})}</p>
+                    <p className="eyebrow">{t('gallery.eyebrow')}</p>
                     <h2 id="gallery-title">{journey.city}</h2>
                     <p className="gallery-meta">
                         <i>{country}</i>
                         <span>{journey.startDate.slice(0, 4)}</span>
-                        <span>{t('gallery.count', {defaultValue_one: '{{count}} picture', defaultValue_other: '{{count}} pictures', count: photos.length})}</span>
+                        <span>{t('gallery.count', {count: photos.length})}</span>
                     </p>
                 </header>
 
@@ -154,7 +152,7 @@ export default function JourneyGallery({journey, onClose}: Props) {
                                     type="button"
                                     className="gallery-tile__photo"
                                     onClick={() => setViewing(index)}
-                                    aria-label={t('gallery.open', {defaultValue: 'View picture {{number}} larger', number: index + 1})}
+                                    aria-label={t('gallery.open', {number: index + 1})}
                                 >
                                     <img
                                         src={photo.src}
@@ -170,7 +168,7 @@ export default function JourneyGallery({journey, onClose}: Props) {
                         )
                     })}
                 </div>
-                <p className="gallery-hint">{t('gallery.hint', {defaultValue: 'Tap a picture to see it larger'})}</p>
+                <p className="gallery-hint">{t('gallery.hint')}</p>
             </section>
         </div>
 
@@ -179,7 +177,7 @@ export default function JourneyGallery({journey, onClose}: Props) {
                     className="gallery-viewer"
                     role="dialog"
                     aria-modal="true"
-                    aria-label={t('gallery.viewer', {defaultValue: 'Picture viewer'})}
+                    aria-label={t('gallery.viewer')}
                     tabIndex={-1}
                     onMouseDown={(event) => {
                         if (event.target === event.currentTarget) setViewing(null)
@@ -191,7 +189,7 @@ export default function JourneyGallery({journey, onClose}: Props) {
                         className="gallery-close"
                         type="button"
                         onClick={() => setViewing(null)}
-                        aria-label={t('gallery.closeViewer', {defaultValue: 'Back to the gallery'})}
+                        aria-label={t('gallery.closeViewer')}
                         autoFocus
                     >
                         <X size={20} aria-hidden="true" />
@@ -199,11 +197,11 @@ export default function JourneyGallery({journey, onClose}: Props) {
                     {photos.length > 1 && (
                         <>
                             <button className="gallery-nav gallery-nav--prev" type="button" onClick={() => step(-1)}
-                                    aria-label={t('gallery.previous', {defaultValue: 'Previous picture'})}>
+                                    aria-label={t('gallery.previous')}>
                                 <ArrowLeft size={20} aria-hidden="true" />
                             </button>
                             <button className="gallery-nav gallery-nav--next" type="button" onClick={() => step(1)}
-                                    aria-label={t('gallery.next', {defaultValue: 'Next picture'})}>
+                                    aria-label={t('gallery.next')}>
                                 <ArrowRight size={20} aria-hidden="true" />
                             </button>
                         </>
