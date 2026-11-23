@@ -178,13 +178,23 @@ const JourneyCarrousel = () => {
                         </h3>
                         <div className="journey-description" key={`text-${activeJourney.id}`}>
                             <p className="text-body">{pickLanguage(activeJourney.description, i18n.resolvedLanguage)}</p>
+                            {/* Invisible copies of the other descriptions, so the text area is always as tall as the longest one
+                                and the button and arrows below stay in the same place on every journey. */}
+                            {visibleJourneys.filter((journey) => journey.id !== activeJourney.id).map((journey) => (
+                                <p className="text-body journey-description__spacer" aria-hidden="true" key={journey.id}>
+                                    {pickLanguage(journey.description, i18n.resolvedLanguage)}
+                                </p>
+                            ))}
                         </div>
-                        {activeJourney.gallery.length > 0 && (
-                            <button type="button" className="journey-gallery-button" onClick={() => setGalleryOpen(true)}>
-                                <Images size={16} aria-hidden="true" />
-                                {t('gallery.seeMore', {defaultValue: 'See more pictures'})}
-                            </button>
-                        )}
+                        {/* Always takes up room, even without a gallery, for the same reason. */}
+                        <div className="journey-gallery-slot">
+                            {activeJourney.gallery.length > 0 && (
+                                <button type="button" className="journey-gallery-button" onClick={() => setGalleryOpen(true)}>
+                                    <Images size={16} aria-hidden="true" />
+                                    {t('gallery.seeMore', {defaultValue: 'See more pictures'})}
+                                </button>
+                            )}
+                        </div>
                         <div className="carousel-controls">
                             <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>
                             <div className="carousel-dots" role="group" aria-label="Choose a journey">
