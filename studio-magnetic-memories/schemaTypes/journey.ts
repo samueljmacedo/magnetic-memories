@@ -1,4 +1,5 @@
 import {defineField, defineType} from "sanity";
+import {imageOptions} from "./imageOptions";
 
 export const journeyType = defineType({
     name: 'journey',
@@ -44,7 +45,7 @@ export const journeyType = defineType({
         defineField({
             name: 'mainImage',
             type: 'image',
-            options: {hotspot: true},
+            options: imageOptions,
         }),
 
     ],

@@ -1,0 +1,15 @@
+# Security headers for every page (Cloudflare reads this file from the built site).
+# The Content-Security-Policy lists the only places the page may load things from:
+#   fonts.googleapis.com / fonts.gstatic.com  fonts
+#   cdn.sanity.io                             pictures from Sanity
+#   roou5dul.apicdn.sanity.io                 journeys, magnets and About content from Sanity
+#   *.basemaps.cartocdn.com                   map tiles
+#   images.unsplash.com                       the home page picture
+# If you add another outside service, add its address here or the browser will block it.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://*.basemaps.cartocdn.com https://images.unsplash.com; connect-src 'self' https://roou5dul.apicdn.sanity.io https://roou5dul.api.sanity.io; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Strict-Transport-Security: max-age=31536000

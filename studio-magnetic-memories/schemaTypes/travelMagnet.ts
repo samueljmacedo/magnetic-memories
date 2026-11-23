@@ -1,4 +1,5 @@
 import {defineField, defineType} from "sanity";
+import {imageOptions} from "./imageOptions";
 
 export const travelMagnetType = defineType({
     name: 'travelMagnet',
@@ -12,7 +13,7 @@ export const travelMagnetType = defineType({
         defineField({
             name: 'image',
             type: 'image',
-            options: {hotspot: true},
+            options: imageOptions,
         }),
         defineField({
             name: 'journey',

@@ -79,6 +79,12 @@ Run the Studio with `cd studio-magnetic-memories && npm install && npm run dev`.
 - No backend, CMS, guestbook or database is included yet.
 - The sample image URLs require an internet connection. Download and optimize your own images before publishing.
 
+## Security
+
+- `public/_headers` sets the security headers (Content-Security-Policy, no framing, nosniff, referrer and permissions policies). The Content-Security-Policy lists every outside service the site uses (Google Fonts, Sanity, map tiles, Unsplash). If you add a new one, add its address there or the browser will block it.
+- Image fields in the Studio (`schemaTypes/imageOptions.ts`) no longer save EXIF data, GPS location or the original file name on new uploads. Pictures uploaded earlier keep what they stored (a check showed none had GPS or EXIF data). Run `npx sanity deploy` for the Studio to pick this up.
+- Keep two-factor authentication on for GitHub, Cloudflare and Sanity.
+
 ## Visitor counter
 
 The "Postcards from N countries" map counts visits per country, and nothing else.

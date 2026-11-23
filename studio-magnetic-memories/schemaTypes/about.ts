@@ -1,4 +1,5 @@
 import {defineArrayMember, defineField, defineType} from "sanity";
+import {imageOptions} from "./imageOptions";
 
 /** The About section's pictures. There is only one of these, see the structure in sanity.config.ts. */
 export const aboutType = defineType({
@@ -14,7 +15,7 @@ export const aboutType = defineType({
             of: [
                 defineArrayMember({
                     type: 'image',
-                    options: {hotspot: true},
+                    options: imageOptions,
                     fields: [
                         defineField({
                             name: 'alt',
