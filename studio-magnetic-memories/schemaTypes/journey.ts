@@ -1,4 +1,4 @@
-import {defineField, defineType} from "sanity";
+import {defineArrayMember, defineField, defineType} from "sanity";
 import {imageOptions} from "./imageOptions";
 
 export const journeyType = defineType({
@@ -46,6 +46,26 @@ export const journeyType = defineType({
             name: 'mainImage',
             type: 'image',
             options: imageOptions,
+        }),
+        defineField({
+            name: 'gallery',
+            title: 'Gallery',
+            description: 'Extra pictures of this trip, shown when someone taps "See more pictures". Optional.',
+            type: 'array',
+            of: [
+                defineArrayMember({
+                    type: 'image',
+                    options: imageOptions,
+                    fields: [
+                        defineField({
+                            name: 'caption',
+                            title: 'Caption',
+                            description: 'Optional. A few words shown under the picture.',
+                            type: 'localizedString',
+                        }),
+                    ],
+                }),
+            ],
         }),
 
     ],

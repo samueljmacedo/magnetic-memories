@@ -11,8 +11,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 
 **Journey section**
 - [ ] Write the remaining journey descriptions in the Studio (in all three languages)
-- [ ] Add more images to each journey, to show them as a gallery (needs a `gallery` field in the Sanity `journey` schema)
-- [ ] "See more pictures" button and gallery modal on each journey (depends on the gallery images above)
+- [ ] Add pictures to the `Gallery` field of each journey in the Studio (the "See more pictures" button only shows for journeys that have some)
 
 **Branding**
 - [x] Favicon and app icons from the "mM." monogram
@@ -29,6 +28,7 @@ A first homepage prototype built with React, TypeScript and Vite.
 - [x] Journey carousel and map load their data from Sanity (with `data.ts` as a fallback)
 - [x] Year and country filters on the journeys carousel (the year starts on the newest journey)
 - [x] New MagnetPanel (sticker sheet with tilt and shine)
+- [x] Journey gallery: `gallery` field in the Studio (optional captions), "See more pictures" modal with a masonry grid (tilted and taped up to 10 pictures, flat frames above), and a larger viewer with arrows and swipe
 - [x] Magnet modal is full-screen on mobile, with the picture on top and tap to zoom
 - [x] Build errors fixed (unused `image-reveal` and `Moments` components removed)
 - [x] Write a proper introduction on the website

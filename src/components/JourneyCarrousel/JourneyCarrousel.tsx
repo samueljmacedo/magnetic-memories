@@ -1,12 +1,13 @@
 import {useJourneys} from "@/context/JourneysContext.tsx";
 import FilterSelect from "@/components/FilterSelect/FilterSelect.tsx";
 import {formatDate, padNumber} from "@/utils/format.ts";
-import {ArrowLeft, ArrowRight, X} from "lucide-react";
+import {ArrowLeft, ArrowRight, Images, X} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
 import type {TouchEvent} from "react";
 import type {Journey} from "@/lib/journeys.ts";
 import {useTranslation} from "react-i18next";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
+import JourneyGallery from "@/components/JourneyGallery/JourneyGallery.tsx";
 import "./JourneyCarrousel.css";
 import {
     ALL_FILTER,
@@ -26,6 +27,7 @@ const JourneyCarrousel = () => {
     const [journeyIndex, setJourneyIndex] = useState(0)
     const [direction, setDirection] = useState<1 | -1 | 0 | null>(null)
     const [leaving, setLeaving] = useState<Journey | null>(null)
+    const [galleryOpen, setGalleryOpen] = useState(false)
     const touchStart = useRef<{x: number, y: number} | null>(null)
 
     const newestYear = listYearsNewestFirst(journeys)[0]?.id
@@ -172,6 +174,12 @@ const JourneyCarrousel = () => {
                         <div className="journey-description" key={`text-${activeJourney.id}`}>
                             <p className="text-body">{pickLanguage(activeJourney.description, i18n.resolvedLanguage)}</p>
                         </div>
+                        {activeJourney.gallery.length > 0 && (
+                            <button type="button" className="journey-gallery-button" onClick={() => setGalleryOpen(true)}>
+                                <Images size={16} aria-hidden="true" />
+                                {t('gallery.seeMore', {defaultValue: 'See more pictures'})}
+                            </button>
+                        )}
                         <div className="carousel-controls">
                             <button onClick={() => changeJourney(-1)} aria-label="Previous journey"><ArrowLeft size={17} /></button>
                             <div className="carousel-dots" role="group" aria-label="Choose a journey">
@@ -194,6 +202,9 @@ const JourneyCarrousel = () => {
                     {status !== 'loading' && journeys.length === 0 && 'No journeys yet.'}
                     {journeys.length > 0 && 'No journeys match these filters.'}
                 </p>
+            )}
+            {galleryOpen && activeJourney && activeJourney.gallery.length > 0 && (
+                <JourneyGallery journey={activeJourney} onClose={() => setGalleryOpen(false)} />
             )}
         </section>
     );

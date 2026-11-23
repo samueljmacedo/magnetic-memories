@@ -16,10 +16,23 @@ export type Journey = {
     description: Localized
     tag: Localized
     image: string
+    gallery: GalleryPhoto[]
+}
+
+/** One extra picture of a journey, shown in the gallery. */
+export type GalleryPhoto = {
+    id: string
+    /** Smaller version for the grid */
+    src: string
+    /** Larger version for the viewer */
+    full: string
+    width: number
+    height: number
+    caption: Localized
 }
 
 /** A journey as written in data.ts, with plain English texts. */
-export type LocalJourney = Omit<Journey, 'description' | 'tag'> & {
+export type LocalJourney = Omit<Journey, 'description' | 'tag' | 'gallery'> & {
     description: string
     tag: string
 }
@@ -38,6 +51,17 @@ type SanityJourney = {
     description: unknown
     tag: unknown
     mainImage: SanityImageSource
+    gallery: SanityGalleryPhoto[] | null
+}
+
+/** One entry of a journey's gallery. Entries without a picture (an empty slot in the Studio) are skipped. */
+type SanityGalleryPhoto = {
+    _key: string
+    asset?: {_ref?: string}
+    crop?: unknown
+    hotspot?: unknown
+    caption?: unknown
+    dimensions?: {width: number, height: number} | null
 }
 
 // Only complete journeys are returned, so a half-filled document can't break the page.
@@ -57,7 +81,11 @@ const JOURNEYS_QUERY = `*[_type == "journey"
     "lng": location.lng,
     description,
     tag,
-    mainImage
+    mainImage,
+    "gallery": gallery[defined(asset)]{
+        _key, asset, crop, hotspot, caption,
+        "dimensions": asset->metadata.dimensions
+    }
 }`
 
 /**
@@ -65,6 +93,19 @@ const JOURNEYS_QUERY = `*[_type == "journey"
  * Journeys saved before `continent` and `description` became plain strings still hold arrays,
  * so any value that isn't a string is treated as empty until the journey is saved again in the Studio.
  */
+const fromSanityPhoto = (photo: SanityGalleryPhoto): GalleryPhoto => {
+    const source = photo as unknown as SanityImageSource
+    return {
+        id: photo._key,
+        src: urlFor(source).width(900).fit('max').auto('format').url(),
+        full: urlFor(source).width(2000).fit('max').auto('format').url(),
+        // Used to reserve the right amount of space before the picture arrives. 4:3 if Sanity didn't say.
+        width: photo.dimensions?.width ?? 4,
+        height: photo.dimensions?.height ?? 3,
+        caption: toLocalized(photo.caption),
+    }
+}
+
 const fromSanity = (doc: SanityJourney): Journey => ({
     id: doc.id,
     city: doc.city,
@@ -77,6 +118,7 @@ const fromSanity = (doc: SanityJourney): Journey => ({
     description: toLocalized(doc.description),
     tag: toLocalized(doc.tag),
     image: urlFor(doc.mainImage).width(1000).fit('max').auto('format').url(),
+    gallery: (doc.gallery ?? []).map(fromSanityPhoto),
 })
 
 export const fetchJourneys = async (): Promise<Journey[]> => {
@@ -86,6 +128,7 @@ export const fetchJourneys = async (): Promise<Journey[]> => {
 
 const fromLocal = (journey: LocalJourney): Journey => ({
     ...journey,
+    gallery: [],
     description: toLocalized(journey.description),
     tag: toLocalized(journey.tag),
     startDate: toIsoDate(journey.startDate),

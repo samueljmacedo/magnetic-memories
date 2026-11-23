@@ -1,0 +1,236 @@
+.gallery-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  overflow-y: auto;
+  padding: 24px 0;
+  background: rgba(22, 32, 25, .58);
+  backdrop-filter: blur(7px);
+}
+
+.gallery-dialog {
+  position: relative;
+  width: min(1040px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 40px 44px 44px;
+  border-radius: 10px;
+  background: var(--color-bg);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .35);
+  outline: none;
+  animation: gallery-in 240ms ease-out both;
+}
+
+.gallery-close {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 18px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(31, 76, 52, .08);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.gallery-close:hover { background: rgba(31, 76, 52, .16); }
+
+.gallery-header h2 {
+  margin: 0;
+  color: var(--color-primary);
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.gallery-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin: 10px 0 28px;
+  color: var(--color-accent);
+  font-size: 13px;
+  letter-spacing: .08em;
+}
+.gallery-meta i { font-family: var(--font-serif); font-size: 20px; letter-spacing: 0; }
+.gallery-meta > * + *::before { content: "·"; margin-right: 14px; }
+
+/* Masonry: columns keep every picture at its real proportions, so nothing is cropped. */
+.gallery-grid {
+  column-count: var(--gallery-columns, 3);
+  column-gap: 22px;
+}
+.gallery-dialog[data-count="1"] .gallery-grid { max-width: 520px; margin: 0 auto; }
+.gallery-dialog[data-count="2"] .gallery-grid { max-width: 720px; margin: 0 auto; }
+
+.gallery-tile {
+  position: relative;
+  margin: 0 0 22px;
+  padding: 9px;
+  break-inside: avoid;
+  background: #fffdf6;
+  box-shadow: 0 8px 18px rgba(30, 40, 31, .18);
+  /* "rotate" and "translate" are separate properties, so the entrance animation doesn't undo the tilt. */
+  rotate: var(--tilt, 0deg);
+  animation: gallery-tile-in 420ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 45ms + 120ms);
+}
+.gallery-tile.has-caption { padding-bottom: 8px; }
+.gallery-tile .tape { top: -10px; left: 50%; margin-left: -35px; width: 70px; height: 22px; z-index: 1; }
+
+.gallery-tile__photo {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #e5e9df;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.gallery-tile__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: scale 300ms ease;
+}
+.gallery-tile__photo:hover img { scale: 1.03; }
+
+.gallery-tile figcaption {
+  padding: 8px 4px 3px;
+  color: #49564b;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.25;
+  text-align: center;
+}
+
+/* Many pictures: flat, tighter frames, no tilt or tape. */
+.gallery-dialog.is-flat .gallery-grid { column-gap: 12px; }
+.gallery-dialog.is-flat .gallery-tile {
+  margin-bottom: 12px;
+  padding: 5px;
+  rotate: 0deg;
+  box-shadow: 0 3px 9px rgba(30, 40, 31, .14);
+}
+
+.gallery-hint {
+  margin: 8px 0 0;
+  color: #7a857c;
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-align: center;
+}
+
+/* The larger viewer sits on top of the gallery. */
+.gallery-viewer {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 64px 72px 24px;
+  background: rgba(14, 20, 16, .92);
+  outline: none;
+  animation: gallery-fade 200ms ease-out both;
+}
+.gallery-viewer .gallery-close,
+.gallery-nav {
+  background: rgba(249, 247, 235, .14);
+  color: var(--color-bg);
+}
+.gallery-viewer .gallery-close:hover,
+.gallery-nav:hover { background: rgba(249, 247, 235, .26); }
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  margin-top: -23px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.gallery-nav--prev { left: 14px; }
+.gallery-nav--next { right: 14px; }
+
+.gallery-viewer__figure {
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  animation: gallery-fade 260ms ease-out both;
+}
+.gallery-viewer__figure img {
+  min-height: 0;
+  max-width: 100%;
+  max-height: calc(100dvh - 150px);
+  object-fit: contain;
+  border-radius: 3px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+}
+.gallery-viewer__figure figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-bg);
+  text-align: center;
+}
+.gallery-viewer__caption { font-family: var(--font-serif); font-size: 21px; font-style: italic; }
+.gallery-viewer__count { font-size: 12px; letter-spacing: .14em; opacity: .7; }
+
+@keyframes gallery-in {
+  from { opacity: 0; translate: 0 12px; scale: .98; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+@keyframes gallery-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes gallery-tile-in {
+  from { opacity: 0; translate: 0 14px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (max-width: 600px) {
+  .gallery-backdrop { padding: 0; background: var(--color-bg); backdrop-filter: none; }
+  .gallery-dialog {
+    width: 100%;
+    min-height: 100dvh;
+    padding: 64px 16px 28px;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+  }
+  .gallery-close { top: max(12px, env(safe-area-inset-top)); right: 14px; width: 42px; height: 42px; }
+  .gallery-header h2 { font-size: 38px; }
+  .gallery-grid { column-count: 2; column-gap: 14px; }
+  .gallery-dialog[data-count="1"] .gallery-grid { column-count: 1; }
+  .gallery-dialog.is-flat .gallery-grid { column-gap: 8px; }
+  .gallery-viewer { padding: 64px 0 20px; }
+  .gallery-viewer__figure img { border-radius: 0; }
+  .gallery-nav { top: auto; bottom: 18px; margin-top: 0; }
+  .gallery-nav--prev { left: 16px; }
+  .gallery-nav--next { right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-dialog,
+  .gallery-tile,
+  .gallery-viewer,
+  .gallery-viewer__figure { animation: none; }
+  .gallery-tile__photo img { transition: none; }
+}

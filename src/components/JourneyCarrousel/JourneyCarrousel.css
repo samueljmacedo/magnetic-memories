@@ -260,3 +260,28 @@
         margin-top: var(--space-5);
     }
 }
+
+/* Opens the gallery of extra pictures. Only shown for journeys that have some. */
+.journey-gallery-button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    justify-self: start;
+    margin-top: var(--space-5);
+    padding: .6rem 1.1rem;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-primary);
+    font: inherit;
+    font-size: .8125rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+}
+
+.journey-gallery-button:hover {
+    background: var(--color-primary);
+    color: var(--color-bg);
+}
