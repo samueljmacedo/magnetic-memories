@@ -1,0 +1,153 @@
+.postmark-strip {
+    position: relative;
+    padding-block: 3.5rem;
+    overflow: hidden;
+    background: var(--color-bg);
+}
+
+.postmark-band {
+    margin-inline: -3%;
+    padding-block: 1.0625rem;
+    overflow: hidden;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    box-shadow: 0 10px 22px rgb(30 40 31 / 0.2);
+    rotate: -1.2deg;
+    position: relative;
+}
+
+.postmark-band::before {
+    content: "";
+    position: absolute;
+    inset: 0.375rem 0;
+    border-block: 1px dashed rgb(249 247 235 / 0.35);
+    pointer-events: none;
+}
+
+.postmark-track {
+    display: flex;
+    width: max-content;
+    animation: postmark-slide var(--duration, 40s) linear infinite;
+}
+
+.postmark-list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+}
+
+.postmark-stop {
+    display: flex;
+    align-items: baseline;
+    gap: 0.625rem;
+    padding-inline: 1.625rem;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+}
+
+.postmark-stop::after {
+    content: "✦";
+    align-self: center;
+    margin-left: 1.625rem;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+}
+
+.postmark-stop i {
+    color: var(--color-gold);
+    font-size: var(--text-lg);
+}
+
+.postmark-stop small {
+    color: var(--color-bg-alt);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+}
+
+.postmark-tape {
+    z-index: 2;
+}
+
+.postmark-tape--left {
+    top: 2rem;
+    left: 6%;
+    --tape-rotate: -9deg;
+}
+
+.postmark-tape--right {
+    top: auto;
+    right: 7%;
+    bottom: 2.25rem;
+    left: auto;
+    --tape-rotate: 7deg;
+}
+
+.postmark-note {
+    max-width: 45rem;
+    margin: 2.75rem auto 0;
+    padding-inline: var(--space-5);
+    text-align: center;
+}
+
+.postmark-note blockquote {
+    margin: 0;
+    color: var(--color-primary);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    line-height: 1.3;
+}
+
+.postmark-note blockquote::before {
+    content: "“";
+}
+
+.postmark-note blockquote::after {
+    content: "”";
+}
+
+.postmark-note figcaption {
+    margin-top: var(--space-4);
+    color: var(--color-accent-deep);
+}
+
+@keyframes postmark-slide {
+    to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .postmark-track {
+        width: auto;
+        animation: none;
+    }
+
+    .postmark-track > [aria-hidden="true"] {
+        display: none;
+    }
+
+    .postmark-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: var(--space-2);
+        padding-inline: 6%;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 620px) {
+    .postmark-stop {
+        font-size: var(--text-xl);
+    }
+
+    .postmark-note blockquote {
+        font-size: 1.5625rem;
+    }
+
+    .postmark-tape {
+        width: 4rem;
+    }
+}

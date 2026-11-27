@@ -38,3 +38,15 @@ export const toIsoDate = (value: string) => {
     if (!match || month === -1) return value
     return `${match[3]}-${String(month + 1).padStart(2, '0')}-${match[1].padStart(2, '0')}`
 }
+
+/**
+ * "2026-08-10" -> "Aug 2026" (or "août 2026" in French). Anything that isn't an ISO date is returned as it came.
+ * @param language the site language code, such as "pt". Falls back to English.
+ */
+export const formatMonthYear = (value: string, language = 'en') => {
+    const match = ISO_DATE.exec(value)
+    if (!match) return value
+    const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, 1))
+    return new Intl.DateTimeFormat(DATE_LOCALES[language] ?? DATE_LOCALES.en, {month: 'short', year: 'numeric', timeZone: 'UTC'})
+      .format(date)
+}
