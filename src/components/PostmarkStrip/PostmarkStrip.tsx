@@ -59,9 +59,10 @@ const PostmarkStrip = () => {
     )
 
     return (
-        <section className="postmark-strip" aria-label={t('strip.postmarks', {defaultValue: 'Places I have been'})}>
-            <span className="tape postmark-tape postmark-tape--left" aria-hidden="true" />
-            <span className="tape postmark-tape postmark-tape--right" aria-hidden="true" />
+        <section
+          className="postmark-strip"
+          aria-label={t('strip.postmarks')}
+        >
             <div className="postmark-band">
                 <div className="postmark-track" style={{'--duration': `${stops.length * SECONDS_PER_STOP}s`} as CSSProperties}>
                     {stopsList(false)}
@@ -72,7 +73,7 @@ const PostmarkStrip = () => {
                 <figure className="postmark-note">
                     <blockquote>{quote.text}</blockquote>
                     <figcaption className="meta-label">
-                        {t('strip.fromJournal', {defaultValue: 'From the journal'})} · {quote.journey.city}, {getYear(quote.journey.startDate)}
+                        {t('strip.fromJournal')} · {quote.journey.city}, {getYear(quote.journey.startDate)}
                     </figcaption>
                 </figure>
             )}

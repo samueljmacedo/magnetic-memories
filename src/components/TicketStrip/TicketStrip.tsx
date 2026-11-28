@@ -30,7 +30,7 @@ const TicketStrip = () => {
                         <Plane size={28} strokeWidth={1.5} />
                     </div>
                     <div className="ticket-place ticket-place--stub">
-                        <span className="meta-label">{t('strip.latestStop', {defaultValue: 'Latest stop'})}</span>
+                        <span className="meta-label">{t('strip.latestStop')}</span>
                         <strong>{latest.city}</strong>
                         <i>{countryName(t, latest.country)}</i>
                     </div>

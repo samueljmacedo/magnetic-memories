@@ -1,6 +1,6 @@
 .ticket-strip {
     padding: 3.5rem var(--space-5);
-    background: var(--color-bg);
+    background: var(--color-surface);
 }
 
 .ticket {
