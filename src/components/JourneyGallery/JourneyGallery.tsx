@@ -6,7 +6,8 @@ import type {Journey} from "@/lib/journeys.ts";
 import {countryName, pickLanguage} from "@/utils/localized.ts";
 import "./JourneyGallery.css";
 
-const MAX_PICTURES_FOR_TILT = 10
+const MAX_PICTURES_FOR_TILT = 3
+const MAX_PICTURES_FOR_THREE_COLUMNS = 10
 const SWIPE_DISTANCE = 50
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 }
 
 /** How many columns the grid has on a wide screen. Phones always use two (or one for a single picture). */
-const columnsFor = (count: number) => (count === 1 ? 1 : count === 2 ? 2 : count <= MAX_PICTURES_FOR_TILT ? 3 : 4)
+const columnsFor = (count: number) => (count === 1 ? 1 : count === 2 ? 2 : count <= MAX_PICTURES_FOR_THREE_COLUMNS ? 3 : 4)
 
 /**
  * Full-screen gallery of a journey's extra pictures, opened from the journey carousel.
@@ -28,7 +29,8 @@ export default function JourneyGallery({journey, onClose}: Props) {
     const dialogRef = useRef<HTMLElement>(null)
     const touchStart = useRef<{x: number, y: number} | null>(null)
     const photos = journey.gallery
-    const flat = photos.length > MAX_PICTURES_FOR_TILT
+    const tilted = photos.length <= MAX_PICTURES_FOR_TILT
+    const flat = photos.length > MAX_PICTURES_FOR_THREE_COLUMNS
     const language = i18n.resolvedLanguage
     const country = countryName(t, journey.country)
 
@@ -141,10 +143,10 @@ export default function JourneyGallery({journey, onClose}: Props) {
                                 key={photo.id}
                                 style={{
                                     '--i': Math.min(index, 12),
-                                    '--tilt': `${((index * 37) % 7 - 3) * 0.9}deg`,
+                                    '--tilt': tilted ? `${((index * 37) % 7 - 3) * 0.9}deg` : '0deg',
                                 } as CSSProperties}
                             >
-                                {!flat && index % 4 === 0 && <span className="tape" aria-hidden="true" />}
+                                {tilted && index % 4 === 0 && <span className="tape" aria-hidden="true" />}
                                 <button
                                     type="button"
                                     className="gallery-tile__photo"
