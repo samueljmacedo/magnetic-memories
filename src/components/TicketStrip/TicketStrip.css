@@ -1,0 +1,107 @@
+.ticket-strip {
+    padding: 3.5rem var(--space-5);
+    background: var(--color-surface);
+}
+
+.ticket {
+    max-width: 62.5rem;
+    margin-inline: auto;
+    filter: drop-shadow(0 10px 14px rgb(30 40 31 / 0.16));
+    rotate: -0.6deg;
+}
+
+.ticket-body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-6) 3.375rem;
+    background: #fffdf6;
+    -webkit-mask:
+        radial-gradient(circle 13px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle 13px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+    mask:
+        radial-gradient(circle 13px at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle 13px at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+
+.ticket-body::before {
+    content: "";
+    position: absolute;
+    inset: 0.625rem 1.375rem;
+    border: 1px dashed rgb(31 76 52 / 0.25);
+    pointer-events: none;
+}
+
+.ticket-place {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.ticket-place .meta-label {
+    color: var(--color-text-muted);
+}
+
+.ticket-place strong {
+    margin-top: 0.375rem;
+    color: var(--color-primary);
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.ticket-place i {
+    color: var(--color-accent-deep);
+    font-family: var(--font-serif);
+    font-size: 1.3125rem;
+}
+
+.ticket-place--stub {
+    padding-left: var(--space-6);
+    border-left: 2px dotted rgb(31 76 52 / 0.3);
+    text-align: right;
+}
+
+.ticket-route {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-accent);
+}
+
+.ticket-route::before,
+.ticket-route::after {
+    content: "";
+    flex: 1;
+    border-top: 2px dotted var(--color-accent);
+}
+
+@media (max-width: 620px) {
+    .ticket-strip {
+        padding-inline: var(--space-4);
+    }
+
+    .ticket-body {
+        flex-direction: column;
+        gap: var(--space-3);
+        padding: 1.875rem 2.25rem;
+        text-align: center;
+    }
+
+    .ticket-place--stub {
+        padding-left: 0;
+        border-left: 0;
+        text-align: center;
+    }
+
+    .ticket-route {
+        align-self: stretch;
+    }
+
+    .ticket-route svg {
+        rotate: 90deg;
+    }
+}

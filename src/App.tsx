@@ -1,9 +1,9 @@
 import About from "./components/About/About.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import Header from "./components/Header/Header.tsx";
-import IntroStrip from "./components/IntroStrip/IntroStrip.tsx";
 import JourneyCarrousel from "./components/JourneyCarrousel/JourneyCarrousel.tsx";
-import QuoteBand from "./components/QuoteBand/QuoteBand.tsx";
+import PostmarkStrip from "./components/PostmarkStrip/PostmarkStrip.tsx";
+import TicketStrip from "./components/TicketStrip/TicketStrip.tsx";
 import TravelMap from "./components/TravelMap/TravelMap.tsx";
 import MagnetPanel from "./components/MagnetPanel/MagnetPanel.tsx";
 import VisitorMap from "./components/VisitorMap/VisitorMap.tsx";
@@ -16,18 +16,18 @@ function App() {
       <Header />
 
       <main id="home">
-        <About />
-        <IntroStrip />
-        {/* <Hero /> */}
         <JourneysProvider>
+            <About />
+            <TicketStrip />
+            {/* <Hero /> */}
             <JourneyCarrousel />
             <TravelMap />
+            <TravelMagnetsProvider>
+                <MagnetPanel />
+            </TravelMagnetsProvider>
+            <PostmarkStrip />
+            <VisitorMap />
         </JourneysProvider>
-        <TravelMagnetsProvider>
-            <MagnetPanel />
-        </TravelMagnetsProvider>
-        <QuoteBand />
-        <VisitorMap />
       </main>
 
       <Footer />

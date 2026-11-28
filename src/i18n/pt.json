@@ -26,8 +26,9 @@
   },
   "strip": {
     "currentLocation": "Localização atual",
-    "mainMessage": "Viajamos não para escapar da vida, mas para a vida não nos escapar",
-    "footMessage": "Um pequeno lembrete para continuar se aventurando"
+    "latestStop": "Parada mais recente",
+    "fromJournal": "Do diário",
+    "postmarks": "Locais que visitei"
   },
   "footer": {
     "rights": "Todos os direitos reservados",

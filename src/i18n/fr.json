@@ -25,9 +25,10 @@
     "scrollMessage": "Défilez pour explorer"
   },
   "strip": {
-    "currentLocation": "Localisation actuel",
-    "mainMessage": "We travel not to escape life, but for life not to escape us.",
-    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+    "currentLocation": "Localisation actuelle",
+    "latestStop": "Dernier arrêt",
+    "fromJournal": "Du journal",
+    "postmarks": "les endroits que j'ai visités"
   },
   "footer": {
     "rights": "Tous droits réservés",

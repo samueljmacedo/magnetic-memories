@@ -26,8 +26,9 @@
   },
   "strip": {
     "currentLocation": "Current location",
-    "mainMessage": "We travel not to escape life, but for life not to escape us.",
-    "footMessage": "A LITTLE REMINDER TO KEEP WANDERING"
+    "latestStop": "Latest stop",
+    "fromJournal": "From the journal",
+    "postmarks": "Places I have been"
   },
   "footer": {
     "rights": "All rights reserved",
